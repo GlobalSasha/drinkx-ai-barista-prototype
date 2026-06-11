@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DrinkX AI Coffee System</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <canvas id="uplinkCanvas" class="uplink-canvas" aria-hidden="true"></canvas>
+    <div class="terminal-noise" aria-hidden="true"></div>
+
+    <main class="app-shell" data-screen="intro">
+      <section class="intro-screen" id="introScreen" aria-label="Стартовый экран DrinkX">
+        <div class="intro-lockup">
+          <div class="terminal-device">
+            <div class="terminal-screen">
+              <header class="terminal-head">
+                <div class="terminal-lights" aria-hidden="true">
+                  <span class="is-active"></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="logo-plate logo-plate-large" aria-label="DrinkX">
+                  <img src="/assets/drinkx-logo.png" alt="DrinkX" />
+                </div>
+                <span>Uplink active</span>
+              </header>
+              <div class="terminal-output" aria-label="Статус системы DrinkX">
+                <p class="terminal-title">DrinkX AI Coffee System</p>
+                <div class="terminal-telemetry" aria-label="Телеметрия системы">
+                  <span data-label="voice uplink"></span>
+                  <span data-label="menu sync"></span>
+                  <span data-label="vision check"></span>
+                </div>
+                <p class="terminal-line terminal-line-1">&gt; Приветствует система DrinkX</p>
+                <p class="terminal-line terminal-line-2">&gt; Инициализация голосового канала... <span class="percent percent-a"></span></p>
+                <p class="terminal-line terminal-line-3">&gt; Загрузка меню напитков... <span class="percent percent-b"></span></p>
+                <p class="terminal-line terminal-line-4">&gt; Проверка визуального заказа... <span class="percent percent-c"></span></p>
+                <p class="terminal-line terminal-line-live">&gt; <span class="terminal-live-text"></span><span class="terminal-cursor">_</span></p>
+                <div class="terminal-signal" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <footer class="terminal-foot">
+                <span>Node: online</span>
+                <span>Voice: ready</span>
+                <span>SYS: v2.4</span>
+              </footer>
+            </div>
+            <aside class="terminal-rail" aria-hidden="true">
+              <span class="terminal-chip-icon"></span>
+              <strong>DRINKX_SYS</strong>
+              <span class="terminal-rail-light"></span>
+            </aside>
+            <div class="terminal-command">
+              <p class="intro-line">Press to connect barista</p>
+              <button class="primary-action intro-action" id="introButton" type="button">
+                Подключить AI-бариста
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dialog-screen" id="dialogScreen" aria-label="Голосовой AI бариста">
+        <div class="system-bar" aria-label="Системные действия">
+          <div class="system-left">
+            <button class="ghost-action" id="backButton" type="button">Назад</button>
+            <div class="logo-plate logo-plate-small" aria-label="DrinkX">
+              <img src="/assets/drinkx-logo.png" alt="DrinkX" />
+            </div>
+          </div>
+        </div>
+
+        <section class="assistant-stage" aria-label="Интерактивный голосовой круг">
+          <div class="orb-wrap">
+            <div class="voice-orb" id="voiceOrb">
+              <div class="orb-core"></div>
+              <div class="sound-bars" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="assistant-copy">
+            <p class="state-label" id="stateLabel">Ожидаю голос</p>
+            <div class="speech-console">
+              <p class="assistant-line" id="assistantLine">Привет. Что ты сегодня желаешь?</p>
+              <p class="user-line" id="userLine">Скажите заказ свободным языком</p>
+            </div>
+          </div>
+
+          <div class="menu-browser" id="menuBrowser" aria-label="Меню напитков DrinkX" hidden></div>
+
+          <div class="recipe-blueprint" id="recipeBlueprint" aria-label="Состав напитка" hidden></div>
+
+          <div class="order-flow" id="orderFlow" aria-label="Собранные части заказа"></div>
+
+          <div class="controls">
+            <button class="primary-action" id="talkButton" type="button">Говорить</button>
+            <button class="secondary-action" id="confirmButton" type="button">Да, готовить</button>
+            <button class="secondary-action" id="resetButton" type="button">Сначала</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="prep-screen" id="prepScreen" aria-label="Приготовление напитка">
+        <div class="prep-card">
+          <div class="device-notch" aria-hidden="true"></div>
+          <p class="eyebrow">Preparing</p>
+          <h2 id="prepTitle">Начинаю готовить</h2>
+          <div class="prep-visual" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="recipe-blueprint recipe-blueprint-compact" id="prepRecipeBlueprint" aria-label="Состав напитка" hidden></div>
+          <div class="timer-ring timer-status" aria-label="Таймер приготовления">
+            <div class="timer-status-shell">
+              <div class="timer-status-surface">
+                <span class="timer-kicker">Brew status</span>
+                <span id="timerValue">02:00</span>
+                <span class="timer-caption">До готовности</span>
+                <div class="timer-status-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                  <span class="timer-progress-line" id="timerProgress"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="assistant-line prep-line" id="prepLine">
+            Хочешь, расскажу что-нибудь про напиток, или просто подождёшь?
+          </p>
+          <div class="order-flow is-compact" id="prepOrderFlow"></div>
+          <div class="prep-controls">
+            <button class="primary-action" id="prepTalkButton" type="button">Ответить</button>
+            <button class="ghost-action" id="prepBackButton" type="button">Вернуться назад</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ready-screen" id="readyScreen" aria-label="Напиток готов">
+        <div class="ready-card">
+          <div class="device-notch" aria-hidden="true"></div>
+          <div class="ready-pulse" aria-hidden="true"></div>
+          <p class="eyebrow">Ready</p>
+          <h2>Твой напиток готов</h2>
+          <p class="assistant-line ready-line">Можешь забрать его у DrinkX.</p>
+          <div class="recipe-blueprint recipe-blueprint-compact" id="readyRecipeBlueprint" aria-label="Состав напитка" hidden></div>
+          <div class="order-flow is-compact" id="readyOrderFlow"></div>
+          <button class="primary-action" id="newOrderButton" type="button">Новый заказ</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
