@@ -106,7 +106,7 @@ async function readBody(req) {
 
 async function serveStatic(req, res) {
   const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
-  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+  const pathname = url.pathname.endsWith("/") ? `${url.pathname}index.html` : url.pathname;
   const safePath = path.normalize(pathname).replace(/^(\.\.[/\\])+/, "");
   const filePath = path.join(publicDir, safePath);
 
@@ -119,7 +119,10 @@ async function serveStatic(req, res) {
   try {
     const file = await fs.readFile(filePath);
     const ext = path.extname(filePath);
-    res.writeHead(200, { "Content-Type": mimeTypes[ext] || "application/octet-stream" });
+    res.writeHead(200, {
+      "Content-Type": mimeTypes[ext] || "application/octet-stream",
+      "Cache-Control": "no-store"
+    });
     res.end(req.method === "HEAD" ? undefined : file);
   } catch {
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
@@ -152,6 +155,8 @@ async function createRealtimeSession(req, res) {
       "Говори спокойным, уверенным мужским голосом: ниже по тону, без суеты, с короткими паузами.",
       "Отвечай быстро: обычно одной или двумя короткими фразами. Не произноси длинные вступления и списки.",
       "Твоя задача - принять заказ напитка голосом, отвечать на связанные с заказом вопросы и обновлять интерфейс через функции update_order, show_menu и show_drink_details.",
+      "ЭКРАН: меню напитков всегда видно пользователю в виде сетки карточек. Пользователь может в любой момент нажать на напиток пальцем - это не прерывает диалог.",
+      "Если приходит сообщение в квадратных скобках о событии интерфейса (например, пользователь выбрал напиток тапом), коротко подтверди выбор голосом и задай следующий уточняющий вопрос. Не пересказывай само сообщение.",
       "РАЗРЕШЁННЫЕ ТЕМЫ: приветствие; меню DrinkX; выбор, состав и настройка напитка; размер, молоко, сироп, сахар и температура; подтверждение, приготовление и получение заказа.",
       "ЗАПРЕЩЁННЫЕ ТЕМЫ: новости, погода, политика, развлечения, общие знания, личные советы и любые разговоры, не связанные с выбором или заказом напитка.",
       "На запрещённую тему ответь только: 'Я могу помочь только с выбором и заказом напитка. Что приготовим?' Не отвечай по существу запрещённого вопроса и не продолжай эту тему.",
@@ -212,7 +217,7 @@ async function createRealtimeSession(req, res) {
       {
         type: "function",
         name: "show_menu",
-        description: "Показывает на экране визуальное меню DrinkX с картинками напитков.",
+        description: "Подсвечивает и проматывает наверх видимое меню DrinkX на экране.",
         parameters: {
           type: "object",
           properties: {

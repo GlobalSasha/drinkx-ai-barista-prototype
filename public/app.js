@@ -59,45 +59,49 @@ const milkPrices = { Обычное: 0, Овсяное: 60, Миндальное
 const syrupPrice = 45;
 const prepDurationSeconds = 120;
 const sizeVolumes = { S: 250, M: 350, L: 500 };
+
+/* Segment colors follow the neo-brutalist palette:
+   coffee=#FF4E00, milk=#FFFFFF, tea=#32CD32, fruit/berry=#FF1493,
+   ice/water=#00CED1, sweet/aroma=#FFD700, foam=#F5F5F5, cocoa=#0A0A0A */
 const drinkProfiles = {
   "coffee-milk": {
-    type: "Авторский кофейный напиток",
+    type: "Авторский кофе",
     thesis: "Кофейная база, молочная текстура и вкусовой слой DrinkX.",
     hasMilk: true,
     segments: [
-      { label: "Кофейная база", percent: 22, color: "#ff8800" },
-      { label: "Молочная текстура", percent: 58, color: "#fff6ea" },
-      { label: "Авторский вкус", percent: 20, color: "#f4b35f" }
+      { label: "Кофейная база", percent: 22, color: "#FF4E00" },
+      { label: "Молочная текстура", percent: 58, color: "#FFFFFF" },
+      { label: "Авторский вкус", percent: 20, color: "#FFD700" }
     ]
   },
   "cold-coffee": {
-    type: "Холодный кофейный напиток",
+    type: "Холодный кофе",
     thesis: "Колдбрю или кофейная база с ярким фруктовым профилем.",
     hasMilk: false,
     segments: [
-      { label: "Кофейная база", percent: 36, color: "#ff8800" },
-      { label: "Фруктовый слой", percent: 44, color: "#ff4f00" },
-      { label: "Ледяная база", percent: 20, color: "#4ea3ff" }
+      { label: "Кофейная база", percent: 36, color: "#FF4E00" },
+      { label: "Фруктовый слой", percent: 44, color: "#FF1493" },
+      { label: "Ледяная база", percent: 20, color: "#00CED1" }
     ]
   },
   "tea-signature": {
-    type: "Авторский чайный напиток",
+    type: "Авторский чай",
     thesis: "Чайная основа, цветочный профиль и фруктовая нота.",
     hasMilk: false,
     segments: [
-      { label: "Чайная база", percent: 48, color: "#8fcf5f" },
-      { label: "Фруктовый слой", percent: 34, color: "#ff7a1a" },
-      { label: "Ароматический профиль", percent: 18, color: "#f5a85c" }
+      { label: "Чайная база", percent: 48, color: "#32CD32" },
+      { label: "Фруктовый слой", percent: 34, color: "#FF1493" },
+      { label: "Ароматический профиль", percent: 18, color: "#FFD700" }
     ]
   },
   "tea-hot": {
-    type: "Горячий чайный напиток",
+    type: "Горячий чай",
     thesis: "Пряная или ягодная чайная база для теплого профиля.",
     hasMilk: false,
     segments: [
-      { label: "Чайная база", percent: 58, color: "#8fcf5f" },
-      { label: "Ягодный слой", percent: 26, color: "#d84a4a" },
-      { label: "Пряная нота", percent: 16, color: "#f5a85c" }
+      { label: "Чайная база", percent: 58, color: "#32CD32" },
+      { label: "Ягодный слой", percent: 26, color: "#FF1493" },
+      { label: "Пряная нота", percent: 16, color: "#FFD700" }
     ]
   },
   "iced-tea": {
@@ -105,19 +109,19 @@ const drinkProfiles = {
     thesis: "Освежающий чайный напиток с фруктовой кислотностью.",
     hasMilk: false,
     segments: [
-      { label: "Чайная база", percent: 44, color: "#8fcf5f" },
-      { label: "Фруктовая база", percent: 38, color: "#ff4f00" },
-      { label: "Лед", percent: 18, color: "#4ea3ff" }
+      { label: "Чайная база", percent: 44, color: "#32CD32" },
+      { label: "Фруктовая база", percent: 38, color: "#FF1493" },
+      { label: "Лед", percent: 18, color: "#00CED1" }
     ]
   },
   lemonade: {
-    type: "Авторский лимонад",
+    type: "Лимонад",
     thesis: "Газированная свежая база с ярким фруктовым вкусом.",
     hasMilk: false,
     segments: [
-      { label: "Фруктовая база", percent: 42, color: "#ff7a1a" },
-      { label: "Цитрус", percent: 24, color: "#f5d05c" },
-      { label: "Газированная вода", percent: 34, color: "#4ea3ff" }
+      { label: "Фруктовая база", percent: 42, color: "#FF1493" },
+      { label: "Цитрус", percent: 24, color: "#FFD700" },
+      { label: "Газированная вода", percent: 34, color: "#00CED1" }
     ]
   },
   mors: {
@@ -125,19 +129,19 @@ const drinkProfiles = {
     thesis: "Ягодная основа, мягкая сладость и освежающий объем.",
     hasMilk: false,
     segments: [
-      { label: "Ягодная база", percent: 54, color: "#d84a4a" },
-      { label: "Вода", percent: 36, color: "#4ea3ff" },
-      { label: "Сладость", percent: 10, color: "#f5a85c" }
+      { label: "Ягодная база", percent: 54, color: "#FF1493" },
+      { label: "Вода", percent: 36, color: "#00CED1" },
+      { label: "Сладость", percent: 10, color: "#FFD700" }
     ]
   },
   "matcha-milk": {
-    type: "Матча напиток",
+    type: "Матча",
     thesis: "Матча база и мягкая молочная текстура.",
     hasMilk: true,
     segments: [
-      { label: "Матча база", percent: 34, color: "#8fcf5f" },
-      { label: "Молочная текстура", percent: 56, color: "#fff6ea" },
-      { label: "Финишный слой", percent: 10, color: "#f4b35f" }
+      { label: "Матча база", percent: 34, color: "#32CD32" },
+      { label: "Молочная текстура", percent: 56, color: "#FFFFFF" },
+      { label: "Финишный слой", percent: 10, color: "#FFD700" }
     ]
   }
 };
@@ -147,15 +151,15 @@ const drinkRecipes = {
     type: "Кофейный концентрат",
     thesis: "Короткий плотный импульс без молока и сиропной базы.",
     hasMilk: false,
-    segments: [{ label: "Кофейный концентрат", percent: 100, color: "#ff8800" }]
+    segments: [{ label: "Кофейный концентрат", percent: 100, color: "#FF4E00" }]
   },
   "Американо": {
     type: "Кофе + вода",
     thesis: "Концентрат раскрывается горячей водой, вкус остаётся чистым.",
     hasMilk: false,
     segments: [
-      { label: "Кофейный концентрат", percent: 28, color: "#ff8800" },
-      { label: "Горячая вода", percent: 72, color: "#4ea3ff" }
+      { label: "Кофейный концентрат", percent: 28, color: "#FF4E00" },
+      { label: "Горячая вода", percent: 72, color: "#00CED1" }
     ]
   },
   "Капучино": {
@@ -163,9 +167,9 @@ const drinkRecipes = {
     thesis: "Кофейная база, плотная молочная текстура и высокая пена.",
     hasMilk: true,
     segments: [
-      { label: "Кофейный концентрат", percent: 22, color: "#ff8800" },
-      { label: "Молочная текстура", percent: 50, color: "#fff6ea" },
-      { label: "Пена", percent: 28, color: "#d9c7b2" }
+      { label: "Кофейный концентрат", percent: 22, color: "#FF4E00" },
+      { label: "Молочная текстура", percent: 50, color: "#FFFFFF" },
+      { label: "Пена", percent: 28, color: "#F5F5F5" }
     ]
   },
   "Латте": {
@@ -173,9 +177,9 @@ const drinkRecipes = {
     thesis: "Больше молока, меньше пены, спокойный кофейный профиль.",
     hasMilk: true,
     segments: [
-      { label: "Кофейный концентрат", percent: 18, color: "#ff8800" },
-      { label: "Молочная база", percent: 72, color: "#fff6ea" },
-      { label: "Лёгкая пена", percent: 10, color: "#d9c7b2" }
+      { label: "Кофейный концентрат", percent: 18, color: "#FF4E00" },
+      { label: "Молочная база", percent: 72, color: "#FFFFFF" },
+      { label: "Лёгкая пена", percent: 10, color: "#F5F5F5" }
     ]
   },
   "Раф": {
@@ -183,9 +187,9 @@ const drinkRecipes = {
     thesis: "Кофе смешивается со сливочной молочной базой и мягкой сладостью.",
     hasMilk: true,
     segments: [
-      { label: "Кофейный концентрат", percent: 16, color: "#ff8800" },
-      { label: "Сливочная база", percent: 74, color: "#fff6ea" },
-      { label: "Сладкий слой", percent: 10, color: "#f4b35f" }
+      { label: "Кофейный концентрат", percent: 16, color: "#FF4E00" },
+      { label: "Сливочная база", percent: 74, color: "#FFFFFF" },
+      { label: "Сладкий слой", percent: 10, color: "#FFD700" }
     ]
   },
   "Матча латте": {
@@ -193,8 +197,8 @@ const drinkRecipes = {
     thesis: "Зелёная база матча и мягкое вспененное молоко.",
     hasMilk: true,
     segments: [
-      { label: "Матча база", percent: 30, color: "#8fcf5f" },
-      { label: "Молочная текстура", percent: 70, color: "#fff6ea" }
+      { label: "Матча база", percent: 30, color: "#32CD32" },
+      { label: "Молочная текстура", percent: 70, color: "#FFFFFF" }
     ]
   },
   "Какао": {
@@ -202,37 +206,45 @@ const drinkRecipes = {
     thesis: "Шоколадная база, молочная текстура и мягкий тёплый профиль.",
     hasMilk: true,
     segments: [
-      { label: "Какао база", percent: 32, color: "#7a5134" },
-      { label: "Молочная текстура", percent: 68, color: "#fff6ea" }
+      { label: "Какао база", percent: 32, color: "#0A0A0A" },
+      { label: "Молочная текстура", percent: 68, color: "#FFFFFF" }
     ]
   }
 };
 
 const elements = {
   appShell: document.querySelector(".app-shell"),
-  introButton: document.querySelector("#introButton"),
+  confettiLayer: document.querySelector("#confettiLayer"),
+  tickerTrack: document.querySelector("#tickerTrack"),
+  enterTapButton: document.querySelector("#enterTapButton"),
+  enterVoiceButton: document.querySelector("#enterVoiceButton"),
+  welcomeHint: document.querySelector("#welcomeHint"),
   backButton: document.querySelector("#backButton"),
+  resetButton: document.querySelector("#resetButton"),
   stateLabel: document.querySelector("#stateLabel"),
+  voiceOrb: document.querySelector("#voiceOrb"),
   assistantLine: document.querySelector("#assistantLine"),
   userLine: document.querySelector("#userLine"),
-  talkButton: document.querySelector("#talkButton"),
-  resetButton: document.querySelector("#resetButton"),
-  confirmButton: document.querySelector("#confirmButton"),
-  prepTalkButton: document.querySelector("#prepTalkButton"),
-  prepBackButton: document.querySelector("#prepBackButton"),
-  newOrderButton: document.querySelector("#newOrderButton"),
   orderFlow: document.querySelector("#orderFlow"),
-  prepOrderFlow: document.querySelector("#prepOrderFlow"),
-  readyOrderFlow: document.querySelector("#readyOrderFlow"),
-  menuBrowser: document.querySelector("#menuBrowser"),
+  menuZone: document.querySelector("#menuZone"),
+  menuGrid: document.querySelector("#menuGrid"),
+  menuCount: document.querySelector("#menuCount"),
+  confirmButton: document.querySelector("#confirmButton"),
+  detailSheet: document.querySelector("#detailSheet"),
+  detailClose: document.querySelector("#detailClose"),
+  detailSelectButton: document.querySelector("#detailSelectButton"),
   recipeBlueprint: document.querySelector("#recipeBlueprint"),
   prepRecipeBlueprint: document.querySelector("#prepRecipeBlueprint"),
   readyRecipeBlueprint: document.querySelector("#readyRecipeBlueprint"),
+  prepOrderFlow: document.querySelector("#prepOrderFlow"),
+  readyOrderFlow: document.querySelector("#readyOrderFlow"),
   prepTitle: document.querySelector("#prepTitle"),
   prepLine: document.querySelector("#prepLine"),
+  prepTalkButton: document.querySelector("#prepTalkButton"),
+  prepBackButton: document.querySelector("#prepBackButton"),
+  newOrderButton: document.querySelector("#newOrderButton"),
   timerValue: document.querySelector("#timerValue"),
-  timerProgress: document.querySelector("#timerProgress"),
-  modeButtons: document.querySelectorAll(".mode-button")
+  timerProgress: document.querySelector("#timerProgress")
 };
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -246,16 +258,17 @@ const initialOrder = {
   status: "draft"
 };
 
-let mode = "live";
-let appScreen = "intro";
+let appScreen = "welcome";
 let recognition = null;
 let peerConnection = null;
 let dataChannel = null;
 let remoteAudio = null;
 let isLiveConnected = false;
+let isLiveConnecting = false;
+let liveFailed = false;
+let voiceEntryArmed = false;
 const handledToolCallIds = new Set();
 let order = { ...initialOrder };
-let orderHistory = [];
 let preparationTimer = null;
 let secondsLeft = prepDurationSeconds;
 let previewDrink = null;
@@ -324,9 +337,14 @@ function setScreen(screen) {
   elements.appShell.dataset.screen = screen;
 }
 
+function idleLabel() {
+  if (appScreen === "preparing") return "ГОТОВЛЮ";
+  if (liveFailed && !isLiveConnected) return "ГОЛОС ОФЛАЙН";
+  return "ГОТОВ";
+}
+
 function setAssistantState(state, label) {
-  elements.appShell.classList.toggle("is-listening", state === "listening");
-  elements.appShell.classList.toggle("is-speaking", state === "speaking");
+  elements.appShell.dataset.voice = state;
   elements.stateLabel.textContent = label;
 }
 
@@ -357,7 +375,7 @@ function buildRecipeSegments(recipe) {
   segments.splice(Math.min(segments.length, 1), 0, {
     label: `${order.syrup} сироп`,
     percent: syrupPercent,
-    color: "#ff4f00"
+    color: "#FF1493"
   });
   return segments;
 }
@@ -417,7 +435,7 @@ function buildRecipeBlueprint(drinkName = order.drink) {
       ${drinkInfo ? `
         <section class="drink-confirmation">
           <div class="drink-photo">
-            <img src="/assets/drinks/${escapeHtml(drinkInfo.image)}" alt="${escapeHtml(order.drink)}" />
+            <img src="/assets/drinks/${escapeHtml(drinkInfo.image)}" alt="${escapeHtml(drinkName)}" />
           </div>
           <div class="drink-confirmation-copy">
             <span class="recipe-kicker">Визуальное подтверждение</span>
@@ -440,7 +458,7 @@ function buildRecipeBlueprint(drinkName = order.drink) {
       </section>
       <header class="recipe-head">
         <span>
-          <span class="recipe-kicker">X-Ray blueprint</span>
+          <span class="recipe-kicker">X-Ray состав</span>
           <strong>${escapeHtml(recipe.type)}</strong>
         </span>
         <span>${escapeHtml(meta)}</span>
@@ -458,14 +476,12 @@ function buildRecipeBlueprint(drinkName = order.drink) {
 }
 
 function renderRecipeBlueprints() {
-  const dialogHtml = elements.menuBrowser?.hidden === false && !previewDrink ? "" : buildRecipeBlueprint(previewDrink || order.drink);
-  const activeOrderHtml = buildRecipeBlueprint(order.drink);
-
+  const sheetDrink = previewDrink || order.drink;
   if (elements.recipeBlueprint) {
-    elements.recipeBlueprint.hidden = !dialogHtml;
-    elements.recipeBlueprint.innerHTML = dialogHtml;
+    elements.recipeBlueprint.innerHTML = sheetDrink ? buildRecipeBlueprint(sheetDrink) : "";
   }
 
+  const activeOrderHtml = buildRecipeBlueprint(order.drink);
   [elements.prepRecipeBlueprint, elements.readyRecipeBlueprint].forEach((element) => {
     if (!element) return;
     element.hidden = !activeOrderHtml;
@@ -473,65 +489,64 @@ function renderRecipeBlueprints() {
   });
 }
 
-function buildMenuBrowser() {
-  const tiles = drinkCatalog
-    .map((drink) => {
+/* ============================ Menu (always visible) ============================ */
+
+function renderMenuGrid() {
+  elements.menuCount.textContent = `${drinkCatalog.length} ПОЗИЦИИ`;
+  elements.menuGrid.innerHTML = drinkCatalog
+    .map((drink, index) => {
       const recipe = getDrinkRecipe(drink.name);
       return `
-        <button class="menu-tile" type="button" data-drink="${escapeHtml(drink.name)}">
-          <span class="menu-tile-image">
-            <img src="/assets/drinks/${escapeHtml(drink.image)}" alt="${escapeHtml(drink.name)}" />
+        <button class="menu-card" type="button" data-drink="${escapeHtml(drink.name)}" style="--i: ${index}">
+          <span class="menu-card-image">
+            <img src="/assets/drinks/${escapeHtml(drink.image)}" alt="${escapeHtml(drink.name)}" loading="lazy" />
           </span>
-          <span class="menu-tile-copy">
+          <span class="menu-card-copy">
             <strong>${escapeHtml(drink.name)}</strong>
-            <span>${escapeHtml(recipe?.type || "Напиток DrinkX")}</span>
+            <span class="menu-card-tag">${escapeHtml(recipe?.type || "Напиток DrinkX")}</span>
           </span>
         </button>
       `;
     })
     .join("");
-
-  return `
-    <section class="menu-panel">
-      <header class="menu-panel-head">
-        <span class="recipe-kicker">DrinkX menu visual</span>
-        <strong>Меню напитков</strong>
-        <span>${drinkCatalog.length} позиций</span>
-      </header>
-      <div class="menu-grid">${tiles}</div>
-    </section>
-  `;
 }
 
-function showMenuBrowser() {
-  previewDrink = null;
-  elements.menuBrowser.hidden = false;
-  elements.menuBrowser.innerHTML = buildMenuBrowser();
-  elements.appShell.classList.add("has-menu-browser");
-  elements.appShell.classList.remove("has-drink-card");
-  renderRecipeBlueprints();
+function syncActiveMenuCard() {
+  elements.menuGrid.querySelectorAll(".menu-card").forEach((card) => {
+    card.classList.toggle("is-active", card.dataset.drink === order.drink);
+  });
 }
 
-function hideMenuBrowser() {
-  if (!elements.menuBrowser) return;
-  elements.menuBrowser.hidden = true;
-  elements.menuBrowser.innerHTML = "";
-  elements.appShell.classList.remove("has-menu-browser");
+function highlightMenu() {
+  closeDetailSheet();
+  elements.menuZone.classList.remove("is-highlight");
+  void elements.menuZone.offsetWidth;
+  elements.menuZone.classList.add("is-highlight");
+  elements.menuGrid.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function showDrinkDetails(drinkName) {
-  const resolvedDrink = resolveDrinkName(drinkName) || previewDrink || order.drink;
-  if (!resolvedDrink) {
-    showMenuBrowser();
+function openDetailSheet(drinkName) {
+  const resolved = resolveDrinkName(drinkName) || previewDrink || order.drink;
+  if (!resolved) {
+    highlightMenu();
     return null;
   }
 
-  previewDrink = resolvedDrink;
-  hideMenuBrowser();
-  elements.appShell.classList.add("has-drink-card");
+  previewDrink = resolved;
   renderRecipeBlueprints();
-  return resolvedDrink;
+  elements.detailSelectButton.textContent = resolved === order.drink ? "ОК, ДАЛЬШЕ →" : "ВЗЯТЬ ЭТОТ →";
+  elements.detailSheet.hidden = false;
+  return resolved;
 }
+
+function closeDetailSheet() {
+  if (elements.detailSheet.hidden) return;
+  elements.detailSheet.hidden = true;
+  previewDrink = null;
+  renderRecipeBlueprints();
+}
+
+/* ============================ Order state ============================ */
 
 function buildChips() {
   const chips = [
@@ -540,7 +555,7 @@ function buildChips() {
     { key: "milk", label: "Молоко", value: order.milk, icon: "ML" },
     { key: "syrup", label: "Сироп", value: order.syrup, icon: "SY" },
     { key: "sugar", label: "Сахар", value: order.sugar, icon: "SG" },
-    { key: "temperature", label: "Темп.", value: order.temperature, icon: "TP" }
+    { key: "temperature", label: "Темп.", value: order.drink ? order.temperature : null, icon: "TP" }
   ];
 
   return chips
@@ -561,23 +576,20 @@ function buildChips() {
 
 function renderOrder() {
   const chips = buildChips();
-  elements.appShell.classList.toggle("has-drink-card", Boolean(previewDrink || order.drink));
   elements.orderFlow.innerHTML = chips;
   elements.prepOrderFlow.innerHTML = chips;
   elements.readyOrderFlow.innerHTML = chips;
+  elements.confirmButton.disabled = !order.drink;
+  syncActiveMenuCard();
   renderRecipeBlueprints();
 }
 
-function updateOrder(patch = {}, options = {}) {
+function updateOrder(patch = {}) {
   const cleanedPatch = Object.fromEntries(
     Object.entries(patch).filter(([, value]) => value !== undefined && value !== "")
   );
-  if (options.history !== false) orderHistory.push({ ...order });
   order = { ...order, ...cleanedPatch };
-  if (cleanedPatch.drink) {
-    previewDrink = null;
-    hideMenuBrowser();
-  }
+  if (cleanedPatch.drink) previewDrink = null;
   renderOrder();
 
   if (order.status === "confirmed" && appScreen !== "preparing" && appScreen !== "ready") {
@@ -585,20 +597,51 @@ function updateOrder(patch = {}, options = {}) {
   }
 }
 
-function speakDemo(text, nextLabel = "Ожидаю голос") {
-  if (appScreen === "dialog") setAssistantText(text);
+/* Parallel interaction: a tap never blocks the voice dialog — it feeds it. */
+function notifyAgentDrinkTapped(drinkName) {
+  if (isLiveConnected) {
+    sendRealtimeEvent({
+      type: "conversation.item.create",
+      item: {
+        type: "message",
+        role: "user",
+        content: [
+          {
+            type: "input_text",
+            text: `[Событие интерфейса: пользователь выбрал тапом напиток «${drinkName}». Коротко подтверди выбор голосом и задай следующий уточняющий вопрос.]`
+          }
+        ]
+      }
+    });
+    sendRealtimeEvent({ type: "response.create" });
+  } else {
+    speakDemo(nextQuestion());
+  }
+}
+
+function selectDrinkByTap(drinkName) {
+  updateOrder({ drink: drinkName, status: "draft" });
+  openDetailSheet(drinkName);
+  notifyAgentDrinkTapped(drinkName);
+}
+
+/* ============================ Demo fallback (Web Speech) ============================ */
+
+function speakDemo(text, nextLabel) {
+  if (appScreen === "select" || appScreen === "welcome") setAssistantText(text);
   if (appScreen === "preparing") elements.prepLine.textContent = text;
-  setAssistantState("speaking", "Говорю");
+  setAssistantState("speaking", "ГОВОРЮ");
+  const doneLabel = nextLabel || idleLabel();
 
   if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ru-RU";
     utterance.rate = 1;
-    utterance.onend = () => setAssistantState("idle", nextLabel);
+    utterance.onend = () => setAssistantState("idle", doneLabel);
     window.speechSynthesis.speak(utterance);
   } else {
-    setTimeout(() => setAssistantState("idle", nextLabel), 1200);
+    setTimeout(() => setAssistantState("idle", doneLabel), 1200);
   }
 }
 
@@ -615,14 +658,14 @@ function nextQuestion() {
 
 function parsePreparationPhrase(phrase) {
   const clean = normalize(phrase);
-  elements.userLine.textContent = `Вы: ${phrase}`;
+  elements.userLine.textContent = `Ты: ${phrase}`;
 
   if (clean.includes("ничего") || clean.includes("не надо") || clean.includes("ждать")) {
-    speakDemo("Хорошо. Я просто покажу таймер и сообщу, когда напиток будет готов.", "Готовлю");
+    speakDemo("Хорошо. Я просто покажу таймер и сообщу, когда напиток будет готов.", "ГОТОВЛЮ");
     return;
   }
 
-  speakDemo("Могу рассказать про состав напитка или просто продолжить таймер. Пока готовлю.", "Готовлю");
+  speakDemo("Могу рассказать про состав напитка или просто продолжить таймер. Пока готовлю.", "ГОТОВЛЮ");
 }
 
 function parseDemoPhrase(phrase) {
@@ -642,8 +685,8 @@ function parseDemoPhrase(phrase) {
     clean.includes("что есть") ||
     clean.includes("посмотреть меню");
   if (wantsMenu) {
-    showMenuBrowser();
-    speakDemo("Показываю меню DrinkX. Можешь сказать название напитка или попросить подробнее про любой из них.");
+    highlightMenu();
+    speakDemo("Меню перед тобой. Скажи название напитка или нажми на карточку.");
     return;
   }
 
@@ -654,12 +697,12 @@ function parseDemoPhrase(phrase) {
     clean.includes("состав");
   if (wantsDetails) {
     const drinkForDetails = resolveDrinkName(phrase) || previewDrink || order.drink;
-    const shownDrink = showDrinkDetails(drinkForDetails);
+    const shownDrink = openDetailSheet(drinkForDetails);
     if (shownDrink) {
       const recipe = getDrinkRecipe(shownDrink);
       speakDemo(`${shownDrink}. ${recipe?.thesis || "Открываю карточку напитка."}`);
     } else {
-      speakDemo("Показываю меню. Выбери напиток, и я открою подробную карточку.");
+      speakDemo("Меню перед тобой. Выбери напиток, и я открою подробную карточку.");
     }
     return;
   }
@@ -695,7 +738,7 @@ function parseDemoPhrase(phrase) {
 
 function startDemoListening() {
   if (!SpeechRecognition) {
-    speakDemo("В этом браузере голосовое распознавание недоступно. Подключите Live AI или используйте браузер с Web Speech.", "Не расслышал");
+    speakDemo("В этом браузере голосовое распознавание недоступно. Выбирай напиток тапом по меню.", "ГОЛОС ОФЛАЙН");
     return;
   }
 
@@ -704,34 +747,23 @@ function startDemoListening() {
   recognition.interimResults = false;
   recognition.continuous = false;
 
-  recognition.onstart = () => setAssistantState("listening", "Слушаю");
-  recognition.onerror = () => setAssistantState("idle", "Не расслышал");
+  recognition.onstart = () => setAssistantState("listening", "СЛУШАЮ");
+  recognition.onerror = () => setAssistantState("idle", "НЕ РАССЛЫШАЛ");
   recognition.onend = () => {
     if (!window.speechSynthesis.speaking) {
-      setAssistantState("idle", appScreen === "preparing" ? "Готовлю" : "Ожидаю голос");
+      setAssistantState("idle", idleLabel());
     }
   };
   recognition.onresult = (event) => {
     const transcript = event.results[0]?.[0]?.transcript || "";
-    elements.userLine.textContent = transcript ? `Вы: ${transcript}` : "Не удалось распознать фразу";
+    elements.userLine.textContent = transcript ? `Ты: ${transcript}` : "Не удалось распознать фразу";
     parseDemoPhrase(transcript);
   };
 
   recognition.start();
 }
 
-function startIntro() {
-  elements.introButton.disabled = true;
-  setAssistantState("thinking", "Инициализация");
-  setTimeout(() => {
-    setScreen("dialog");
-    setAssistantText("Подключаю голосовой канал...");
-    setAssistantState("thinking", "Подключаю Live AI");
-    startLiveSession().finally(() => {
-      elements.introButton.disabled = false;
-    });
-  }, 1200);
-}
+/* ============================ Live AI (OpenAI Realtime, WebRTC) ============================ */
 
 function sendRealtimeEvent(event) {
   if (dataChannel?.readyState === "open") {
@@ -758,8 +790,8 @@ function handleToolCall(name, argsJson, callId) {
     if (callId) handledToolCallIds.add(callId);
 
     if (name === "show_menu") {
-      showMenuBrowser();
-      setAssistantText("Показываю меню DrinkX. Можешь попросить подробнее про любой напиток.");
+      highlightMenu();
+      setAssistantText("Меню перед тобой. Назови напиток или нажми на карточку.");
       if (callId) {
         sendToolResult(callId, {
           ok: true,
@@ -771,7 +803,7 @@ function handleToolCall(name, argsJson, callId) {
     }
 
     if (name === "show_drink_details") {
-      const shownDrink = showDrinkDetails(args.drink);
+      const shownDrink = openDetailSheet(args.drink);
       if (!shownDrink) {
         if (callId) sendToolResult(callId, { ok: false, error: "Не найден напиток для подробной карточки" });
         return;
@@ -794,7 +826,7 @@ function handleToolCall(name, argsJson, callId) {
     if (name !== "update_order") return;
 
     updateOrder(args);
-    if (args.assistant_message && appScreen === "dialog") setAssistantText(args.assistant_message);
+    if (args.assistant_message && appScreen === "select") setAssistantText(args.assistant_message);
     if (callId) sendToolResult(callId, { ok: true, order });
   } catch (error) {
     if (callId) sendToolResult(callId, { ok: false, error: error.message });
@@ -803,34 +835,37 @@ function handleToolCall(name, argsJson, callId) {
 
 function handleRealtimeEvent(event) {
   if (event.type === "input_audio_buffer.speech_started") {
-    setAssistantState("listening", "Слушаю");
+    // Seamless voice entry: the user spoke on the welcome screen — move in.
+    if (appScreen === "welcome") setScreen("select");
+    setAssistantState("listening", "СЛУШАЮ");
   }
 
   if (event.type === "input_audio_buffer.speech_stopped") {
-    setAssistantState("thinking", "Думаю");
+    setAssistantState("thinking", "ДУМАЮ");
   }
 
   if (event.type === "conversation.item.input_audio_transcription.completed") {
-    elements.userLine.textContent = `Вы: ${event.transcript}`;
+    if (appScreen === "welcome") setScreen("select");
+    elements.userLine.textContent = `Ты: ${event.transcript}`;
   }
 
-  if (event.type === "response.created" && appScreen === "dialog") {
+  if (event.type === "response.created" && appScreen === "select") {
     setAssistantText("");
   }
 
   if (event.type === "response.audio_transcript.delta" || event.type === "response.output_text.delta") {
-    setAssistantState("speaking", "Говорю");
-    if (appScreen === "dialog") elements.assistantLine.textContent += event.delta || "";
+    setAssistantState("speaking", "ГОВОРЮ");
+    if (appScreen === "select") elements.assistantLine.textContent += event.delta || "";
     if (appScreen === "preparing") elements.prepLine.textContent += event.delta || "";
   }
 
   if (event.type === "response.audio_transcript.done" && event.transcript) {
-    if (appScreen === "dialog") setAssistantText(event.transcript);
+    if (appScreen === "select") setAssistantText(event.transcript);
     if (appScreen === "preparing") elements.prepLine.textContent = event.transcript;
   }
 
   if (event.type === "response.done") {
-    setAssistantState("idle", appScreen === "preparing" ? "Готовлю" : "Ожидаю голос");
+    setAssistantState("idle", idleLabel());
   }
 
   if (event.type === "response.function_call_arguments.done") {
@@ -856,8 +891,15 @@ async function startLiveSession() {
     return;
   }
 
-  setAssistantState("thinking", "Подключаю Live AI");
-  setAssistantText("Подключаю голосовой канал...");
+  if (isLiveConnecting) return;
+  isLiveConnecting = true;
+
+  setAssistantState("thinking", "ПОДКЛЮЧАЮ");
+  if (appScreen === "welcome") {
+    elements.welcomeHint.textContent = "подключаю голосовой канал…";
+  } else {
+    setAssistantText("Подключаю голосовой канал…");
+  }
   handledToolCallIds.clear();
 
   try {
@@ -875,11 +917,15 @@ async function startLiveSession() {
     dataChannel = peerConnection.createDataChannel("oai-events");
     dataChannel.onopen = () => {
       isLiveConnected = true;
-      setAssistantState("idle", "Live AI подключен");
+      liveFailed = false;
+      setAssistantState("idle", idleLabel());
+      if (appScreen === "welcome" && voiceEntryArmed) {
+        elements.welcomeHint.textContent = "говори — я слушаю";
+      }
       sendRealtimeEvent({
         type: "response.create",
         response: {
-          instructions: "Поприветствуй пользователя как DrinkX AI Coffee System и спроси, что приготовить."
+          instructions: "Поприветствуй пользователя как AI Barista DrinkX и спроси, что приготовить."
         }
       });
     };
@@ -908,20 +954,55 @@ async function startLiveSession() {
     const answerSdp = await response.text();
     await peerConnection.setRemoteDescription({ type: "answer", sdp: answerSdp });
   } catch (error) {
-    setAssistantState("idle", "Live AI не подключен");
-    setAssistantText("Live AI не запустился. Проверьте ключ OpenAI и доступ к микрофону.");
+    liveFailed = true;
+    voiceEntryArmed = false;
+    setAssistantState("idle", "ГОЛОС ОФЛАЙН");
+    elements.enterVoiceButton.classList.remove("is-armed");
+    if (appScreen === "welcome") {
+      elements.welcomeHint.textContent = "голос не подключился — выбери напиток тапом";
+    } else {
+      setAssistantText("Голос офлайн. Выбирай напиток тапом — всё работает.");
+    }
     elements.userLine.textContent = error.message;
+  } finally {
+    isLiveConnecting = false;
   }
 }
 
-function stopLiveSession() {
-  dataChannel?.close();
-  peerConnection?.getSenders().forEach((sender) => sender.track?.stop());
-  peerConnection?.close();
-  peerConnection = null;
-  dataChannel = null;
-  isLiveConnected = false;
-  handledToolCallIds.clear();
+/* ============================ Entry points ============================ */
+
+function enterByTap() {
+  setScreen("select");
+  setAssistantState("idle", idleLabel());
+  if (!isLiveConnected && !liveFailed) startLiveSession();
+}
+
+function enterByVoice() {
+  voiceEntryArmed = true;
+  elements.enterVoiceButton.classList.add("is-armed");
+  if (isLiveConnected) {
+    elements.welcomeHint.textContent = "говори — я слушаю";
+    return;
+  }
+  startLiveSession();
+}
+
+/* ============================ Preparation & finish ============================ */
+
+function burstConfetti() {
+  const colors = ["#FFD700", "#FF1493", "#00CED1", "#32CD32", "#FF4E00"];
+  for (let i = 0; i < 36; i += 1) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.background = colors[i % colors.length];
+    piece.style.setProperty("--fall", `${(0.8 + Math.random() * 0.9).toFixed(2)}s`);
+    piece.style.setProperty("--rot", `${Math.round(360 + Math.random() * 540)}deg`);
+    elements.confettiLayer.appendChild(piece);
+  }
+  setTimeout(() => {
+    elements.confettiLayer.innerHTML = "";
+  }, 2000);
 }
 
 function formatTime(seconds) {
@@ -941,12 +1022,14 @@ function renderTimer() {
 function startPreparation() {
   clearInterval(preparationTimer);
   secondsLeft = prepDurationSeconds;
+  closeDetailSheet();
+  burstConfetti();
   setScreen("preparing");
-  elements.prepTitle.textContent = order.drink ? `Готовлю ${order.drink}` : "Начинаю готовить";
+  elements.prepTitle.textContent = order.drink || "Начинаю готовить";
   elements.prepLine.textContent = "Хочешь, расскажу что-нибудь про напиток, или просто подождёшь?";
   renderOrder();
   renderTimer();
-  if (mode === "live" && isLiveConnected) {
+  if (isLiveConnected) {
     sendRealtimeEvent({
       type: "response.create",
       response: {
@@ -955,7 +1038,7 @@ function startPreparation() {
       }
     });
   } else {
-    speakDemo("Окей, начинаю готовить. Хочешь, расскажу что-нибудь про напиток, или просто подождёшь?", "Готовлю");
+    speakDemo("Окей, начинаю готовить. Хочешь, расскажу что-нибудь про напиток, или просто подождёшь?", "ГОТОВЛЮ");
   }
 
   preparationTimer = setInterval(() => {
@@ -968,8 +1051,9 @@ function startPreparation() {
 function finishPreparation() {
   clearInterval(preparationTimer);
   setScreen("ready");
+  burstConfetti();
   renderOrder();
-  if (mode === "live" && isLiveConnected) {
+  if (isLiveConnected) {
     sendRealtimeEvent({
       type: "response.create",
       response: {
@@ -977,26 +1061,34 @@ function finishPreparation() {
       }
     });
   } else {
-    speakDemo("Твой напиток готов. Можешь забрать.", "Готово");
+    speakDemo("Твой напиток готов. Можешь забрать.", "ГОТОВО");
   }
 }
 
 function resetOrder() {
   clearInterval(preparationTimer);
   order = { ...initialOrder };
-  orderHistory = [];
+  closeDetailSheet();
   renderOrder();
-  elements.userLine.textContent = "Скажите заказ свободным языком";
-  setAssistantText("Привет. Что ты сегодня желаешь?");
-  setAssistantState("idle", "Ожидаю голос");
-  setScreen("dialog");
+  elements.userLine.textContent = "Говори вслух — или тапай по меню. Можно одновременно.";
+  setAssistantText("Что приготовить?");
+  setAssistantState("idle", idleLabel());
+  setScreen("select");
+  if (isLiveConnected) {
+    sendRealtimeEvent({
+      type: "response.create",
+      response: {
+        instructions: "Пользователь сбросил заказ кнопкой. Скажи коротко, что начинаем заново, и спроси, какой напиток приготовить."
+      }
+    });
+  }
 }
 
 function goBack() {
   if (appScreen === "preparing") {
     clearInterval(preparationTimer);
-    updateOrder({ status: "ready_to_confirm" }, { history: false });
-    setScreen("dialog");
+    updateOrder({ status: "ready_to_confirm" });
+    setScreen("select");
     setAssistantText(`Вернулись к заказу: ${orderSummary()}. Подтверждаем?`);
     return;
   }
@@ -1006,34 +1098,13 @@ function goBack() {
     return;
   }
 
-  const previous = orderHistory.pop();
-  if (previous) {
-    order = previous;
-    renderOrder();
-    setAssistantText(nextQuestion());
-    return;
-  }
-
-  setScreen("intro");
-}
-
-function setMode(nextMode) {
-  mode = nextMode;
-  elements.modeButtons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.mode === mode);
-  });
-
-  if (mode === "demo") {
-    stopLiveSession();
-    setAssistantText("Демо-линия активна. Нажмите “Говорить”.");
-  } else {
-    setAssistantText("Голосовой канал готов к подключению.");
-  }
+  closeDetailSheet();
+  setScreen("welcome");
 }
 
 function confirmOrder() {
   if (!order.drink) {
-    speakDemo("Сначала скажи, какой напиток приготовить.");
+    speakDemo("Сначала скажи или выбери, какой напиток приготовить.");
     return;
   }
 
@@ -1045,146 +1116,60 @@ function confirmOrder() {
   });
 }
 
-function initUplinkCanvas() {
-  const canvas = document.querySelector("#uplinkCanvas");
-  if (!canvas) return;
+/* ============================ Init & events ============================ */
 
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const gl = canvas.getContext("webgl", { alpha: true, antialias: false });
-  if (!gl) return;
-
-  const vertexSource = `
-    attribute vec2 a_position;
-
-    void main() {
-      gl_Position = vec4(a_position, 0.0, 1.0);
-    }
-  `;
-
-  const fragmentSource = `
-    precision highp float;
-
-    uniform vec2 u_resolution;
-    uniform float u_time;
-    uniform vec2 u_mouse;
-
-    void main() {
-      vec2 st = gl_FragCoord.xy / u_resolution.xy;
-      st.x *= u_resolution.x / u_resolution.y;
-      vec2 mouseOffset = (u_mouse / u_resolution) - 0.5;
-      st += mouseOffset * 0.025;
-      float ratio = u_resolution.x / u_resolution.y;
-      vec2 center = vec2(0.5 * ratio, 0.52);
-      float centerDistance = distance(st, center);
-      float edgeEnergy = smoothstep(0.18, 0.82, centerDistance);
-      float softDepth = smoothstep(0.98, 0.10, centerDistance);
-      float protectedCenter = 1.0 - smoothstep(0.18, 0.36, centerDistance);
-      float grid = mix(48.0, 78.0, smoothstep(480.0, 1600.0, u_resolution.x));
-      vec2 cell = fract(st * grid) - 0.5;
-      float dot = 1.0 - smoothstep(0.025, 0.072, length(cell));
-      float scan = 0.72 + 0.28 * sin((st.y * 120.0) + (u_time * 0.7));
-      float pulse = 0.58 + 0.42 * sin(u_time * 0.65);
-      vec3 color = mix(vec3(1.0, 0.533, 0.0), vec3(0.70, 1.0, 0.44), 0.16);
-      float alpha = dot * softDepth * scan * (0.06 + 0.25 * pulse) * mix(0.22, 1.0, edgeEnergy);
-      alpha *= (1.0 - protectedCenter * 0.82);
-      gl_FragColor = vec4(color, alpha);
-    }
-  `;
-
-  function compileShader(type, source) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      gl.deleteShader(shader);
-      return null;
-    }
-    return shader;
-  }
-
-  const vertexShader = compileShader(gl.VERTEX_SHADER, vertexSource);
-  const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSource);
-  if (!vertexShader || !fragmentShader) return;
-
-  const program = gl.createProgram();
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
-
-  const positionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-    gl.STATIC_DRAW
-  );
-
-  const positionLocation = gl.getAttribLocation(program, "a_position");
-  const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-  const timeLocation = gl.getUniformLocation(program, "u_time");
-  const mouseLocation = gl.getUniformLocation(program, "u_mouse");
-  const mouse = { x: canvas.clientWidth / 2, y: canvas.clientHeight / 2 };
-
-  function resize() {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    const rect = canvas.getBoundingClientRect();
-    const width = Math.max(1, Math.floor(rect.width * pixelRatio));
-    const height = Math.max(1, Math.floor(rect.height * pixelRatio));
-    if (canvas.width !== width || canvas.height !== height) {
-      canvas.width = width;
-      canvas.height = height;
-      gl.viewport(0, 0, width, height);
-    }
-  }
-
-  function render(time = 0) {
-    resize();
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.useProgram(program);
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.enableVertexAttribArray(positionLocation);
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-    gl.uniform1f(timeLocation, time * 0.001);
-    gl.uniform2f(mouseLocation, mouse.x, canvas.clientHeight - mouse.y);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-    if (!reducedMotion) requestAnimationFrame(render);
-  }
-
-  window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", (event) => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = event.clientX - rect.left;
-    mouse.y = event.clientY - rect.top;
-  });
-
-  render();
+function initTicker() {
+  const names = drinkCatalog.map((drink) => drink.name.toUpperCase()).join(" ★ ");
+  elements.tickerTrack.innerHTML = `<span>${escapeHtml(names)} ★ </span><span>${escapeHtml(names)} ★ </span>`;
 }
 
-elements.introButton.addEventListener("click", startIntro);
+elements.enterTapButton.addEventListener("click", enterByTap);
+elements.enterVoiceButton.addEventListener("click", enterByVoice);
 elements.backButton.addEventListener("click", goBack);
-elements.prepBackButton.addEventListener("click", goBack);
-elements.newOrderButton.addEventListener("click", resetOrder);
 elements.resetButton.addEventListener("click", resetOrder);
 elements.confirmButton.addEventListener("click", confirmOrder);
-elements.talkButton.addEventListener("click", () => {
+elements.newOrderButton.addEventListener("click", resetOrder);
+elements.prepBackButton.addEventListener("click", goBack);
+
+elements.voiceOrb.addEventListener("click", () => {
+  if (isLiveConnected) return;
+  if (liveFailed) {
+    startDemoListening();
+    return;
+  }
   startLiveSession();
 });
+
 elements.prepTalkButton.addEventListener("click", () => {
+  if (liveFailed && !isLiveConnected) {
+    startDemoListening();
+    return;
+  }
   startLiveSession();
 });
-elements.menuBrowser?.addEventListener("click", (event) => {
-  const tile = event.target.closest("[data-drink]");
-  if (!tile) return;
-  const shownDrink = showDrinkDetails(tile.dataset.drink);
-  if (!shownDrink) return;
 
-  const recipe = getDrinkRecipe(shownDrink);
-  setAssistantText(`${shownDrink}. ${recipe?.thesis || "Открываю карточку напитка."}`);
+elements.menuGrid.addEventListener("click", (event) => {
+  const card = event.target.closest("[data-drink]");
+  if (!card) return;
+  card.classList.remove("is-tapped");
+  void card.offsetWidth;
+  card.classList.add("is-tapped");
+  selectDrinkByTap(card.dataset.drink);
 });
 
-initUplinkCanvas();
+elements.detailClose.addEventListener("click", closeDetailSheet);
+elements.detailSheet.addEventListener("click", (event) => {
+  if (event.target === elements.detailSheet) closeDetailSheet();
+});
+elements.detailSelectButton.addEventListener("click", () => {
+  if (previewDrink && previewDrink !== order.drink) {
+    const chosen = previewDrink;
+    updateOrder({ drink: chosen, status: "draft" });
+    notifyAgentDrinkTapped(chosen);
+  }
+  closeDetailSheet();
+});
+
+initTicker();
+renderMenuGrid();
 renderOrder();

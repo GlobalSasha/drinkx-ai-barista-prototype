@@ -3,160 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DrinkX AI Coffee System</title>
+    <title>DrinkX AI Barista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <canvas id="uplinkCanvas" class="uplink-canvas" aria-hidden="true"></canvas>
-    <div class="terminal-noise" aria-hidden="true"></div>
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
 
-    <main class="app-shell" data-screen="intro">
-      <section class="intro-screen" id="introScreen" aria-label="Стартовый экран DrinkX">
-        <div class="intro-lockup">
-          <div class="terminal-device">
-            <div class="terminal-screen">
-              <header class="terminal-head">
-                <div class="terminal-lights" aria-hidden="true">
-                  <span class="is-active"></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div class="logo-plate logo-plate-large" aria-label="DrinkX">
-                  <img src="/assets/drinkx-logo.png" alt="DrinkX" />
-                </div>
-                <span>Uplink active</span>
-              </header>
-              <div class="terminal-output" aria-label="Статус системы DrinkX">
-                <p class="terminal-title">DrinkX AI Coffee System</p>
-                <div class="terminal-telemetry" aria-label="Телеметрия системы">
-                  <span data-label="voice uplink"></span>
-                  <span data-label="menu sync"></span>
-                  <span data-label="vision check"></span>
-                </div>
-                <p class="terminal-line terminal-line-1">&gt; Приветствует система DrinkX</p>
-                <p class="terminal-line terminal-line-2">&gt; Инициализация голосового канала... <span class="percent percent-a"></span></p>
-                <p class="terminal-line terminal-line-3">&gt; Загрузка меню напитков... <span class="percent percent-b"></span></p>
-                <p class="terminal-line terminal-line-4">&gt; Проверка визуального заказа... <span class="percent percent-c"></span></p>
-                <p class="terminal-line terminal-line-live">&gt; <span class="terminal-live-text"></span><span class="terminal-cursor">_</span></p>
-                <div class="terminal-signal" aria-hidden="true">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-              <footer class="terminal-foot">
-                <span>Node: online</span>
-                <span>Voice: ready</span>
-                <span>SYS: v2.4</span>
-              </footer>
-            </div>
-            <aside class="terminal-rail" aria-hidden="true">
-              <span class="terminal-chip-icon"></span>
-              <strong>DRINKX_SYS</strong>
-              <span class="terminal-rail-light"></span>
-            </aside>
-            <div class="terminal-command">
-              <p class="intro-line">Press to connect barista</p>
-              <button class="primary-action intro-action" id="introButton" type="button">
-                Подключить AI-бариста
-              </button>
+    <main class="app-shell" data-screen="welcome" data-voice="idle">
+      <!-- ===================== SCREEN 1: WELCOME ===================== -->
+      <section class="screen welcome-screen" id="welcomeScreen" aria-label="Экран приветствия DrinkX">
+        <header class="welcome-top">
+          <div class="logo-plate" aria-label="DrinkX">
+            <img src="/assets/drinkx-logo.png" alt="DrinkX" />
+          </div>
+          <span class="welcome-badge jitter">AI BARISTA</span>
+        </header>
+
+        <div class="welcome-hero">
+          <div class="barista-mark" aria-hidden="true">
+            <div class="barista-face">
+              <span class="face-eye"></span>
+              <span class="face-eye"></span>
+              <span class="face-mouth"></span>
             </div>
           </div>
+          <h1 class="welcome-title">
+            <span class="title-line">ПРИВЕТ.</span>
+            <span class="title-line title-line-accent">Я ТВОЙ</span>
+            <span class="title-line">AI-БАРИСТА</span>
+          </h1>
+          <p class="welcome-sub">33 напитка · голос или тап · готовлю за 2 минуты</p>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="btn btn-magenta btn-xl" id="enterTapButton" type="button">
+            ВЫБРАТЬ НАПИТОК →
+          </button>
+          <button class="btn btn-yellow btn-xl btn-voice" id="enterVoiceButton" type="button">
+            <svg class="mic-glyph" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor" stroke="#000" stroke-width="2" />
+              <path d="M5 11a7 7 0 0 0 14 0" fill="none" stroke="#000" stroke-width="2.4" />
+              <line x1="12" y1="18" x2="12" y2="22" stroke="#000" stroke-width="2.4" />
+              <line x1="8" y1="22" x2="16" y2="22" stroke="#000" stroke-width="2.4" />
+            </svg>
+            СКАЗАТЬ «ХОЧУ КОФЕ»
+          </button>
+          <p class="welcome-hint" id="welcomeHint">нажми кнопку — или включи голос и просто скажи</p>
+        </div>
+
+        <div class="welcome-ticker" aria-hidden="true">
+          <div class="ticker-track" id="tickerTrack"></div>
         </div>
       </section>
 
-      <section class="dialog-screen" id="dialogScreen" aria-label="Голосовой AI бариста">
-        <div class="system-bar" aria-label="Системные действия">
-          <div class="system-left">
-            <button class="ghost-action" id="backButton" type="button">Назад</button>
-            <div class="logo-plate logo-plate-small" aria-label="DrinkX">
-              <img src="/assets/drinkx-logo.png" alt="DrinkX" />
-            </div>
+      <!-- ============ SCREEN 2: DRINK SELECT (VOICE + TOUCH) ============ -->
+      <section class="screen select-screen" id="selectScreen" aria-label="Выбор напитка">
+        <header class="status-bar">
+          <button class="btn btn-ghost btn-back" id="backButton" type="button" aria-label="Назад">←</button>
+          <div class="logo-plate logo-plate-small" aria-label="DrinkX">
+            <img src="/assets/drinkx-logo.png" alt="DrinkX" />
           </div>
-        </div>
-
-        <section class="assistant-stage" aria-label="Интерактивный голосовой круг">
-          <div class="orb-wrap">
-            <div class="voice-orb" id="voiceOrb">
-              <div class="orb-core"></div>
-              <div class="sound-bars" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
+          <div class="status-indicator" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label" id="stateLabel">ГОТОВ</span>
           </div>
+          <button class="btn btn-ghost btn-reset" id="resetButton" type="button">СНАЧАЛА</button>
+        </header>
 
-          <div class="assistant-copy">
-            <p class="state-label" id="stateLabel">Ожидаю голос</p>
-            <div class="speech-console">
-              <p class="assistant-line" id="assistantLine">Привет. Что ты сегодня желаешь?</p>
-              <p class="user-line" id="userLine">Скажите заказ свободным языком</p>
-            </div>
-          </div>
-
-          <div class="menu-browser" id="menuBrowser" aria-label="Меню напитков DrinkX" hidden></div>
-
-          <div class="recipe-blueprint" id="recipeBlueprint" aria-label="Состав напитка" hidden></div>
-
-          <div class="order-flow" id="orderFlow" aria-label="Собранные части заказа"></div>
-
-          <div class="controls">
-            <button class="primary-action" id="talkButton" type="button">Говорить</button>
-            <button class="secondary-action" id="confirmButton" type="button">Да, готовить</button>
-            <button class="secondary-action" id="resetButton" type="button">Сначала</button>
+        <section class="agent-band" aria-label="Голосовой AI бариста">
+          <button class="voice-orb" id="voiceOrb" type="button" aria-label="Говорить с AI-бариста">
+            <span class="sound-bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </span>
+          </button>
+          <div class="agent-copy">
+            <p class="assistant-line" id="assistantLine">Что приготовить?</p>
+            <p class="user-line" id="userLine">Говори вслух — или тапай по меню. Можно одновременно.</p>
           </div>
         </section>
+
+        <div class="order-strip" id="orderFlow" aria-label="Собранные части заказа"></div>
+
+        <section class="menu-zone" id="menuZone" aria-label="Меню напитков DrinkX">
+          <header class="menu-head">
+            <h2>МЕНЮ</h2>
+            <span class="menu-count" id="menuCount"></span>
+          </header>
+          <div class="menu-grid" id="menuGrid"></div>
+        </section>
+
+        <footer class="confirm-dock">
+          <button class="btn btn-magenta btn-xl" id="confirmButton" type="button" disabled>
+            ПОДТВЕРДИТЬ ЗАКАЗ
+          </button>
+        </footer>
+
+        <div class="detail-sheet" id="detailSheet" hidden>
+          <div class="detail-inner">
+            <header class="detail-head">
+              <span class="detail-kicker">КАРТОЧКА НАПИТКА</span>
+              <button class="btn btn-ghost detail-close" id="detailClose" type="button">✕</button>
+            </header>
+            <div class="recipe-host" id="recipeBlueprint"></div>
+            <button class="btn btn-yellow btn-xl" id="detailSelectButton" type="button">ВЗЯТЬ ЭТОТ →</button>
+          </div>
+        </div>
       </section>
 
-      <section class="prep-screen" id="prepScreen" aria-label="Приготовление напитка">
+      <!-- ===================== SCREEN 3: PREPARING ===================== -->
+      <section class="screen prep-screen" id="prepScreen" aria-label="Приготовление напитка">
         <div class="prep-card">
-          <div class="device-notch" aria-hidden="true"></div>
-          <p class="eyebrow">Preparing</p>
+          <p class="eyebrow">ГОТОВЛЮ</p>
           <h2 id="prepTitle">Начинаю готовить</h2>
-          <div class="prep-visual" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="recipe-blueprint recipe-blueprint-compact" id="prepRecipeBlueprint" aria-label="Состав напитка" hidden></div>
-          <div class="timer-ring timer-status" aria-label="Таймер приготовления">
-            <div class="timer-status-shell">
-              <div class="timer-status-surface">
-                <span class="timer-kicker">Brew status</span>
-                <span id="timerValue">02:00</span>
-                <span class="timer-caption">До готовности</span>
-                <div class="timer-status-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                  <span class="timer-progress-line" id="timerProgress"></span>
-                </div>
-              </div>
+          <div class="timer-block" aria-label="Таймер приготовления">
+            <span class="timer-value" id="timerValue">02:00</span>
+            <div class="timer-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span class="timer-progress" id="timerProgress"></span>
             </div>
+            <span class="timer-caption">до готовности</span>
           </div>
           <p class="assistant-line prep-line" id="prepLine">
             Хочешь, расскажу что-нибудь про напиток, или просто подождёшь?
           </p>
-          <div class="order-flow is-compact" id="prepOrderFlow"></div>
+          <div class="recipe-host recipe-host-compact" id="prepRecipeBlueprint" hidden></div>
+          <div class="order-strip is-compact" id="prepOrderFlow"></div>
           <div class="prep-controls">
-            <button class="primary-action" id="prepTalkButton" type="button">Ответить</button>
-            <button class="ghost-action" id="prepBackButton" type="button">Вернуться назад</button>
+            <button class="btn btn-yellow" id="prepTalkButton" type="button">ОТВЕТИТЬ ГОЛОСОМ</button>
+            <button class="btn btn-ghost" id="prepBackButton" type="button">← ВЕРНУТЬСЯ</button>
           </div>
         </div>
       </section>
 
-      <section class="ready-screen" id="readyScreen" aria-label="Напиток готов">
+      <!-- ===================== SCREEN 4: READY ===================== -->
+      <section class="screen ready-screen" id="readyScreen" aria-label="Напиток готов">
         <div class="ready-card">
-          <div class="device-notch" aria-hidden="true"></div>
-          <div class="ready-pulse" aria-hidden="true"></div>
-          <p class="eyebrow">Ready</p>
-          <h2>Твой напиток готов</h2>
-          <p class="assistant-line ready-line">Можешь забрать его у DrinkX.</p>
-          <div class="recipe-blueprint recipe-blueprint-compact" id="readyRecipeBlueprint" aria-label="Состав напитка" hidden></div>
-          <div class="order-flow is-compact" id="readyOrderFlow"></div>
-          <button class="primary-action" id="newOrderButton" type="button">Новый заказ</button>
+          <div class="ready-stamp jitter">ГОТОВО!</div>
+          <h2>Твой напиток ждёт</h2>
+          <p class="assistant-line ready-line">Забирай его у DrinkX.</p>
+          <div class="recipe-host recipe-host-compact" id="readyRecipeBlueprint" hidden></div>
+          <div class="order-strip is-compact" id="readyOrderFlow"></div>
+          <button class="btn btn-magenta btn-xl" id="newOrderButton" type="button">НОВЫЙ ЗАКАЗ →</button>
         </div>
       </section>
     </main>

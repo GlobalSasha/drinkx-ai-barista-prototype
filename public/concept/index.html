@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DrinkX AI-бариста</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/concept/styles.css" />
+  </head>
+  <body>
+    <main class="app" data-screen="home" data-phase="">
+      <!-- ======================= HOME ======================= -->
+      <section class="screen screen-home" data-name="home">
+        <header class="top-row">
+          <div class="brand-plate"><img src="/assets/drinkx-logo.png" alt="DrinkX" /></div>
+          <div class="ai-orb-chip">
+            <span class="ai-orb" aria-hidden="true"></span>
+            <span id="greetingLine">Добрый день</span>
+          </div>
+        </header>
+
+        <h1 class="display" id="homeHeadline">Что приготовим<br />сегодня?</h1>
+
+        <div class="home-bento">
+          <button class="card hero-card" data-action="go-intent" type="button">
+            <span class="hero-glow" aria-hidden="true"></span>
+            <canvas class="mind-canvas" id="mindCanvas" aria-hidden="true"></canvas>
+            <span class="card-kicker">AI-бариста</span>
+            <span class="hero-title">Выбрать с<br />AI-бариста</span>
+            <span class="card-sub">Скажи настроение — я найду напиток.</span>
+            <span class="hero-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="card mini-card" data-action="go-fast" type="button">
+            <span class="mini-icon" data-icon="bolt" aria-hidden="true"></span>
+            <span class="mini-title">Быстрый заказ</span>
+            <span class="card-sub">Классика без вопросов.</span>
+          </button>
+
+          <button class="card mini-card" data-action="go-surprise" type="button">
+            <span class="mini-icon" data-icon="spark" aria-hidden="true"></span>
+            <span class="mini-title">Удиви меня</span>
+            <span class="card-sub">Доверишься?</span>
+          </button>
+
+          <button class="card mini-card" data-action="go-usual" type="button" id="usualCard">
+            <span class="mini-icon" data-icon="heart" aria-hidden="true"></span>
+            <span class="mini-title">Как обычно</span>
+            <span class="card-sub" id="usualSub">Сохрани напиток один раз — закажешь в один тап.</span>
+          </button>
+        </div>
+
+        <div class="strip-zone">
+          <p class="strip-label">Для тебя прямо сейчас</p>
+          <div class="rec-strip" id="recStrip"></div>
+        </div>
+      </section>
+
+      <!-- ======================= FAST ORDER ======================= -->
+      <section class="screen screen-fast" data-name="fast">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-home" type="button" aria-label="Назад">←</button>
+          <h2 class="h2">Классика</h2>
+        </header>
+        <div class="fast-grid" id="fastGrid"></div>
+      </section>
+
+      <!-- ======================= INTENT ======================= -->
+      <section class="screen screen-intent" data-name="intent">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-home" type="button" aria-label="Назад">←</button>
+          <h2 class="h2">Какое настроение?</h2>
+        </header>
+        <div class="intent-grid" id="intentGrid"></div>
+        <footer class="escape-row">
+          <button class="ghost-pill" data-action="go-fast" type="button">Просто покажи меню</button>
+        </footer>
+      </section>
+
+      <!-- ======================= QUESTIONS ======================= -->
+      <section class="screen screen-question" data-name="question">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-question" type="button" aria-label="Назад">←</button>
+          <div class="q-dots" id="qDots"></div>
+        </header>
+        <div class="q-block">
+          <div class="ai-orb-chip large">
+            <span class="ai-orb" aria-hidden="true"></span>
+            <span id="qContext"></span>
+          </div>
+          <h2 class="display-sm" id="qTitle"></h2>
+          <div class="q-options" id="qOptions"></div>
+        </div>
+      </section>
+
+      <!-- ======================= RECOMMEND ======================= -->
+      <section class="screen screen-recommend" data-name="recommend">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-question" type="button" aria-label="Назад">←</button>
+          <h2 class="h2">Мой выбор для тебя</h2>
+        </header>
+        <div class="rec-layout" id="recLayout"></div>
+        <footer class="bottom-bar" id="recMutations"></footer>
+      </section>
+
+      <!-- ======================= CUSTOMIZE ======================= -->
+      <section class="screen screen-customize" data-name="customize">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-recommend" type="button" aria-label="Назад">←</button>
+          <h2 class="h2">Сделай по-своему</h2>
+        </header>
+        <div class="customize-layout">
+          <div class="custom-drink-card card" id="customDrinkCard"></div>
+          <div class="ai-explain" id="customExplain">
+            <span class="ai-orb" aria-hidden="true"></span>
+            <p id="customExplainText">Меняй что угодно — я объясню, как это изменит вкус.</p>
+          </div>
+          <div class="controls-stack" id="customControls"></div>
+        </div>
+        <footer class="bottom-bar">
+          <button class="pill pill-primary wide" data-action="go-summary" type="button">Готово — то, что надо</button>
+        </footer>
+      </section>
+
+      <!-- ======================= SUMMARY ======================= -->
+      <section class="screen screen-summary" data-name="summary">
+        <header class="screen-head">
+          <button class="back-btn" data-action="back-recommend" type="button" aria-label="Назад">←</button>
+          <h2 class="h2">Подтверди напиток</h2>
+        </header>
+        <div class="summary-card card" id="summaryCard"></div>
+        <footer class="bottom-bar stack">
+          <button class="pill pill-primary wide" data-action="start-assembly" type="button" id="startBtn">
+            Начать приготовление
+          </button>
+          <div class="bar-row">
+            <button class="ghost-pill" data-action="go-customize" type="button">Настроить</button>
+            <button class="ghost-pill" data-action="back-home" type="button">Отмена</button>
+          </div>
+        </footer>
+      </section>
+
+      <!-- ======================= ASSEMBLY / PREPARATION ======================= -->
+      <section class="screen screen-assembly" data-name="assembly">
+        <header class="assembly-head">
+          <div>
+            <p class="card-kicker" id="asmKicker">Собираю твой</p>
+            <h2 class="display-sm" id="asmTitle">Фокус Флэт</h2>
+          </div>
+          <span class="lock-chip" id="lockChip">Ещё можно изменить</span>
+        </header>
+        <p class="asm-sub" id="asmSub"></p>
+
+        <div class="assembly-stage" id="assemblyStage">
+          <!-- procedural SVG scene injected here -->
+        </div>
+
+        <div class="ai-comment" id="aiComment">
+          <span class="ai-orb" aria-hidden="true"></span>
+          <p id="aiCommentText"></p>
+        </div>
+
+        <div class="taste-panel" id="tastePanel"></div>
+
+        <div class="asm-timeline" id="asmTimeline"></div>
+
+        <footer class="bottom-bar" id="asmControls"></footer>
+      </section>
+
+      <!-- ======================= READY ======================= -->
+      <section class="screen screen-ready" data-name="ready">
+        <div class="ready-layout">
+          <div class="ready-cup-wrap" id="readyCupWrap"></div>
+          <h2 class="display-sm" id="readyTitle">Твой Фокус Флэт готов</h2>
+          <p class="ready-sub" id="readySub">Плотный, гладкий — собран для фокуса.</p>
+          <div class="pickup-card card">
+            <span class="pickup-icon" aria-hidden="true">↓</span>
+            <p>Забирай стакан из окна выдачи</p>
+          </div>
+          <div class="taste-chips" id="readyChips"></div>
+          <div class="ai-comment compact" id="readyAi">
+            <span class="ai-orb" aria-hidden="true"></span>
+            <p id="readyAiText"></p>
+          </div>
+        </div>
+        <footer class="bottom-bar stack">
+          <div class="bar-row">
+            <button class="pill pill-primary" data-action="save-drink" type="button">Сохранить как мой DrinkX</button>
+            <button class="pill" data-action="go-rate" type="button">Оценить напиток</button>
+          </div>
+          <div class="bar-row">
+            <button class="ghost-pill" data-action="order-again" type="button">Повторить заказ</button>
+            <button class="ghost-pill" data-action="softer-next" type="button">В следующий раз помягче</button>
+            <button class="ghost-pill" data-action="back-home" type="button">Готово</button>
+          </div>
+        </footer>
+      </section>
+
+      <!-- ======================= RATE ======================= -->
+      <section class="screen screen-rate" data-name="rate">
+        <div class="rate-layout">
+          <div class="ai-orb-chip large">
+            <span class="ai-orb" aria-hidden="true"></span>
+            <span>Один быстрый вопрос</span>
+          </div>
+          <h2 class="display-sm">Как тебе баланс?</h2>
+          <div class="q-options" id="rateOptions"></div>
+          <p class="rate-note" id="rateNote"></p>
+        </div>
+        <footer class="bottom-bar">
+          <button class="ghost-pill wide" data-action="back-home" type="button">Пропустить</button>
+        </footer>
+      </section>
+
+      <!-- toast -->
+      <div class="toast" id="toast" hidden></div>
+    </main>
+
+    <script src="/concept/data.js" type="module"></script>
+    <script src="/concept/app.js" type="module"></script>
+  </body>
+</html>
