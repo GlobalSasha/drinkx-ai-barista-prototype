@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: drinkx-ai-barista-prototype
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeployTrigger: commit
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
