@@ -5,11 +5,11 @@
 import {
   RECIPES, INTENTS, QUESTIONS, CUSTOMIZATION, RATING_OPTIONS,
   FAST_ORDER_IDS, SECRET_MENU_IDS, MODULES, ICONS, INGREDIENT_COLORS
-} from "/concept/data.js";
-import { renderDrink, drinkMarkup, drinkBands } from "/concept/drink-renderer.js";
-import { initMind } from "/concept/mind.js";
-import { preloadDrinkAssets } from "/concept/drink-assets.js";
-import { mountDrinkVisual, mountStageMotion } from "/concept/motion-asset.js";
+} from "./data.js";
+import { renderDrink, drinkMarkup, drinkBands } from "./drink-renderer.js";
+import { initMind } from "./mind.js";
+import { preloadDrinkAssets } from "./drink-assets.js";
+import { mountDrinkVisual, mountStageMotion } from "./motion-asset.js";
 
 /* ============================================================ utilities */
 

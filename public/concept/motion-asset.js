@@ -14,8 +14,8 @@
    Customer-facing fallback copy lives on the scene itself; only an internal
    console.warn is emitted here. */
 
-import { resolveAssets, assetReady } from "/concept/drink-assets.js";
-import { renderDrink } from "/concept/drink-renderer.js";
+import { resolveAssets, assetReady } from "./drink-assets.js";
+import { renderDrink } from "./drink-renderer.js";
 
 const REDUCED = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

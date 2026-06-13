@@ -26,7 +26,7 @@ const SLUGS = {
 
 export const DRINK_ASSETS = Object.fromEntries(
   Object.entries(SLUGS).map(([drinkId, slug]) => {
-    const base = `/assets/drinks/${slug}`;
+    const base = `../assets/drinks/${slug}`;
     return [drinkId, {
       drinkId,
       staticRender: `${base}/render.webp`,

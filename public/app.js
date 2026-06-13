@@ -435,7 +435,7 @@ function buildRecipeBlueprint(drinkName = order.drink) {
       ${drinkInfo ? `
         <section class="drink-confirmation">
           <div class="drink-photo">
-            <img src="/assets/drinks/${escapeHtml(drinkInfo.image)}" alt="${escapeHtml(drinkName)}" />
+            <img src="assets/drinks/${escapeHtml(drinkInfo.image)}" alt="${escapeHtml(drinkName)}" />
           </div>
           <div class="drink-confirmation-copy">
             <span class="recipe-kicker">Визуальное подтверждение</span>
@@ -499,7 +499,7 @@ function renderMenuGrid() {
       return `
         <button class="menu-card" type="button" data-drink="${escapeHtml(drink.name)}" style="--i: ${index}">
           <span class="menu-card-image">
-            <img src="/assets/drinks/${escapeHtml(drink.image)}" alt="${escapeHtml(drink.name)}" loading="lazy" />
+            <img src="assets/drinks/${escapeHtml(drink.image)}" alt="${escapeHtml(drink.name)}" loading="lazy" />
           </span>
           <span class="menu-card-copy">
             <strong>${escapeHtml(drink.name)}</strong>
