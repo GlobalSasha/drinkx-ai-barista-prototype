@@ -1,0 +1,1777 @@
+.service-button {
+  min-height: 42px;
+  margin-left: auto;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9px;
+  background: transparent;
+  color: #d4d0ca;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.service-button::before {
+  margin-right: 6px;
+  content: "⚙";
+}
+
+.cleaning-screen,
+.service-screen,
+.recipe-screen {
+  position: absolute;
+  z-index: 16;
+  inset: 0;
+  min-height: 100vh;
+  background: var(--canvas);
+}
+
+.cleaning-header {
+  min-height: 76px;
+  padding: 14px 22px;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cleaning-header > div:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.cleaning-header strong {
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.cleaning-header > div:first-child span {
+  color: #aaa49d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.machine-status.is-service {
+  color: #ffd06a;
+}
+
+.cleaning-content {
+  min-height: calc(100vh - 76px);
+  padding: clamp(28px, 5vh, 54px) 24px 28px;
+}
+
+.cleaning-phase {
+  width: min(100%, 640px);
+  min-height: calc(100vh - 150px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cleaning-kicker {
+  margin-bottom: 8px;
+  color: var(--orange-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cleaning-phase h2 {
+  color: var(--ink);
+  font-size: clamp(34px, 7vw, 52px);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.cleaning-intro {
+  margin-top: 12px;
+  color: var(--muted-strong);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.cleaning-steps {
+  padding: 0;
+  margin: 28px 0 20px;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+
+.cleaning-steps li {
+  min-height: 78px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.cleaning-steps li span,
+.completion-instruction span {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--orange-soft);
+  color: var(--orange-dark);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.cleaning-steps li strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.cleaning-check {
+  min-height: 66px;
+  padding: 13px 15px;
+  border: 2px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.cleaning-check .check-box {
+  color: var(--muted);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 17px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cleaning-check strong {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.cleaning-check.is-checked {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+
+.cleaning-check.is-checked .check-box {
+  color: var(--orange-dark);
+}
+
+.cleaning-step-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.cleaning-step-count {
+  min-width: 86px;
+  padding: 9px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  color: var(--muted-strong);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.cleaning-step-progress {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.cleaning-step-progress span {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--disabled);
+}
+
+.cleaning-step-progress span.is-active {
+  background: var(--orange);
+}
+
+.cleaning-step-progress span.is-current {
+  animation: cleaning-progress-pulse 1.2s ease-in-out infinite !important;
+}
+
+.cleaning-instruction-stage {
+  min-height: 590px;
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  display: grid;
+  grid-template-rows: minmax(350px, 1fr) auto;
+  overflow: hidden;
+}
+
+.cleaning-animation {
+  position: relative;
+  min-height: 350px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(245, 130, 32, 0.04), transparent 65%),
+    var(--canvas);
+}
+
+.cleaning-machine {
+  position: absolute;
+  top: 58px;
+  left: 11%;
+  width: 150px;
+  height: 210px;
+  border: 4px solid var(--ink);
+  border-radius: 17px;
+  background: var(--surface);
+}
+
+.machine-window {
+  position: absolute;
+  inset: 22px 20px auto;
+  height: 76px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--orange-soft);
+}
+
+.machine-line {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--line-strong);
+}
+
+.machine-line.line-one {
+  top: 126px;
+}
+
+.machine-line.line-two {
+  top: 150px;
+  right: 54px;
+}
+
+.cleaning-object {
+  position: absolute;
+  z-index: 2;
+  top: 112px;
+  right: 16%;
+  width: 116px;
+  height: 150px;
+  transform-origin: 50% 100%;
+}
+
+.object-body {
+  position: absolute;
+  inset: 24px 8px 0;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+  border-radius: 8px 8px 18px 18px;
+  background: var(--surface);
+}
+
+.object-cap {
+  position: absolute;
+  z-index: 2;
+  top: 4px;
+  left: 31px;
+  width: 54px;
+  height: 25px;
+  border: 4px solid var(--ink);
+  border-radius: 7px 7px 0 0;
+  background: var(--surface);
+}
+
+.object-liquid {
+  position: absolute;
+  z-index: 1;
+  right: 12px;
+  bottom: 4px;
+  left: 12px;
+  height: 54px;
+  border-radius: 0 0 11px 11px;
+  background: var(--orange);
+  opacity: 0.75;
+}
+
+.cleaning-flow {
+  position: absolute;
+  top: 158px;
+  left: 36%;
+  right: 34%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cleaning-flow span {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0;
+}
+
+.cleaning-symbol {
+  position: absolute;
+  z-index: 3;
+  top: 55px;
+  right: 11%;
+  width: 62px;
+  height: 62px;
+}
+
+.cleaning-symbol::before,
+.cleaning-symbol::after {
+  position: absolute;
+  content: "";
+}
+
+.cleaning-step-copy {
+  min-height: 176px;
+  padding: 24px 28px 26px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+.cleaning-step-copy > span {
+  color: var(--orange-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cleaning-step-copy > strong {
+  max-width: 570px;
+  color: var(--ink);
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.18;
+}
+
+.cleaning-step-copy > p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.cleaning-step-actions {
+  margin-top: auto;
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.8fr 1.4fr;
+  gap: 9px;
+}
+
+.cleaning-step-actions .cleaning-secondary:disabled {
+  color: var(--muted);
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cleaning-animation.is-containers .cleaning-object {
+  animation: container-wash 2.8s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-containers .cleaning-symbol::before {
+  inset: 8px 20px 20px;
+  border-radius: 50% 50% 58% 42%;
+  background: var(--blue);
+  transform: rotate(45deg);
+  animation: water-drop 1.4s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-connectors .cleaning-object {
+  width: 138px;
+  height: 170px;
+}
+
+.cleaning-animation.is-connectors .cleaning-flow {
+  top: 106px;
+  left: 31%;
+  right: 28%;
+}
+
+.cleaning-animation.is-connectors .cleaning-flow span {
+  width: 50px;
+  height: 7px;
+  border-radius: 0;
+  background: var(--ink);
+  opacity: 1;
+  transform-origin: left center;
+  animation: connector-link 1.6s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-connectors .cleaning-flow span:nth-child(2) {
+  animation-delay: 0.16s !important;
+}
+
+.cleaning-animation.is-connectors .cleaning-flow span:nth-child(3) {
+  animation-delay: 0.32s !important;
+}
+
+.cleaning-animation.is-connectors .cleaning-symbol::before {
+  inset: 12px;
+  border: 5px solid var(--green);
+  border-radius: 50%;
+}
+
+.cleaning-animation.is-connectors .cleaning-symbol::after {
+  top: 28px;
+  left: 24px;
+  width: 22px;
+  height: 10px;
+  border-bottom: 5px solid var(--green);
+  border-left: 5px solid var(--green);
+  transform: rotate(-45deg);
+  animation: check-pop 1.6s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-chemistry .cleaning-object {
+  top: 54px;
+  right: 22%;
+  width: 80px;
+  height: 120px;
+  transform: rotate(-24deg);
+  animation: bottle-pour 2s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-chemistry .cleaning-flow {
+  top: 176px;
+  left: auto;
+  right: 25%;
+  width: 50px;
+  height: 115px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cleaning-animation.is-chemistry .cleaning-flow span {
+  background: var(--blue);
+  opacity: 1;
+  animation: chemical-drop 1.5s linear infinite !important;
+}
+
+.cleaning-animation.is-chemistry .cleaning-flow span:nth-child(2) {
+  animation-delay: 0.35s !important;
+}
+
+.cleaning-animation.is-chemistry .cleaning-flow span:nth-child(3) {
+  animation-delay: 0.7s !important;
+}
+
+.cleaning-animation.is-ready .cleaning-object,
+.cleaning-animation.is-ready .cleaning-flow {
+  display: none;
+}
+
+.cleaning-animation.is-ready .cleaning-machine {
+  top: 55px;
+  left: calc(50% - 85px);
+  width: 170px;
+  height: 225px;
+  border-color: var(--green);
+  animation: machine-ready 1.8s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-ready .machine-window {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.cleaning-animation.is-ready .cleaning-symbol {
+  top: 34px;
+  right: calc(50% - 120px);
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: check-pop 1.8s ease-in-out infinite !important;
+}
+
+.cleaning-animation.is-ready .cleaning-symbol::after {
+  top: 26px;
+  left: 23px;
+  width: 35px;
+  height: 18px;
+  border-bottom: 8px solid #fff;
+  border-left: 8px solid #fff;
+  transform: rotate(-45deg);
+}
+
+@keyframes container-wash {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  45% {
+    transform: translateX(-55px) rotate(-8deg);
+  }
+  70% {
+    transform: translateX(-55px) rotate(8deg);
+  }
+}
+
+@keyframes water-drop {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(-8px) rotate(45deg) scale(0.75);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(12px) rotate(45deg) scale(1);
+  }
+}
+
+@keyframes connector-link {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleX(0.25);
+  }
+  55% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes bottle-pour {
+  0%,
+  100% {
+    transform: rotate(-16deg);
+  }
+  50% {
+    transform: rotate(-42deg);
+  }
+}
+
+@keyframes chemical-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.7);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(80px) scale(1);
+  }
+}
+
+@keyframes check-pop {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.82) rotate(-45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(-45deg);
+  }
+}
+
+@keyframes machine-ready {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(22, 138, 74, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(22, 138, 74, 0.3));
+  }
+}
+
+@keyframes cleaning-progress-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.cleaning-actions {
+  margin-top: auto;
+  padding-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+}
+
+.cleaning-primary,
+.cleaning-secondary {
+  min-height: 58px;
+  padding: 11px 16px;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.cleaning-primary {
+  background: var(--orange);
+  color: #1b1108;
+}
+
+.cleaning-primary:disabled {
+  background: var(--disabled);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.cleaning-secondary {
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--muted-strong);
+}
+
+.cleaning-process {
+  align-items: center;
+  text-align: center;
+}
+
+.cleaning-timer-card {
+  width: 100%;
+  margin-top: clamp(45px, 9vh, 90px);
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.cleaning-timer-card > div:first-child {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+}
+
+.cleaning-timer-card > div:first-child span {
+  color: var(--muted-strong);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cleaning-timer-card > div:first-child strong {
+  color: var(--ink);
+  font-size: 31px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cleaning-progress {
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--disabled);
+}
+
+.cleaning-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--orange);
+}
+
+.cleaning-timer-card small {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: left;
+}
+
+.cleaning-process > .cleaning-secondary {
+  min-width: 220px;
+  margin-top: auto;
+}
+
+.cleaning-complete {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.completion-instruction {
+  width: 100%;
+  margin: 34px 0;
+  padding: 24px;
+  border: 2px solid var(--green);
+  border-radius: 16px;
+  background: var(--green-soft);
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.completion-instruction span {
+  background: #fff;
+  color: var(--green);
+}
+
+.completion-instruction strong {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.cleaning-complete .cleaning-primary {
+  min-width: 280px;
+}
+
+.service-content {
+  min-height: calc(100vh - 76px);
+  padding: clamp(34px, 6vh, 68px) 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-content > h2,
+.recipe-toolbar h2 {
+  color: var(--ink);
+  font-size: clamp(34px, 7vw, 52px);
+  line-height: 1.04;
+}
+
+.service-menu-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.service-menu-card {
+  min-height: 220px;
+  padding: 22px;
+  border: 2px solid var(--line-strong);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  text-align: left;
+}
+
+.service-menu-card span,
+.recipe-panel-label {
+  color: var(--orange-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-menu-card strong {
+  max-width: 240px;
+  font-size: 25px;
+  line-height: 1.08;
+}
+
+.service-menu-card small {
+  margin-top: auto;
+  color: var(--muted-strong);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.service-menu-card:active {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+
+.service-close {
+  align-self: flex-start;
+  min-width: 220px;
+  margin-top: auto;
+}
+
+.recipe-screen {
+  overflow: hidden;
+}
+
+.recipe-content {
+  height: calc(100vh - 76px);
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recipe-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.recipe-toolbar > .cleaning-secondary {
+  flex: 0 0 auto;
+}
+
+.recipe-toolbar .cleaning-kicker {
+  margin-bottom: 5px;
+}
+
+.recipe-toolbar h2 {
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.recipe-category-nav {
+  overflow-x: auto;
+  padding-bottom: 4px;
+  display: flex;
+  gap: 7px;
+  scrollbar-width: none;
+}
+
+.recipe-category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.recipe-category-nav button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--muted-strong);
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.recipe-category-nav button.is-active {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: #1b1108;
+}
+
+.recipe-workspace {
+  min-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  flex: 1;
+  overflow: hidden;
+}
+
+.recipe-list-panel {
+  min-height: 0;
+  padding: 15px 10px;
+  border-right: 1px solid var(--line);
+  background: var(--canvas);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recipe-list-panel > .recipe-panel-label {
+  padding: 0 8px;
+}
+
+.recipe-drink-list {
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.recipe-drink-list button {
+  min-height: 58px;
+  padding: 9px 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink);
+  display: grid;
+  grid-template-columns: 28px 1fr 12px;
+  align-items: center;
+  gap: 7px;
+  text-align: left;
+}
+
+.recipe-drink-list button > span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.recipe-drink-list button > strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.recipe-drink-list button > small {
+  color: var(--orange);
+}
+
+.recipe-drink-list button.is-active {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+
+.recipe-editor {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-editor-head {
+  min-height: 90px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.recipe-editor-head h3 {
+  margin: 5px 0 2px;
+  color: var(--ink);
+  font-size: 25px;
+  line-height: 1.05;
+}
+
+.recipe-editor-head p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.recipe-dirty-mark {
+  padding: 7px 9px;
+  border-radius: 7px;
+  background: var(--orange-soft);
+  color: var(--orange-dark);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.recipe-controls {
+  min-height: 0;
+  padding: 14px 16px;
+  overflow-y: auto;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.recipe-control {
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--canvas);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 14px;
+}
+
+.recipe-control-copy {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.recipe-control-copy strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.recipe-control-copy small {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.recipe-control-value {
+  min-width: 78px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.recipe-control-value output {
+  color: var(--ink);
+  font-size: 25px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-control-value small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.recipe-control input[type="range"] {
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  grid-column: 1 / -1;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.recipe-range {
+  margin-top: -8px;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+.recipe-actions {
+  padding: 12px 16px 15px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 9px;
+}
+
+body[data-visual-style="retro"] .service-button {
+  border-color: var(--line);
+  border-radius: 0;
+  color: var(--orange);
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .service-button::before {
+  content: "[SYS] ";
+}
+
+body[data-visual-style="retro"] .service-screen,
+body[data-visual-style="retro"] .recipe-screen,
+body[data-visual-style="retro"] .cleaning-screen {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 155, 50, 0.06), transparent 42%),
+    #090705;
+}
+
+body[data-visual-style="retro"] .cleaning-header {
+  min-height: 82px;
+  border-bottom: 1px solid var(--line-strong);
+  background: #080604;
+  color: var(--ink);
+}
+
+body[data-visual-style="retro"] .cleaning-header strong::before {
+  color: var(--orange);
+  content: "> ";
+}
+
+body[data-visual-style="retro"] .cleaning-content {
+  min-height: calc(100vh - 82px);
+}
+
+body[data-visual-style="retro"] .cleaning-kicker {
+  color: var(--orange);
+  font-size: 10px;
+}
+
+body[data-visual-style="retro"] .cleaning-kicker::before {
+  content: "[ ";
+}
+
+body[data-visual-style="retro"] .cleaning-kicker::after {
+  content: " ]";
+}
+
+body[data-visual-style="retro"] .cleaning-phase h2 {
+  color: #ffe1ad;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .cleaning-phase h2::before {
+  color: var(--orange);
+  content: "> ";
+}
+
+body[data-visual-style="retro"] .service-content > h2,
+body[data-visual-style="retro"] .recipe-toolbar h2,
+body[data-visual-style="retro"] .recipe-editor-head h3 {
+  color: #ffe1ad;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .service-content > h2::before,
+body[data-visual-style="retro"] .recipe-toolbar h2::before {
+  color: var(--orange);
+  content: "> ";
+}
+
+body[data-visual-style="retro"] .service-menu-card,
+body[data-visual-style="retro"] .recipe-workspace,
+body[data-visual-style="retro"] .recipe-category-nav button,
+body[data-visual-style="retro"] .recipe-control {
+  border-color: var(--line);
+  border-radius: 0;
+  background: #0d0906;
+  color: #ffe1ad;
+  font-family: inherit;
+}
+
+body[data-visual-style="retro"] .service-menu-card strong,
+body[data-visual-style="retro"] .recipe-control-copy strong {
+  color: #ffe1ad;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .service-menu-card span,
+body[data-visual-style="retro"] .recipe-panel-label {
+  color: var(--orange);
+}
+
+body[data-visual-style="retro"] .service-menu-card small,
+body[data-visual-style="retro"] .recipe-control-copy small,
+body[data-visual-style="retro"] .recipe-editor-head p {
+  color: var(--muted-strong);
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .recipe-list-panel {
+  border-color: var(--line);
+  background: #090705;
+}
+
+body[data-visual-style="retro"] .recipe-drink-list button {
+  border-radius: 0;
+  color: #ffe1ad;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .recipe-drink-list button.is-active,
+body[data-visual-style="retro"] .recipe-category-nav button.is-active {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+  color: var(--orange);
+}
+
+body[data-visual-style="retro"] .recipe-editor-head,
+body[data-visual-style="retro"] .recipe-actions {
+  border-color: var(--line);
+}
+
+body[data-visual-style="retro"] .recipe-control-value output {
+  color: var(--orange);
+  font-family: inherit;
+}
+
+body[data-visual-style="retro"] .recipe-dirty-mark {
+  border: 1px solid var(--orange);
+  border-radius: 0;
+  background: transparent;
+  color: var(--orange);
+}
+
+body[data-visual-style="retro"] .cleaning-intro {
+  color: var(--muted-strong);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .cleaning-steps li,
+body[data-visual-style="retro"] .cleaning-check,
+body[data-visual-style="retro"] .cleaning-timer-card,
+body[data-visual-style="retro"] .completion-instruction {
+  border-color: var(--line);
+  border-radius: 0;
+  background: #0d0906;
+  color: var(--ink);
+}
+
+body[data-visual-style="retro"] .cleaning-steps li span,
+body[data-visual-style="retro"] .completion-instruction span {
+  border: 1px solid var(--orange);
+  border-radius: 0;
+  background: transparent;
+  color: var(--orange);
+}
+
+body[data-visual-style="retro"] .cleaning-steps li strong,
+body[data-visual-style="retro"] .cleaning-check strong,
+body[data-visual-style="retro"] .completion-instruction strong {
+  color: #ffe1ad;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .cleaning-check.is-checked {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+}
+
+body[data-visual-style="retro"] .cleaning-primary,
+body[data-visual-style="retro"] .cleaning-secondary {
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .cleaning-primary::before,
+body[data-visual-style="retro"] .cleaning-secondary::before {
+  content: "[ ";
+}
+
+body[data-visual-style="retro"] .cleaning-primary::after,
+body[data-visual-style="retro"] .cleaning-secondary::after {
+  content: " ]";
+}
+
+body[data-visual-style="retro"] .cleaning-primary {
+  background: var(--orange);
+  color: #130b05;
+}
+
+body[data-visual-style="retro"] .cleaning-primary:disabled {
+  border-color: var(--line);
+  background: #130d08;
+  color: #5e4329;
+}
+
+body[data-visual-style="retro"] .cleaning-secondary {
+  background: #0c0906;
+  color: var(--muted-strong);
+}
+
+body[data-visual-style="retro"] .cleaning-timer-card > div:first-child span,
+body[data-visual-style="retro"] .cleaning-timer-card small {
+  color: var(--muted-strong);
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="retro"] .cleaning-timer-card > div:first-child strong {
+  color: #ffe1ad;
+  font-family: inherit;
+}
+
+body[data-visual-style="retro"] .cleaning-progress {
+  height: 13px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #130d08 0,
+      #130d08 11px,
+      #090705 12px,
+      #090705 14px
+    );
+}
+
+body[data-visual-style="retro"] .cleaning-progress span {
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--orange) 0,
+      var(--orange) 11px,
+      #3f230e 12px,
+      #3f230e 14px
+    );
+}
+
+body[data-visual-style="blueprint"] .service-button {
+  align-self: stretch;
+  min-width: 94px;
+  min-height: auto;
+  margin-left: 0;
+  padding: 10px;
+  border: 0;
+  border-right: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .service-button::before {
+  display: block;
+  margin: 0 0 4px;
+  content: "[SVC]";
+}
+
+body[data-visual-style="blueprint"] .service-screen,
+body[data-visual-style="blueprint"] .recipe-screen,
+body[data-visual-style="blueprint"] .cleaning-screen {
+  background-color: var(--canvas);
+  background-image:
+    linear-gradient(rgba(34, 34, 34, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 34, 34, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(34, 34, 34, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 34, 34, 0.025) 1px, transparent 1px);
+  background-size:
+    40px 40px,
+    40px 40px,
+    8px 8px,
+    8px 8px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-header {
+  min-height: 94px;
+  padding: 0;
+  border-bottom: 2px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+body[data-visual-style="blueprint"] .cleaning-header > div:first-child {
+  align-self: stretch;
+  flex: 1;
+  padding: 15px 18px;
+  border-right: 1px solid var(--line-strong);
+  align-content: center;
+}
+
+body[data-visual-style="blueprint"] .cleaning-header strong {
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 26px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-header > div:first-child span {
+  color: var(--muted);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+}
+
+body[data-visual-style="blueprint"] .service-content {
+  min-height: calc(100vh - 94px);
+}
+
+body[data-visual-style="blueprint"] .service-content > h2,
+body[data-visual-style="blueprint"] .recipe-toolbar h2,
+body[data-visual-style="blueprint"] .recipe-editor-head h3 {
+  color: var(--ink);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .service-menu-grid {
+  gap: 0;
+  border: 2px solid var(--line-strong);
+}
+
+body[data-visual-style="blueprint"] .service-menu-card {
+  min-height: 240px;
+  border: 0;
+  border-right: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: rgba(246, 244, 237, 0.9);
+}
+
+body[data-visual-style="blueprint"] .service-menu-card:last-child {
+  border-right: 0;
+}
+
+body[data-visual-style="blueprint"] .service-menu-card span,
+body[data-visual-style="blueprint"] .recipe-panel-label,
+body[data-visual-style="blueprint"] .recipe-control-value {
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+}
+
+body[data-visual-style="blueprint"] .recipe-content {
+  height: calc(100vh - 94px);
+}
+
+body[data-visual-style="blueprint"] .recipe-workspace,
+body[data-visual-style="blueprint"] .recipe-category-nav button,
+body[data-visual-style="blueprint"] .recipe-control,
+body[data-visual-style="blueprint"] .recipe-drink-list button,
+body[data-visual-style="blueprint"] .recipe-dirty-mark {
+  border-radius: 0;
+}
+
+body[data-visual-style="blueprint"] .recipe-workspace {
+  border: 2px solid var(--line-strong);
+  background: rgba(246, 244, 237, 0.94);
+}
+
+body[data-visual-style="blueprint"] .recipe-list-panel {
+  border-color: var(--line-strong);
+  background: transparent;
+}
+
+body[data-visual-style="blueprint"] .recipe-drink-list button.is-active,
+body[data-visual-style="blueprint"] .recipe-category-nav button.is-active {
+  border-color: var(--line-strong);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(34, 34, 34, 0.08) 0,
+      rgba(34, 34, 34, 0.08) 5px,
+      transparent 5px,
+      transparent 10px
+    );
+  color: var(--ink);
+}
+
+body[data-visual-style="blueprint"] .recipe-control {
+  border-color: var(--line-strong);
+  background: transparent;
+}
+
+body[data-visual-style="blueprint"] .recipe-editor-head,
+body[data-visual-style="blueprint"] .recipe-actions {
+  border-color: var(--line-strong);
+}
+
+body[data-visual-style="blueprint"] .cleaning-content {
+  min-height: calc(100vh - 94px);
+}
+
+body[data-visual-style="blueprint"] .cleaning-phase {
+  border: 2px solid var(--line-strong);
+  background: rgba(246, 244, 237, 0.9);
+}
+
+body[data-visual-style="blueprint"] .cleaning-kicker,
+body[data-visual-style="blueprint"] .cleaning-phase h2,
+body[data-visual-style="blueprint"] .cleaning-intro {
+  padding-inline: 18px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-kicker {
+  margin: 16px 0 6px;
+  color: var(--muted);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 8px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-kicker::before {
+  content: "FORM SECTION / ";
+}
+
+body[data-visual-style="blueprint"] .cleaning-phase h2 {
+  color: var(--ink);
+  font-size: clamp(34px, 7vw, 50px);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .cleaning-intro {
+  color: var(--muted-strong);
+  font-size: 14px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-steps {
+  margin: 24px 0 0;
+  gap: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+body[data-visual-style="blueprint"] .cleaning-steps li {
+  min-height: 82px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  grid-template-columns: 68px 1fr;
+  gap: 0;
+}
+
+body[data-visual-style="blueprint"] .cleaning-steps li span,
+body[data-visual-style="blueprint"] .completion-instruction span {
+  width: auto;
+  height: 100%;
+  border-right: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+}
+
+body[data-visual-style="blueprint"] .cleaning-steps li strong {
+  padding: 15px 17px;
+  color: var(--ink);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .cleaning-check {
+  min-height: 68px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-visual-style="blueprint"] .cleaning-check.is-checked {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(216, 75, 42, 0.055) 0,
+      rgba(216, 75, 42, 0.055) 5px,
+      transparent 5px,
+      transparent 10px
+    );
+}
+
+body[data-visual-style="blueprint"] .cleaning-actions {
+  margin: auto 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line-strong);
+  gap: 0;
+}
+
+body[data-visual-style="blueprint"] .cleaning-primary,
+body[data-visual-style="blueprint"] .cleaning-secondary {
+  min-height: 62px;
+  border: 0;
+  border-right: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .cleaning-primary {
+  border-right: 0;
+  background: var(--ink);
+  color: #fff;
+}
+
+body[data-visual-style="blueprint"] .cleaning-primary::before,
+body[data-visual-style="blueprint"] .cleaning-secondary::before {
+  margin-right: 7px;
+  content: "[ ]";
+}
+
+body[data-visual-style="blueprint"] .cleaning-primary:not(:disabled)::before {
+  content: "[X]";
+}
+
+body[data-visual-style="blueprint"] .cleaning-primary:disabled {
+  background: var(--disabled);
+  color: var(--muted);
+}
+
+body[data-visual-style="blueprint"] .cleaning-timer-card {
+  padding: 0;
+  border: 2px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--surface);
+}
+
+body[data-visual-style="blueprint"] .cleaning-timer-card > div:first-child {
+  min-height: 74px;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+body[data-visual-style="blueprint"] .cleaning-timer-card > div:first-child span {
+  align-self: stretch;
+  flex: 1;
+  padding: 20px 16px;
+  border-right: 1px solid var(--line-strong);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .cleaning-timer-card > div:first-child strong {
+  min-width: 125px;
+  padding: 18px;
+  color: var(--ink);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+}
+
+body[data-visual-style="blueprint"] .cleaning-progress {
+  height: 38px;
+  margin: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 17px,
+      rgba(34, 34, 34, 0.14) 18px,
+      rgba(34, 34, 34, 0.14) 19px
+    );
+}
+
+body[data-visual-style="blueprint"] .cleaning-progress span {
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--ink) 0,
+      var(--ink) 5px,
+      #474747 5px,
+      #474747 10px
+    );
+}
+
+body[data-visual-style="blueprint"] .cleaning-timer-card small {
+  padding: 0 14px 13px;
+  color: var(--muted);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 8px;
+}
+
+body[data-visual-style="blueprint"] .cleaning-process > .cleaning-secondary {
+  margin: auto 0 0;
+  width: 100%;
+  border-top: 1px solid var(--line-strong);
+  border-right: 0;
+}
+
+body[data-visual-style="blueprint"] .completion-instruction {
+  padding: 0;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: var(--green-soft);
+  grid-template-columns: 76px 1fr;
+}
+
+body[data-visual-style="blueprint"] .completion-instruction strong {
+  padding: 20px;
+  color: var(--ink);
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+body[data-visual-style="blueprint"] .cleaning-complete .cleaning-primary {
+  width: calc(100% - 36px);
+  margin: 0 18px 18px;
+  border: 1px solid var(--line-strong);
+}
+
+@media (max-width: 520px) {
+  .service-menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-menu-card {
+    min-height: 150px;
+  }
+
+  .recipe-content {
+    padding-inline: 12px;
+  }
+
+  .recipe-workspace {
+    grid-template-columns: 150px minmax(0, 1fr);
+  }
+
+  .recipe-toolbar {
+    align-items: flex-start;
+  }
+
+  .recipe-toolbar h2 {
+    font-size: 25px;
+  }
+
+  .service-button {
+    min-height: 38px;
+    padding-inline: 10px;
+    font-size: 11px;
+  }
+
+  .cleaning-header {
+    padding-inline: 14px;
+  }
+
+  .cleaning-content {
+    padding: 22px 12px 18px;
+  }
+
+  .cleaning-steps li {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .cleaning-steps li span,
+  .completion-instruction span {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cleaning-actions {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-visual-style="blueprint"] .service-button {
+    min-width: 76px;
+    padding-inline: 6px;
+    font-size: 8px;
+  }
+}

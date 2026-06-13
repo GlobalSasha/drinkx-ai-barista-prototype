@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e9e7df" />
+    <title>DrinkX Barista — Blueprint Manifest</title>
+    <link rel="stylesheet" href="./barista-blueprint.css" />
+    <link rel="stylesheet" href="./barista-cleaning.css" />
+  </head>
+  <body data-visual-style="blueprint">
+    <main class="barista-app" id="baristaApp">
+      <section class="workspace" aria-label="Рабочий экран бариста">
+        <header class="status-bar document-header">
+          <div class="brand blueprint-brand" aria-label="DrinkX Barista">
+            <strong>DRINKX</strong>
+            <span>BEVERAGE PRODUCTION MANIFEST</span>
+          </div>
+
+          <button class="service-button" id="serviceButton" type="button">Сервис</button>
+          <div class="machine-status is-ready" id="machineStatus">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="machineStatusText">LINE READY</span>
+          </div>
+        </header>
+
+        <div class="telemetry-line document-meta" aria-label="Параметры ведомости">
+          <span>FORM DX-BR-01</span>
+          <span>REV. 03</span>
+          <span>STATION 001</span>
+          <span>SHIFT A</span>
+        </div>
+
+        <nav class="category-nav" id="categoryNav" aria-label="Категории напитков"></nav>
+
+        <section class="menu-section" aria-labelledby="sectionTitle">
+          <header class="section-head">
+            <div>
+              <p class="section-kicker">Меню</p>
+              <h1 id="sectionTitle">Популярное</h1>
+            </div>
+            <span class="section-count" id="sectionCount"></span>
+          </header>
+
+          <div class="drink-grid" id="drinkGrid"></div>
+        </section>
+
+        <section class="changes-panel" id="changesPanel" aria-live="polite">
+          <div>
+            <span class="changes-label">ORDER AMENDMENTS</span>
+            <strong id="changesSummary">Без изменений</strong>
+          </div>
+          <button class="reset-button" id="resetButton" type="button" hidden>Сбросить</button>
+        </section>
+
+        <section class="modifier-bar" aria-label="Настройки напитка">
+          <button class="modifier-button" type="button" data-modifier="size">
+            <span>Размер</span>
+            <strong id="sizeValue">M</strong>
+          </button>
+          <button class="modifier-button" type="button" data-modifier="milk">
+            <span>Молоко</span>
+            <strong id="milkValue">Обычное</strong>
+          </button>
+          <button class="modifier-button" type="button" data-modifier="syrup">
+            <span>Сироп</span>
+            <strong id="syrupValue">Без сиропа</strong>
+          </button>
+          <button class="modifier-button" type="button" data-modifier="sugar">
+            <span>Сахар</span>
+            <strong id="sugarValue">Без сахара</strong>
+          </button>
+        </section>
+      </section>
+
+      <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+      <section class="option-sheet" id="optionSheet" aria-modal="true" role="dialog" hidden>
+        <header class="option-sheet-head">
+          <div>
+            <p>Настройка заказа</p>
+            <h2 id="optionSheetTitle">Молоко</h2>
+          </div>
+          <button class="close-button" id="closeSheetButton" type="button" aria-label="Закрыть">×</button>
+        </header>
+        <div class="option-grid" id="optionGrid"></div>
+      </section>
+
+      <section class="service-screen" id="serviceScreen" hidden aria-live="polite">
+        <header class="cleaning-header">
+          <div>
+            <strong>DRINKX</strong>
+            <span>SERVICE / CONTROL CENTER</span>
+          </div>
+          <div class="machine-status is-service">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Сервис</span>
+          </div>
+        </header>
+        <div class="service-content">
+          <p class="cleaning-kicker">Сервисное меню</p>
+          <h2>Управление комплексом</h2>
+          <p class="cleaning-intro">Выберите сервисную операцию.</p>
+          <div class="service-menu-grid">
+            <button class="service-menu-card" id="openCleaningButton" type="button">
+              <span>01 / CLEAN</span>
+              <strong>Мойка комплекса</strong>
+              <small>Подготовка, запуск и контроль 20-минутного цикла.</small>
+            </button>
+            <button class="service-menu-card" id="openRecipesButton" type="button">
+              <span>02 / RECIPES</span>
+              <strong>Настройка рецептов</strong>
+              <small>Объёмы, температуры, молочная пена и аэрация.</small>
+            </button>
+          </div>
+          <button class="cleaning-secondary service-close" id="serviceCloseButton" type="button">Вернуться к меню</button>
+        </div>
+      </section>
+
+      <section class="cleaning-screen" id="cleaningScreen" hidden aria-live="polite">
+        <header class="cleaning-header">
+          <div>
+            <strong>DRINKX</strong>
+            <span>SERVICE / CLEANING PROCEDURE</span>
+          </div>
+          <div class="machine-status is-service">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="cleaningStatus">Подготовка</span>
+          </div>
+        </header>
+
+        <div class="cleaning-content">
+          <section class="cleaning-phase" id="cleaningSetup">
+            <div class="cleaning-step-head">
+              <div>
+                <p class="cleaning-kicker">Подготовка к мойке</p>
+                <h2 id="cleaningStepTitle">Помойте ёмкости</h2>
+              </div>
+              <span class="cleaning-step-count" id="cleaningStepCount">01 / 04</span>
+            </div>
+            <div class="cleaning-step-progress" aria-label="Прогресс инструкции">
+              <span class="is-active"></span><span></span><span></span><span></span>
+            </div>
+            <div class="cleaning-instruction-stage">
+              <div class="cleaning-animation is-containers" id="cleaningAnimation" aria-hidden="true">
+                <div class="cleaning-machine">
+                  <span class="machine-window"></span>
+                  <span class="machine-line line-one"></span>
+                  <span class="machine-line line-two"></span>
+                </div>
+                <div class="cleaning-object">
+                  <span class="object-cap"></span>
+                  <span class="object-body"></span>
+                  <span class="object-liquid"></span>
+                </div>
+                <div class="cleaning-flow">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="cleaning-symbol"></div>
+              </div>
+              <div class="cleaning-step-copy">
+                <span id="cleaningStepLabel">Шаг 1</span>
+                <strong id="cleaningStepInstruction">Достаньте все ёмкости из холодильника и помойте их.</strong>
+                <p id="cleaningStepHint">Убедитесь, что внутри не осталось продукта.</p>
+              </div>
+            </div>
+            <div class="cleaning-step-actions">
+              <button class="cleaning-secondary" id="cleaningCancelButton" type="button">Сервисное меню</button>
+              <button class="cleaning-secondary" id="cleaningBackButton" type="button" disabled>Назад</button>
+              <button class="cleaning-primary" id="cleaningNextButton" type="button">Готово, далее</button>
+            </div>
+          </section>
+
+          <section class="cleaning-phase cleaning-process" id="cleaningProcess" hidden>
+            <p class="cleaning-kicker">Автоматический цикл</p>
+            <h2>Мойка в процессе</h2>
+            <p class="cleaning-intro">Не отключайте коннекторы и не открывайте сервисный контур.</p>
+
+            <div class="cleaning-timer-card">
+              <div>
+                <span id="cleaningStage">Промывка системы</span>
+                <strong id="cleaningTime">20:00</strong>
+              </div>
+              <div class="cleaning-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <span id="cleaningProgress"></span>
+              </div>
+              <small>Прототип показывает 20-минутный цикл в ускоренном режиме.</small>
+            </div>
+
+            <button class="cleaning-secondary" id="cleaningDemoFinishButton" type="button">Завершить демо</button>
+          </section>
+
+          <section class="cleaning-phase cleaning-complete" id="cleaningComplete" hidden>
+            <p class="cleaning-kicker">Цикл завершён</p>
+            <h2>Мойка закончена</h2>
+            <div class="completion-instruction">
+              <span>06</span>
+              <strong>Достаньте промывочную ёмкость и отключите от неё все коннекторы.</strong>
+            </div>
+            <button class="cleaning-primary" id="cleaningCloseButton" type="button">Завершить обслуживание</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="recipe-screen" id="recipeScreen" hidden aria-live="polite">
+        <header class="cleaning-header">
+          <div>
+            <strong>DRINKX</strong>
+            <span>SERVICE / RECIPE PARAMETERS</span>
+          </div>
+          <div class="machine-status is-service">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="recipeStatus">Настройка</span>
+          </div>
+        </header>
+        <div class="recipe-content">
+          <div class="recipe-toolbar">
+            <button class="cleaning-secondary" id="recipeBackButton" type="button">Сервисное меню</button>
+            <div>
+              <p class="cleaning-kicker">Параметры напитков</p>
+              <h2>Настройка рецептов</h2>
+            </div>
+          </div>
+          <nav class="recipe-category-nav" id="recipeCategoryNav" aria-label="Категории рецептов"></nav>
+          <div class="recipe-workspace">
+            <aside class="recipe-list-panel">
+              <span class="recipe-panel-label">Напитки</span>
+              <div class="recipe-drink-list" id="recipeDrinkList"></div>
+            </aside>
+            <section class="recipe-editor" id="recipeEditor">
+              <header class="recipe-editor-head">
+                <div>
+                  <span class="recipe-panel-label">Активный рецепт</span>
+                  <h3 id="recipeEditorTitle">Капучино</h3>
+                  <p id="recipeEditorMeta">Молочный кофе</p>
+                </div>
+                <span class="recipe-dirty-mark" id="recipeDirtyMark" hidden>Изменён</span>
+              </header>
+              <div class="recipe-controls" id="recipeControls"></div>
+              <div class="recipe-actions">
+                <button class="cleaning-secondary" id="recipeResetButton" type="button">Сбросить</button>
+                <button class="cleaning-primary" id="recipeSaveButton" type="button">Сохранить рецепт</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="preparation-screen" id="preparationScreen" hidden aria-live="polite">
+        <header class="prep-header document-header">
+          <div class="brand blueprint-brand" aria-label="DrinkX Barista">
+            <strong>DRINKX</strong>
+            <span>PRODUCTION CONTROL SHEET</span>
+          </div>
+          <div class="machine-status is-brewing">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>IN PROCESS</span>
+          </div>
+        </header>
+
+        <div class="prep-content">
+          <p class="prep-kicker">Рецепт запущен</p>
+          <h2 id="prepDrinkName">Капучино</h2>
+          <div class="prep-tags" id="prepTags"></div>
+
+          <div class="progress-card">
+            <div class="progress-copy">
+              <span id="prepStage">Подготовка ингредиентов</span>
+              <strong id="prepTime">00:25</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+              <span id="prepProgress"></span>
+            </div>
+          </div>
+
+          <button class="secondary-button" id="demoFinishButton" type="button">
+            Завершить демо
+          </button>
+        </div>
+      </section>
+
+      <section class="ready-overlay" id="readyOverlay" hidden aria-live="assertive">
+        <div class="ready-card">
+          <span class="ready-icon" aria-hidden="true">✓</span>
+          <p>Готово</p>
+          <h2 id="readyDrinkName">Капучино</h2>
+          <span>Можно ставить следующий стакан</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="./barista.js" type="module"></script>
+  </body>
+</html>
