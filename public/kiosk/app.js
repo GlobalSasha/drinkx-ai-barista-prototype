@@ -543,12 +543,12 @@ function renderConfigure() {
                   const item = typeof raw === "string" ? { value: raw } : raw;
                   const active = state.config[section.key] === item.value;
                   return `
-                    <button class="option-button ${active ? "is-active" : ""} ${item.unavailable ? "is-unavailable" : ""}"
+                    <button class="option-button ${item.badge ? "has-badge" : ""} ${active ? "is-active" : ""} ${item.unavailable ? "is-unavailable" : ""}"
                       type="button" data-action="option" data-key="${section.key}" data-value="${item.value}"
                       ${item.unavailable ? `data-unavailable="${item.value}"` : ""}
                       aria-pressed="${active}" ${item.unavailable ? `aria-label="${item.value}, недоступно"` : ""}>
-                      ${item.value}
-                      ${item.badge ? `<span>${item.badge}</span>` : ""}
+                      <span class="option-label">${item.value}</span>
+                      ${item.badge ? `<span class="option-badge">${item.badge}</span>` : ""}
                     </button>`;
                 })
                 .join("")}
