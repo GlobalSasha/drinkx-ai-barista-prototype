@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="snow">
+<path id="Vector" d="M10 2V18" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+<path id="Vector_2" d="M2 10H18" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+<path id="Vector_3" d="M4.3 4.3L15.7 15.7" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+<path id="Vector_4" d="M15.7 4.3L4.3 15.7" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+<path id="Vector_5" d="M8.7 3.2L10 4.5L11.3 3.2" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+<path id="Vector_6" d="M8.7 16.8L10 15.5L11.3 16.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+<path id="Vector_7" d="M3.2 8.7L4.5 10L3.2 11.3" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+<path id="Vector_8" d="M16.8 8.7L15.5 10L16.8 11.3" stroke="white" stroke-width="1.1" stroke-linecap="round"/>
+</g>
+</svg>
