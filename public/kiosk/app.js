@@ -149,6 +149,7 @@ const state = {
     syrup: "Банан",
     sugar: "2 ложки",
   },
+  lateSyrup: null,
   countdown: 0,
   countdownMax: 0,
   timer: null,
@@ -421,10 +422,34 @@ function plainHeader(title, target = "service") {
     </header>`;
 }
 
+const syrupDisplayNames = {
+  Ваниль: "Ванильный",
+  Карамель: "Карамельный",
+  Кокос: "Кокосовый",
+  Миндаль: "Миндальный",
+  Фундук: "Фундучный",
+  Банан: "Банановый",
+  Клубника: "Клубничный",
+  Лаванда: "Лавандовый",
+  Шоколад: "Шоколадный",
+};
+
+function syrupDisplayName(value) {
+  if (!value || value === "Нет") return "Нет";
+  return syrupDisplayNames[value] || value;
+}
+
+function syrupSummary() {
+  const configured = syrupDisplayName(state.config.syrup);
+  const added = syrupDisplayName(state.lateSyrup);
+
+  if (!state.lateSyrup) return configured;
+  return configured === "Нет" ? added : `${configured} + ${added}`;
+}
+
 function drinkHeader({ compact = false } = {}) {
   const drink = state.drink;
   const milk = state.config.milk === "Безлакт." ? "Безлактозное" : state.config.milk;
-  const syrup = state.config.syrup === "Нет" ? "Нет" : `${state.config.syrup}овый`;
   return `
     <header class="flow-header ${compact ? "flow-header--compact" : ""}">
       <div class="flow-title">
@@ -443,7 +468,7 @@ function drinkHeader({ compact = false } = {}) {
               <strong>${state.config.volume}</strong><strong>Кофе</strong><strong>Вода</strong>
             </div>
             <p>Молоко: ${milk}</p>
-            <p>Сироп: ${syrup}</p>
+            <p data-syrup-summary>Сироп: ${syrupSummary()}</p>
             <p>Сахар: ${state.config.sugar}</p>
           </div>
         </div>`
@@ -588,6 +613,54 @@ function liquidStage({ label, hint, percent = 56, time = state.countdown, title 
     </section>`;
 }
 
+function renderLateSyrupControl() {
+  const syrupSection = configSections.find((section) => section.key === "syrup");
+  const availableSyrups = syrupSection.items
+    .map((raw) => (typeof raw === "string" ? { value: raw } : raw))
+    .filter((item) => item.value !== "Нет" && !item.unavailable);
+
+  return `
+    <button class="late-syrup-trigger ${state.lateSyrup ? "is-added" : ""}" type="button"
+      data-action="toggle-late-syrup" aria-expanded="false" aria-controls="late-syrup-sheet">
+      <span class="late-syrup-plus" aria-hidden="true">${state.lateSyrup ? "✓" : "+"}</span>
+      <span class="late-syrup-trigger-copy">
+        <small>${state.lateSyrup ? "СИРОП УЖЕ ДОБАВЛЕН" : "ЗАБЫЛИ ДОБАВИТЬ?"}</small>
+        <strong>${state.lateSyrup ? state.lateSyrup : "ДОБАВИТЬ СИРОП"}</strong>
+      </span>
+      <span class="late-syrup-arrow" aria-hidden="true">↑</span>
+    </button>
+    <button class="late-syrup-backdrop" type="button" data-action="close-late-syrup"
+      aria-label="Закрыть выбор сиропа" tabindex="-1"></button>
+    <section class="late-syrup-sheet" id="late-syrup-sheet" aria-hidden="true"
+      aria-label="Добавить сироп во время приготовления" inert>
+      <header>
+        <div>
+          <p>ТАЙМЕР ПРОДОЛЖАЕТСЯ</p>
+          <h2>ВЫБЕРИТЕ СИРОП</h2>
+        </div>
+        <button type="button" data-action="close-late-syrup" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <div class="late-syrup-list">
+        ${availableSyrups
+          .map(
+            (item) => `
+              <button class="${state.lateSyrup === item.value ? "is-selected" : ""}" type="button"
+                data-action="select-late-syrup" data-value="${item.value}"
+                aria-label="Добавить сироп ${item.value}${item.badge ? `, осталось ${item.badge}` : ""}"
+                aria-pressed="${state.lateSyrup === item.value}">
+                <span>${item.value}</span>
+                ${item.badge ? `<small>ОСТАЛОСЬ ${item.badge}</small>` : "<small>В НАЛИЧИИ</small>"}
+                <b aria-hidden="true">+</b>
+              </button>`,
+          )
+          .join("")}
+      </div>
+    </section>
+    <div class="late-syrup-toast" role="status" aria-live="polite"></div>`;
+}
+
 function renderPour(kind) {
   const milk = kind === "milk";
   return `
@@ -598,6 +671,7 @@ function renderPour(kind) {
       percent: milk ? 38 : 66,
       time: state.countdown,
     })}
+    ${renderLateSyrupControl()}
     ${actionBar("СТОП", "stop", { danger: true })}`;
 }
 
@@ -888,6 +962,56 @@ function updateTimers() {
   });
 }
 
+function setLateSyrupPanel(open) {
+  const trigger = app.querySelector(".late-syrup-trigger");
+  const sheet = app.querySelector(".late-syrup-sheet");
+  const backdrop = app.querySelector(".late-syrup-backdrop");
+  if (!trigger || !sheet || !backdrop) return;
+
+  trigger.setAttribute("aria-expanded", String(open));
+  sheet.setAttribute("aria-hidden", String(!open));
+  sheet.toggleAttribute("inert", !open);
+  sheet.classList.toggle("is-open", open);
+  backdrop.classList.toggle("is-open", open);
+
+  if (open && !reducedMotionQuery.matches) {
+    window.setTimeout(() => sheet.querySelector('[data-action="select-late-syrup"]')?.focus(), 260);
+  }
+}
+
+function selectLateSyrup(control) {
+  const value = control.dataset.value;
+  if (!value) return;
+
+  state.lateSyrup = value;
+  app.querySelectorAll('[data-action="select-late-syrup"]').forEach((button) => {
+    const selected = button === control;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+
+  const summary = app.querySelector("[data-syrup-summary]");
+  if (summary) summary.textContent = `Сироп: ${syrupSummary()}`;
+
+  const trigger = app.querySelector(".late-syrup-trigger");
+  if (trigger) {
+    trigger.classList.add("is-added");
+    trigger.querySelector(".late-syrup-plus").textContent = "✓";
+    trigger.querySelector("small").textContent = "СИРОП ДОБАВЛЕН";
+    trigger.querySelector("strong").textContent = value;
+  }
+
+  setLateSyrupPanel(false);
+
+  const toast = app.querySelector(".late-syrup-toast");
+  if (toast) {
+    toast.textContent = `${value.toUpperCase()} · ДОБАВЛЕН`;
+    toast.classList.remove("is-visible");
+    window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+    window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
+  }
+}
+
 function render() {
   const screens = {
     menu: renderMenu,
@@ -949,6 +1073,7 @@ app.addEventListener("click", (event) => {
 
   if (action === "choose-drink") {
     state.drink = drinks.find((drink) => drink.id === control.dataset.drink) || drinks[1];
+    state.lateSyrup = null;
     morphToConfigure(control);
   }
 
@@ -965,10 +1090,18 @@ app.addEventListener("click", (event) => {
     selectOption(control);
   }
 
-  if (action === "start-drink") go("pour-coffee");
+  if (action === "start-drink") {
+    state.lateSyrup = null;
+    go("pour-coffee");
+  }
   if (action === "continue-pour") go("pour-milk");
   if (action === "stop") go("error");
   if (action === "rinse-start") go("rinse-progress");
+  if (action === "toggle-late-syrup") {
+    setLateSyrupPanel(control.getAttribute("aria-expanded") !== "true");
+  }
+  if (action === "close-late-syrup") setLateSyrupPanel(false);
+  if (action === "select-late-syrup") selectLateSyrup(control);
 
   if (action === "recipe") {
     state.recipe = control.dataset.recipe;
