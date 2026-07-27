@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8f2" />
+    <title>DrinkX Flow — бело-оранжевая станция</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./flow.css?v=b4a32ee99407" />
+  </head>
+  <body>
+    <a class="skip-link" href="#flow-catalog">К напиткам</a>
+
+    <main id="flow-app" class="flow-app" aria-label="Рабочая станция DrinkX Flow">
+      <header class="flow-header">
+        <div class="flow-brand" aria-label="DrinkX Flow">
+          <span class="flow-brand__mark" aria-hidden="true">DX</span>
+          <span>
+            <strong>DRINKX <i>FLOW</i></strong>
+            <small>STATION OS · 03</small>
+          </span>
+        </div>
+
+        <div class="machine-pill" role="status">
+          <span class="machine-pill__dot" aria-hidden="true"></span>
+          <span>
+            <strong>ГОТОВА К РАБОТЕ</strong>
+            <small>Все системы в норме</small>
+          </span>
+        </div>
+
+        <div class="flow-header__actions">
+          <time id="flow-clock" datetime="">00:00</time>
+          <button id="flow-sound" class="icon-button" type="button" aria-pressed="true">
+            ЗВУК
+          </button>
+          <a class="icon-button" href="./index.html">ВЫБОР</a>
+        </div>
+      </header>
+
+      <section class="health-strip" aria-label="Состояние станции">
+        <article class="health-card health-card--accent">
+          <span>ОЧЕРЕДЬ</span>
+          <strong id="queue-count">03</strong>
+          <small>≈ 02:10</small>
+        </article>
+        <article class="health-card">
+          <span>ТЕМПЕРАТУРА</span>
+          <strong>93°</strong>
+          <small>стабильно</small>
+        </article>
+        <article class="health-card">
+          <span>ДАВЛЕНИЕ</span>
+          <strong>9.1</strong>
+          <small>бар</small>
+        </article>
+        <button id="flow-materials" class="health-card health-card--button" type="button">
+          <span>СЫРЬЁ</span>
+          <strong>96%</strong>
+          <small>1 предупреждение →</small>
+        </button>
+      </section>
+
+      <section class="flow-workspace">
+        <nav id="flow-categories" class="flow-nav" aria-label="Категории напитков"></nav>
+
+        <section id="flow-catalog" class="flow-catalog" aria-labelledby="flow-title">
+          <header class="catalog-header">
+            <div>
+              <span class="overline">БЫСТРЫЙ ВЫБОР</span>
+              <h1 id="flow-title">Популярное</h1>
+            </div>
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <span class="sr-only">Поиск напитка</span>
+              <input id="flow-search" type="search" placeholder="Найти напиток" autocomplete="off" />
+              <kbd>/</kbd>
+            </label>
+          </header>
+
+          <div class="catalog-tools">
+            <span id="result-count">8 напитков</span>
+            <div class="catalog-legend" aria-label="Обозначения остатков">
+              <span><i class="dot dot--ok"></i>Готово</span>
+              <span><i class="dot dot--low"></i>Мало</span>
+              <span><i class="dot dot--off"></i>Нет</span>
+            </div>
+          </div>
+
+          <div id="flow-drinks" class="flow-drinks" aria-live="polite"></div>
+        </section>
+
+        <aside class="flow-order" aria-label="Текущий заказ">
+          <section id="flow-order-empty" class="order-empty">
+            <span class="order-number">НОВЫЙ</span>
+            <div>
+              <p class="overline">ТЕКУЩИЙ ЗАКАЗ</p>
+              <h2>Выберите<br />напиток</h2>
+              <p>Карточка или клавиши 1–8</p>
+            </div>
+            <button id="repeat-last" class="repeat-button" type="button">
+              <span>ПОВТОРИТЬ ПОСЛЕДНИЙ</span>
+              <strong>Капучино · 350 мл</strong>
+            </button>
+          </section>
+
+          <form id="flow-order-form" class="order-form" hidden>
+            <header class="order-header">
+              <div>
+                <p class="overline">ЗАКАЗ <span id="flow-order-id">#048</span></p>
+                <h2 id="flow-order-name">—</h2>
+              </div>
+              <button id="flow-clear" class="clear-button" type="button">СБРОС</button>
+            </header>
+
+            <fieldset class="flow-control">
+              <legend>ОБЪЁМ</legend>
+              <div id="flow-volume" class="segmented"></div>
+            </fieldset>
+
+            <fieldset class="flow-control">
+              <legend>МОЛОКО</legend>
+              <div id="flow-milk" class="option-grid"></div>
+            </fieldset>
+
+            <fieldset class="flow-control">
+              <legend>СИРОП</legend>
+              <div id="flow-syrup" class="option-grid"></div>
+            </fieldset>
+
+            <fieldset class="flow-control">
+              <legend>ПОРЦИИ</legend>
+              <div id="flow-portions" class="segmented segmented--small"></div>
+            </fieldset>
+
+            <div class="recipe-check">
+              <span aria-hidden="true">✓</span>
+              <div>
+                <strong>РЕЦЕПТ ПРОВЕРЕН</strong>
+                <small id="flow-summary">—</small>
+              </div>
+              <b id="flow-duration">00:42</b>
+            </div>
+
+            <button id="flow-start" class="start-button" type="submit">
+              <span>
+                <small>СТАРТ</small>
+                ПРИГОТОВИТЬ
+              </span>
+              <kbd>ENTER</kbd>
+            </button>
+          </form>
+        </aside>
+      </section>
+
+      <footer class="queue-bar" aria-label="Очередь заказов">
+        <div class="queue-bar__title">
+          <span class="queue-pulse" aria-hidden="true"></span>
+          <strong>ЖИВАЯ ОЧЕРЕДЬ</strong>
+        </div>
+        <ol id="flow-queue">
+          <li><span>01</span><strong>Латте</strong><small>готовится · 00:18</small></li>
+          <li><span>02</span><strong>Раф</strong><small>следующий</small></li>
+          <li><span>03</span><strong>Американо</strong><small>в очереди</small></li>
+        </ol>
+      </footer>
+
+      <section id="flow-process" class="process-layer" aria-hidden="true" inert>
+        <header class="process-header">
+          <div class="flow-brand flow-brand--compact">
+            <span class="flow-brand__mark" aria-hidden="true">DX</span>
+            <span><strong>DRINKX <i>FLOW</i></strong><small>АВТОМАТИЧЕСКИЙ ЦИКЛ</small></span>
+          </div>
+          <div class="process-order">
+            <span id="process-order-id">ЗАКАЗ #048</span>
+            <strong id="process-drink">—</strong>
+          </div>
+        </header>
+
+        <div class="process-body">
+          <div class="process-status">
+            <span id="process-step" class="process-step">ЭТАП 1 / 4</span>
+            <h2 id="process-title">ПОДГОТОВКА<br />СИСТЕМЫ</h2>
+            <p id="process-hint">Поставьте стакан в зону выдачи</p>
+          </div>
+
+          <div class="process-gauge" aria-label="Прогресс приготовления">
+            <svg viewBox="0 0 220 220" aria-hidden="true">
+              <circle class="gauge-track" cx="110" cy="110" r="96"></circle>
+              <circle id="flow-progress-ring" class="gauge-value" cx="110" cy="110" r="96"></circle>
+            </svg>
+            <div>
+              <strong id="process-time">00:16</strong>
+              <span id="process-percent">0%</span>
+            </div>
+          </div>
+
+          <ol class="process-timeline">
+            <li class="is-active" data-flow-step="0"><span>1</span><strong>ПОДГОТОВКА</strong><small>4 сек</small></li>
+            <li data-flow-step="1"><span>2</span><strong>КОФЕ</strong><small>4 сек</small></li>
+            <li data-flow-step="2"><span>3</span><strong>МОЛОКО</strong><small>4 сек</small></li>
+            <li data-flow-step="3"><span>4</span><strong>ФИНИШ</strong><small>4 сек</small></li>
+          </ol>
+        </div>
+
+        <footer class="process-footer">
+          <div class="process-sensors">
+            <span><i class="dot dot--ok"></i>СТАКАН НА МЕСТЕ</span>
+            <span><i class="dot dot--ok"></i>РЕЦЕПТ ЗАГРУЖЕН</span>
+          </div>
+          <button id="flow-stop" class="stop-button" type="button">ОСТАНОВИТЬ</button>
+        </footer>
+      </section>
+
+      <section id="flow-finish" class="finish-layer" aria-hidden="true" inert>
+        <div class="finish-code">#048</div>
+        <p class="overline">ЗАКАЗ ЗАВЕРШЁН</p>
+        <h2>ГОТОВО.</h2>
+        <p id="flow-finish-summary">—</p>
+        <button id="flow-next" type="button">
+          <span>СЛЕДУЮЩИЙ ЗАКАЗ</span>
+          <kbd>ENTER</kbd>
+        </button>
+      </section>
+
+      <dialog id="flow-dialog" class="flow-dialog">
+        <form method="dialog">
+          <span class="overline">ПОДТВЕРЖДЕНИЕ</span>
+          <h2>Остановить цикл?</h2>
+          <p>Напиток будет списан, после чего станция запустит обязательную промывку.</p>
+          <div>
+            <button value="cancel" class="dialog-cancel">ПРОДОЛЖИТЬ</button>
+            <button id="flow-confirm-stop" value="confirm" class="dialog-stop">ОСТАНОВИТЬ</button>
+          </div>
+        </form>
+      </dialog>
+
+      <div id="flow-toast" class="flow-toast" role="status" aria-live="polite"></div>
+      <audio id="flow-ready-audio" preload="auto" src="./assets/staff-ready.mp3"></audio>
+    </main>
+
+    <script src="./flow.js?v=b4a32ee99407"></script>
+  </body>
+</html>

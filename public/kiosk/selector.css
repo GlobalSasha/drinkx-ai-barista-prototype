@@ -195,6 +195,56 @@ a:focus-visible {
   border-color: var(--lime);
 }
 
+.variant--flow {
+  min-height: 310px;
+  grid-column: 1 / -1;
+  grid-template-columns: 64px minmax(0, 1fr) 220px;
+  grid-template-rows: 1fr auto;
+  border-color: rgb(194 65 12 / 55%);
+  background: linear-gradient(135deg, #fff8f2, #ffffff);
+  color: #1c1714;
+}
+
+.variant--flow:hover {
+  border-color: #c2410c;
+  background: linear-gradient(135deg, #fff0e5, #ffffff);
+}
+
+.variant--flow .variant__number {
+  grid-column: 1;
+  grid-row: 1;
+  border-color: #c2410c;
+  background: #c2410c;
+  color: #fff;
+}
+
+.variant--flow > div {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.variant--flow .variant__type {
+  color: #9a3412;
+}
+
+.variant--flow ul {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.variant--flow li {
+  border-color: #eadfd6;
+  color: #6c625c;
+}
+
+.variant--flow .variant__action {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  background: #c2410c;
+  color: #fff;
+}
+
 .variant__number {
   display: grid;
   width: 48px;
@@ -306,6 +356,23 @@ a:focus-visible {
   .variant {
     min-height: 390px;
     padding: 22px;
+  }
+
+  .variant--flow {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto auto;
+  }
+
+  .variant--flow .variant__number,
+  .variant--flow > div,
+  .variant--flow ul,
+  .variant--flow .variant__action {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .variant--flow .variant__action {
+    min-height: 56px;
   }
 
   .selector__footer {
