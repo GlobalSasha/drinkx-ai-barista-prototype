@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e7e9ec" />
+    <title>DrinkX — Soft Control</title>
+    <link rel="stylesheet" href="./soft.css?v=019d9b570d8c" />
+  </head>
+  <body class="soft-body">
+    <a class="soft-skip-link" href="#soft-workspace">К рабочей панели</a>
+    <div class="soft-shell">
+      <main class="soft-app" aria-labelledby="soft-title">
+        <header class="soft-header">
+          <a class="soft-back" href="./index.html" aria-label="Вернуться к вариантам интерфейса"><span aria-hidden="true">←</span>ВАРИАНТЫ</a>
+          <div class="soft-wordmark" aria-label="DrinkX">DX</div>
+          <div class="soft-greeting">
+            <span class="soft-avatar" aria-hidden="true">DX</span>
+            <span><strong>ДОБРОЕ УТРО, АННА</strong><small>Станция 04 активна</small></span>
+          </div>
+        </header>
+
+        <section class="soft-hero" aria-label="Soft Control">
+          <p>DRINKX / BARISTA DESK</p>
+          <h1 id="soft-title">SOFT <em>CONTROL</em></h1>
+          <span>Рабочий ритм без визуального шума</span>
+        </section>
+
+        <section class="soft-workspace" id="soft-workspace" aria-label="Панель управления станцией">
+          <div class="soft-column soft-column--left">
+            <section class="soft-card soft-station" aria-labelledby="station-title">
+              <div class="soft-card-heading">
+                <div><p class="soft-eyebrow">ТЕКУЩАЯ СМЕНА</p><h2 id="station-title">СТАНЦИЯ 04</h2></div>
+                <span class="soft-live"><i></i> В РАБОТЕ</span>
+              </div>
+              <div class="soft-dial" aria-label="24 заказа выполнено из 40">
+                <div class="soft-dial__arc"></div>
+                <div class="soft-dial__center"><strong id="soft-order-count">24</strong><span>ЗАКАЗА</span></div>
+              </div>
+              <div class="soft-station-footer"><span>ВЫПОЛНЕНО <b id="soft-progress-label">60%</b></span><span>ЦЕЛЬ <b>40</b></span></div>
+            </section>
+
+            <div class="soft-scenes" aria-label="Быстрые сценарии смены">
+              <button class="soft-card soft-scene is-active" type="button" data-scene="Утренний поток" data-orders="24" data-progress="60">
+                <span class="soft-scene__symbol" aria-hidden="true">01</span><span class="soft-scene__more" aria-hidden="true">••</span>
+                <strong>УТРЕННИЙ<br />ПОТОК</strong><small>7 заказов в очереди</small>
+              </button>
+              <button class="soft-card soft-scene" type="button" data-scene="Спокойный ритм" data-orders="31" data-progress="78">
+                <span class="soft-scene__symbol" aria-hidden="true">02</span><span class="soft-scene__more" aria-hidden="true">••</span>
+                <strong>СПОКОЙНЫЙ<br />РИТМ</strong><small>2 заказа в очереди</small>
+              </button>
+            </div>
+
+            <button class="soft-card soft-recipe" id="soft-recipe-button" type="button">
+              <span class="soft-plus" aria-hidden="true">+</span>
+              <span><strong>НОВЫЙ РЕЦЕПТ</strong><small>Добавить быстрый пресет</small></span>
+              <span class="soft-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div class="soft-column soft-column--right">
+            <section class="soft-card soft-status" aria-labelledby="status-title">
+              <div class="soft-status__icon" aria-hidden="true">↗</div>
+              <div><p class="soft-eyebrow">СЕЙЧАС В ФОКУСЕ</p><h2 id="status-title">УТРЕННИЙ ПОТОК</h2><span id="soft-mode-description">Следующий заказ — капучино 300 мл</span></div>
+            </section>
+
+            <section class="soft-card soft-stock" aria-labelledby="stock-title">
+              <div class="soft-card-heading">
+                <div><p class="soft-eyebrow">STATION ANALYTICS</p><h2 id="stock-title">РЕСУРСЫ СТАНЦИИ</h2></div>
+                <span class="soft-round-button" aria-hidden="true">↗</span>
+              </div>
+              <div class="soft-resource-list">
+                <button class="soft-resource is-selected" type="button" data-resource="Зерно" data-detail="Хватит примерно на 54 чашки">
+                  <span class="soft-resource__icon soft-resource__icon--beans" aria-hidden="true"></span><span><strong>ЗЕРНО</strong><small>Бленд №04</small></span><b>1.8 кг</b><i aria-hidden="true">›</i>
+                </button>
+                <button class="soft-resource" type="button" data-resource="Молоко" data-detail="Хватит примерно на 18 молочных напитков">
+                  <span class="soft-resource__icon soft-resource__icon--milk" aria-hidden="true"></span><span><strong>МОЛОКО</strong><small>Овсяное + классическое</small></span><b>3.2 л</b><i aria-hidden="true">›</i>
+                </button>
+                <button class="soft-resource" type="button" data-resource="Вода" data-detail="Фильтр в норме, долив пока не нужен">
+                  <span class="soft-resource__icon soft-resource__icon--water" aria-hidden="true"></span><span><strong>ВОДА</strong><small>Фильтр P-02</small></span><b>18 л</b><i aria-hidden="true">›</i>
+                </button>
+                <button class="soft-resource" type="button" data-resource="Сиропы" data-detail="Карамель заканчивается первой">
+                  <span class="soft-resource__icon soft-resource__icon--syrup" aria-hidden="true"></span><span><strong>СИРОПЫ</strong><small>4 вкуса на линии</small></span><b>2.4 л</b><i aria-hidden="true">›</i>
+                </button>
+              </div>
+              <p class="soft-resource-note" id="soft-resource-note" aria-live="polite">Зерно: хватит примерно на 54 чашки</p>
+            </section>
+
+            <button class="soft-card soft-start" id="soft-start-button" type="button"><span>СОБРАТЬ<br />СЛЕДУЮЩИЙ ЗАКАЗ</span><b aria-hidden="true">→</b></button>
+          </div>
+        </section>
+        <div class="soft-toast" id="soft-toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+    <script src="./soft.js?v=019d9b570d8c"></script>
+  </body>
+</html>
