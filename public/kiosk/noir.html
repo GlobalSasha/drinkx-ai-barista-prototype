@@ -7,7 +7,7 @@
     <meta name="description" content="Быстрый интерфейс DrinkX для работы бариста." />
     <title>DrinkX Barista — Noir Edition</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./noir.css?v=49cb5c9a7bfb" />
+    <link rel="stylesheet" href="./noir.css?v=bf12222b292d" />
   </head>
   <body class="noir-body">
     <a class="noir-skip" href="#noir-menu">Перейти к напиткам</a>
@@ -40,6 +40,11 @@
               <h2 id="noir-menu-title">НАПИТКИ</h2>
               <p>+ ДОБАВИТЬ ПО СТАНДАРТУ</p>
             </div>
+            <nav class="noir-categories" aria-label="Категории напитков">
+              <button class="noir-category is-active" type="button" data-filter="all" aria-pressed="true">ВСЕ <span>06</span></button>
+              <button class="noir-category" type="button" data-filter="coffee" aria-pressed="false">КОФЕ <span>04</span></button>
+              <button class="noir-category" type="button" data-filter="other" aria-pressed="false">НЕ КОФЕ <span>02</span></button>
+            </nav>
             <ul id="noir-drinks" class="noir-drinks" aria-label="Быстрое добавление напитков"></ul>
           </section>
 
@@ -74,6 +79,6 @@
     </div>
 
     <div id="noir-toast" class="noir-toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <script src="./noir.js?v=49cb5c9a7bfb"></script>
+    <script src="./noir.js?v=bf12222b292d"></script>
   </body>
 </html>

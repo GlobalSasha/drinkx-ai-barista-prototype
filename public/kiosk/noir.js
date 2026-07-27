@@ -4,56 +4,64 @@ const drinks = [
   {
     id: "americano",
     name: "АМЕРИКАНО",
+    category: "coffee",
     volume: "350 МЛ",
     price: 190,
-    defaults: { volume: "350 МЛ", milk: "БЕЗ МОЛОКА", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "350 МЛ", milk: "БЕЗ МОЛОКА", syrup: "БЕЗ СИРОПА", sugar: "БЕЗ САХАРА" },
   },
   {
     id: "flat",
     name: "ФЛЭТ УАЙТ",
+    category: "coffee",
     volume: "250 МЛ",
     price: 220,
-    defaults: { volume: "250 МЛ", milk: "ОБЫЧНОЕ", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "250 МЛ", milk: "ОБЫЧНОЕ", syrup: "БЕЗ СИРОПА", sugar: "БЕЗ САХАРА" },
   },
   {
     id: "latte",
     name: "ЛАТТЕ",
+    category: "coffee",
     volume: "350 МЛ",
     price: 230,
-    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", syrup: "БЕЗ СИРОПА", sugar: "БЕЗ САХАРА" },
   },
   {
     id: "raf",
     name: "РАФ",
+    category: "coffee",
     volume: "350 МЛ",
     price: 260,
-    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", syrup: "ВАНИЛЬ", sugar: "БЕЗ САХАРА" },
   },
   {
     id: "matcha",
     name: "МАТЧА",
+    category: "other",
     volume: "350 МЛ",
     price: 250,
-    defaults: { volume: "350 МЛ", milk: "ОВСЯНОЕ", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "350 МЛ", milk: "ОВСЯНОЕ", syrup: "БЕЗ СИРОПА", sugar: "БЕЗ САХАРА" },
   },
   {
     id: "cacao",
     name: "КАКАО",
+    category: "other",
     volume: "350 МЛ",
     price: 210,
-    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", sugar: "БЕЗ САХАРА" },
+    defaults: { volume: "350 МЛ", milk: "ОБЫЧНОЕ", syrup: "ШОКОЛАД", sugar: "БЕЗ САХАРА" },
   },
 ];
 
 const optionValues = {
   volume: ["250 МЛ", "350 МЛ", "450 МЛ"],
   milk: ["БЕЗ МОЛОКА", "ОВСЯНОЕ", "ОБЫЧНОЕ"],
+  syrup: ["БЕЗ СИРОПА", "ВАНИЛЬ", "КАРАМЕЛЬ", "ФУНДУК", "ШОКОЛАД"],
   sugar: ["БЕЗ САХАРА", "1 ЛОЖКА", "2 ЛОЖКИ"],
 };
 
-const optionLabels = { volume: "ОБЪЁМ", milk: "МОЛОКО", sugar: "САХАР" };
+const optionLabels = { volume: "РАЗМЕР", milk: "МОЛОКО", syrup: "СИРОП", sugar: "САХАР" };
 
 const state = {
+  filter: "all",
   selectedId: "americano",
   options: { ...drinks[0].defaults },
   orderCount: 0,
@@ -62,6 +70,7 @@ const state = {
 };
 
 const drinkGrid = document.querySelector("#noir-drinks");
+const filterButtons = document.querySelectorAll(".noir-category");
 const settings = document.querySelector("#noir-settings");
 const configTitle = document.querySelector("#noir-config-title");
 const configPrice = document.querySelector("#noir-config-price");
@@ -106,6 +115,10 @@ function selectedDrink() {
   return drinks.find((drink) => drink.id === state.selectedId) || drinks[0];
 }
 
+function visibleDrinks() {
+  return state.filter === "all" ? drinks : drinks.filter((drink) => drink.category === state.filter);
+}
+
 function price(value) {
   return `${value.toLocaleString("ru-RU")} ₽`;
 }
@@ -120,12 +133,12 @@ function setSelectedDrink(id) {
 }
 
 function renderDrinks() {
-  drinkGrid.innerHTML = drinks
+  drinkGrid.innerHTML = visibleDrinks()
     .map(
-      (drink, index) => `
+      (drink) => `
         <li class="noir-drink${drink.id === state.selectedId ? " is-selected" : ""}">
           <button class="noir-quick-add" type="button" data-quick-add="${drink.id}" aria-label="Быстро добавить ${drink.name} за ${price(drink.price)}">
-            <span class="noir-drink__index">0${index + 1}</span>
+            <span class="noir-drink__index">${String(drinks.indexOf(drink) + 1).padStart(2, "0")}</span>
             <h3>${drink.name}</h3>
             <span class="noir-drink__meta"><span>${drink.volume}</span><strong>+ ${price(drink.price)}</strong></span>
           </button>
@@ -140,11 +153,12 @@ function renderSettings() {
   settings.innerHTML = Object.entries(optionLabels)
     .map(
       ([key, label]) => `
-        <button class="noir-setting" type="button" data-setting="${key}" aria-label="${label}: ${state.options[key]}. Нажмите, чтобы изменить.">
+        <label class="noir-setting">
           <small>${label}</small>
-          <span>${state.options[key]}</span>
-          <b aria-hidden="true">↻</b>
-        </button>
+          <select data-setting="${key}" aria-label="${label} для выбранного напитка">
+            ${optionValues[key].map((value) => `<option value="${value}"${value === state.options[key] ? " selected" : ""}>${value}</option>`).join("")}
+          </select>
+        </label>
       `,
     )
     .join("");
@@ -159,7 +173,7 @@ function renderOrder() {
   orderTotal.textContent = price(state.orderTotal);
   resetButton.disabled = state.orderCount === 0;
   orderSummary.textContent = state.lastOrder
-    ? `ПОСЛЕДНИЙ: ${state.lastOrder.name} · ${state.lastOrder.volume} · ${state.lastOrder.milk} · ${state.lastOrder.sugar}`
+    ? `ПОСЛЕДНИЙ: ${state.lastOrder.name} · ${state.lastOrder.volume} · ${state.lastOrder.milk} · ${state.lastOrder.syrup} · ${state.lastOrder.sugar}`
     : "ВЫБЕРИТЕ НАПИТОК";
 }
 
@@ -204,15 +218,23 @@ drinkGrid.addEventListener("click", (event) => {
   }
 });
 
-settings.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-setting]");
-  if (!button) return;
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.filter = button.dataset.filter;
+    filterButtons.forEach((item) => {
+      const isActive = item === button;
+      item.classList.toggle("is-active", isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+    renderDrinks();
+  });
+});
 
-  const key = button.dataset.setting;
-  const values = optionValues[key];
-  const nextIndex = (values.indexOf(state.options[key]) + 1) % values.length;
-  state.options[key] = values[nextIndex];
-  renderSettings();
+settings.addEventListener("change", (event) => {
+  const select = event.target.closest("select[data-setting]");
+  if (!select) return;
+
+  state.options[select.dataset.setting] = select.value;
 });
 
 customAddButton.addEventListener("click", () => addSelectedDrink(true));
