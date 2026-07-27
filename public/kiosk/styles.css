@@ -13,6 +13,34 @@
   box-sizing: border-box;
 }
 
+.variant-back {
+  position: fixed;
+  z-index: 100;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 12px;
+  background: rgb(9 9 9 / 84%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+}
+
+.variant-back:hover {
+  background: #1d1d1d;
+}
+
+.variant-back:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
 html,
 body {
   width: 100%;

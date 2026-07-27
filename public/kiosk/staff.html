@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111d" />
+    <title>DrinkX Staff — рабочий интерфейс</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./staff.css?v=d9a844d64fad" />
+  </head>
+  <body>
+    <a class="skip-link" href="#drink-list">К напиткам</a>
+
+    <main id="staff-app" class="staff-app" aria-label="Рабочий интерфейс DrinkX Staff">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">DX</span>
+          <div>
+            <strong>DRINKX</strong>
+            <span>STAFF · КОФЕЙНАЯ СТАНЦИЯ 01</span>
+          </div>
+        </div>
+
+        <div class="topbar-status" role="status">
+          <span class="status-dot"></span>
+          <div>
+            <strong>МАШИНА ГОТОВА</strong>
+            <span id="clock">--:--</span>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="sound-toggle" class="utility-button" type="button" aria-pressed="true">
+            ЗВУК · ВКЛ
+          </button>
+          <button id="service-open" class="utility-button" type="button">СЕРВИС</button>
+        </div>
+      </header>
+
+      <section class="status-strip" aria-label="Оперативные показатели">
+        <div class="metric metric--good">
+          <span>ОЧЕРЕДЬ</span>
+          <strong id="queue-count">0</strong>
+          <small>напитков</small>
+        </div>
+        <div class="metric">
+          <span>СЕГОДНЯ</span>
+          <strong id="today-count">47</strong>
+          <small>приготовлено</small>
+        </div>
+        <div class="metric metric--warning">
+          <span>РАСХОДНИКИ</span>
+          <strong>2</strong>
+          <small>требуют внимания</small>
+        </div>
+        <button id="quick-rinse" class="metric metric--action" type="button">
+          <span>ПРОМЫВКА</span>
+          <strong>18:40</strong>
+          <small>запустить сейчас →</small>
+        </button>
+      </section>
+
+      <section class="workspace" aria-label="Рабочая область">
+        <nav id="category-list" class="category-rail" aria-label="Категории напитков"></nav>
+
+        <section class="catalog-panel" aria-labelledby="catalog-title">
+          <header class="panel-heading">
+            <div>
+              <span class="eyebrow">БЫСТРЫЙ ВЫБОР</span>
+              <h1 id="catalog-title">ПОПУЛЯРНОЕ</h1>
+            </div>
+            <div class="legend" aria-label="Легенда остатков">
+              <span><i class="availability availability--ok"></i>Есть</span>
+              <span><i class="availability availability--low"></i>Мало</span>
+              <span><i class="availability availability--off"></i>Нет</span>
+            </div>
+          </header>
+
+          <div id="drink-list" class="drink-list" tabindex="-1"></div>
+        </section>
+
+        <aside id="order-panel" class="order-panel" aria-label="Текущий заказ">
+          <div id="order-empty" class="order-empty">
+            <span class="order-empty-index">01</span>
+            <h2>ВЫБЕРИТЕ<br />НАПИТОК</h2>
+            <p>Клавиши 1–9 или карточка напитка</p>
+          </div>
+
+          <form id="order-form" class="order-form" hidden>
+            <header class="order-heading">
+              <div>
+                <span class="eyebrow">ТЕКУЩИЙ ЗАКАЗ</span>
+                <h2 id="order-name">—</h2>
+              </div>
+              <button id="clear-order" class="clear-button" type="button">СБРОСИТЬ</button>
+            </header>
+
+            <fieldset class="control-group">
+              <legend>ОБЪЁМ</legend>
+              <div id="volume-options" class="segmented"></div>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>МОЛОКО</legend>
+              <div id="milk-options" class="choice-grid"></div>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>СИРОП</legend>
+              <div id="syrup-options" class="choice-grid"></div>
+            </fieldset>
+
+            <fieldset class="control-group">
+              <legend>ПОРЦИИ</legend>
+              <div id="portion-options" class="segmented segmented--compact"></div>
+            </fieldset>
+
+            <div class="order-summary" aria-live="polite">
+              <span id="order-summary">—</span>
+              <strong id="order-duration">≈ 00:45</strong>
+            </div>
+
+            <button id="start-order" class="primary-button" type="submit">
+              <span>ЗАПУСТИТЬ</span>
+              <kbd>ENTER</kbd>
+            </button>
+          </form>
+        </aside>
+      </section>
+
+      <footer class="shortcut-bar" aria-label="Горячие клавиши">
+        <span><kbd>1–9</kbd> напиток</span>
+        <span><kbd>← →</kbd> категория</span>
+        <span><kbd>ENTER</kbd> запуск</span>
+        <span><kbd>ESC</kbd> отмена</span>
+        <a href="./index.html">Выбор интерфейса</a>
+      </footer>
+
+      <section id="process-screen" class="process-screen" aria-hidden="true" inert>
+        <header class="process-header">
+          <div>
+            <span class="eyebrow">ПРИГОТОВЛЕНИЕ</span>
+            <h2 id="process-drink">—</h2>
+          </div>
+          <div class="process-order">
+            <span id="process-config">—</span>
+            <strong id="process-timer">00:12</strong>
+          </div>
+        </header>
+
+        <div class="process-main">
+          <div class="process-copy">
+            <span id="process-step-index" class="process-step-index">01 / 03</span>
+            <p id="process-kicker">ЭТАП 1</p>
+            <h2 id="process-title">КОФЕЙНЫЙ<br />ЭКСТРАКТ</h2>
+            <p id="process-hint">Не убирайте стакан</p>
+          </div>
+
+          <div class="progress-orbit" aria-hidden="true">
+            <svg viewBox="0 0 180 180">
+              <circle class="orbit-track" cx="90" cy="90" r="78"></circle>
+              <circle id="orbit-progress" class="orbit-progress" cx="90" cy="90" r="78"></circle>
+            </svg>
+            <strong id="process-percent">0%</strong>
+          </div>
+
+          <ol class="process-steps">
+            <li class="is-current" data-step="0"><span>1</span><strong>КОФЕ</strong><small>4 сек</small></li>
+            <li data-step="1"><span>2</span><strong>МОЛОКО</strong><small>4 сек</small></li>
+            <li data-step="2"><span>3</span><strong>ПРОМЫВКА</strong><small>4 сек</small></li>
+          </ol>
+        </div>
+
+        <div class="process-actions">
+          <button id="late-syrup" class="secondary-button" type="button">+ ДОБАВИТЬ СИРОП</button>
+          <button id="stop-order" class="danger-button" type="button">СТОП</button>
+        </div>
+      </section>
+
+      <section id="finish-screen" class="finish-screen" aria-hidden="true" inert>
+        <div class="finish-mark" aria-hidden="true">✓</div>
+        <span class="eyebrow">ЗАКАЗ ЗАВЕРШЁН</span>
+        <h2>НАПИТОК<br />ГОТОВ</h2>
+        <p id="finish-summary">—</p>
+        <button id="finish-next" class="primary-button" type="button">
+          <span>СЛЕДУЮЩИЙ ЗАКАЗ</span>
+          <kbd>ENTER</kbd>
+        </button>
+      </section>
+
+      <dialog id="confirm-dialog" class="app-dialog">
+        <form method="dialog">
+          <span class="dialog-label">ОПАСНОЕ ДЕЙСТВИЕ</span>
+          <h2>ОСТАНОВИТЬ<br />ПРИГОТОВЛЕНИЕ?</h2>
+          <p>Текущий напиток будет списан. Машина перейдёт к обязательной промывке.</p>
+          <div class="dialog-actions">
+            <button value="cancel" class="secondary-button">ПРОДОЛЖИТЬ</button>
+            <button id="confirm-stop" value="confirm" class="danger-button">ОСТАНОВИТЬ</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="service-dialog" class="app-dialog service-dialog">
+        <form method="dialog">
+          <header class="dialog-heading">
+            <div>
+              <span class="eyebrow">СТАНЦИЯ 01</span>
+              <h2>СЕРВИС</h2>
+            </div>
+            <button class="dialog-close" value="cancel" aria-label="Закрыть">×</button>
+          </header>
+          <div class="service-grid">
+            <button type="button" data-service="rinse"><strong>ПРОМЫВКА</strong><span>≈ 12 секунд</span></button>
+            <button type="button" data-service="stock"><strong>ОСТАТКИ</strong><span>2 предупреждения</span></button>
+            <button type="button" data-service="clean"><strong>МОЙКА</strong><span>20 минут</span></button>
+            <button type="button" data-service="reset"><strong>СБРОС ДЕМО</strong><span>Очистить счётчики</span></button>
+          </div>
+          <section id="stock-detail" class="stock-detail" hidden aria-live="polite"></section>
+        </form>
+      </dialog>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <audio id="ready-audio" preload="auto" src="./assets/staff-ready.mp3"></audio>
+    </main>
+
+    <script src="./staff.js?v=d9a844d64fad"></script>
+  </body>
+</html>

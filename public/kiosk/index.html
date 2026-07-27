@@ -3,265 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#090909" />
-    <title>DrinkX Barista — Популярное</title>
+    <meta name="theme-color" content="#07111d" />
+    <title>DrinkX — Выбор интерфейса</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./styles.css?v=e7ca9ebc8c7f" />
+    <link rel="stylesheet" href="./selector.css?v=d9a844d64fad" />
   </head>
   <body>
-    <main id="app" class="barista-screen" aria-label="Меню напитков DrinkX Barista">
-      <header class="screen-header">
-        <div class="title-row">
-          <div class="title-group">
-            <img
-              class="title-icon"
-              src="./assets/icon-popular.svg"
-              width="53"
-              height="48"
-              alt=""
-            />
-            <h1>Популярное</h1>
-          </div>
-
-          <button class="service-button" type="button" aria-label="Открыть сервисное меню">
-            <img src="./assets/icon-service.svg" width="24" height="24" alt="" />
-          </button>
+    <main class="selector" aria-labelledby="selector-title">
+      <header class="selector__header">
+        <div class="brand" aria-label="DrinkX">
+          <span class="brand__mark" aria-hidden="true">DX</span>
+          <span>
+            <strong>DRINKX</strong>
+            <small>AI BARISTA · UI LAB</small>
+          </span>
         </div>
 
-        <nav class="category-list" aria-label="Категории напитков">
-          <button class="category-button is-active" type="button" aria-current="page">
-            <img src="./assets/icon-star.svg" width="20" height="20" alt="" />
-            <span>Популярное</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-coffee.svg" width="20" height="20" alt="" />
-            <span>Кофе</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-tea.svg" width="20" height="20" alt="" />
-            <span>Чай</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-snow.svg" width="20" height="20" alt="" />
-            <span>Холодные</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-glass.svg" width="20" height="20" alt="" />
-            <span>Лимонад</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-milk.svg" width="20" height="20" alt="" />
-            <span>Молочные</span>
-          </button>
-          <button class="category-button" type="button">
-            <img src="./assets/icon-leaf.svg" width="20" height="20" alt="" />
-            <span>Альтернатива</span>
-          </button>
-        </nav>
+        <div class="test-label">
+          <span aria-hidden="true"></span>
+          РЕЖИМ ТЕСТИРОВАНИЯ
+        </div>
       </header>
 
-      <section class="drink-grid" aria-label="Популярные напитки">
-        <article class="drink-card">
-          <span class="stock-warning">КОНЧАЕТСЯ СЫРЬЕ</span>
-          <div class="drink-hero">
-            <h2>Раф</h2>
-            <img class="drink-image" src="./assets/drink-raf.png" alt="Раф с карамелью" />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Карамель</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li>Сироп: Карамельный <span class="count-badge">4</span></li>
-              <li>Сахар: 1 ложка</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <span class="stock-warning">КОНЧАЕТСЯ СЫРЬЕ</span>
-          <div class="drink-hero">
-            <h2>Банофи пай</h2>
-            <img
-              class="drink-image"
-              src="./assets/drink-banoffee.png"
-              alt="Кофейный напиток Банофи пай"
-            />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Банан</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное <span class="count-badge">1</span></li>
-              <li>Сироп: Банановый</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2 class="long-title">Изумрудный сад</h2>
-            <img
-              class="drink-image"
-              src="./assets/drink-emerald.png"
-              alt="Напиток Изумрудный сад"
-            />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Фисташки</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li>Сироп: Фисташковый</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2>Американо</h2>
-            <img
-              class="drink-image"
-              src="./assets/drink-americano.png"
-              alt="Американо"
-            />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Вода</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul class="muted">
-              <li>Без молока</li>
-              <li>Без сиропа</li>
-              <li>Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2>Раф кранч</h2>
-            <img
-              class="drink-image drink-image--cover"
-              src="./assets/drink-crunch.png"
-              alt="Кофейный напиток Раф кранч"
-            />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Арахис</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li>Сироп: Карамельный</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card is-disabled">
-          <div class="drink-hero">
-            <h2>Флэт</h2>
-            <img class="drink-image" src="./assets/drink-flat-white.png" alt="Флэт уайт" />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Вода</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Сливки <span class="empty-badge">НЕТ</span></li>
-              <li class="muted">Без сиропа</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2>Латте</h2>
-            <img class="drink-image" src="./assets/drink-latte.png" alt="Латте" />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Пена</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li class="muted">Без сиропа</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2>Лунго</h2>
-            <img class="drink-image" src="./assets/drink-lungo.png" alt="Лунго" />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Вода</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li>Сироп: Банановый</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="drink-card">
-          <div class="drink-hero">
-            <h2>Капучино</h2>
-            <img class="drink-image" src="./assets/hero-base.png" alt="Капучино" />
-          </div>
-          <div class="drink-params">
-            <div class="main-params">
-              <strong>350 мл</strong>
-              <strong>Кофе</strong>
-              <strong>Пена</strong>
-            </div>
-            <img class="add-icon" src="./assets/icon-add.svg" width="24" height="24" alt="" />
-            <ul>
-              <li>Молоко: Обычное</li>
-              <li class="muted">Без сиропа</li>
-              <li class="muted">Без сахара</li>
-            </ul>
-          </div>
-        </article>
+      <section class="selector__intro">
+        <p class="eyebrow">ВЫБЕРИТЕ СЦЕНАРИЙ</p>
+        <h1 id="selector-title">Какой интерфейс<br />тестируем?</h1>
+        <p>
+          Оба варианта используют один набор напитков, но решают разные задачи.
+          Выбор можно изменить в любой момент.
+        </p>
       </section>
 
-      <img class="screen-corners" src="./assets/corners.svg" width="800" height="50" alt="" />
+      <section class="variant-grid" aria-label="Доступные интерфейсы">
+        <a class="variant variant--visual" href="./visual.html">
+          <span class="variant__number">01</span>
+          <div>
+            <p class="variant__type">ВИЗУАЛЬНЫЙ · ДЛЯ ГОСТЯ</p>
+            <h2>Меню с<br />изображениями</h2>
+            <p class="variant__description">
+              Знакомый каталог напитков с крупными карточками, фотографиями и параметрами.
+            </p>
+          </div>
+          <ul aria-label="Особенности визуального интерфейса">
+            <li>Крупные изображения</li>
+            <li>Эмоциональный выбор</li>
+            <li>Витринная подача</li>
+          </ul>
+          <span class="variant__action">
+            Открыть интерфейс
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
+
+        <a class="variant variant--staff" href="./staff.html">
+          <span class="variant__number">02</span>
+          <div>
+            <p class="variant__type">ОПЕРАЦИОННЫЙ · ДЛЯ ПЕРСОНАЛА</p>
+            <h2>Быстрая<br />рабочая станция</h2>
+            <p class="variant__description">
+              Плотный текстовый интерфейс для быстрого обслуживания и контроля машины.
+            </p>
+          </div>
+          <ul aria-label="Особенности рабочего интерфейса">
+            <li>Без изображений</li>
+            <li>Горячие клавиши</li>
+            <li>Остатки и сервис</li>
+          </ul>
+          <span class="variant__action">
+            Открыть интерфейс
+            <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      </section>
+
+      <footer class="selector__footer">
+        <span>DRINKX PROTOTYPE</span>
+        <span>ВЫБОР НЕ СОХРАНЯЕТСЯ</span>
+      </footer>
     </main>
-    <script src="./app.js?v=e7ca9ebc8c7f"></script>
   </body>
 </html>
