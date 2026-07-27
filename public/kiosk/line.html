@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff5a00" />
+    <title>DrinkX Line — конвейер заказов</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./line.css?v=08080a8b7bb3" />
+  </head>
+  <body>
+    <a class="skip-link" href="#line-view">К текущей задаче</a>
+
+    <div id="line-shell" class="line-shell">
+      <main id="line-app" class="line-app" data-screen="queue" aria-label="DrinkX Line">
+        <header class="line-header">
+          <a class="line-brand" href="./index.html" aria-label="DrinkX Line, вернуться к выбору">
+            <span class="line-brand__mark">DX</span>
+            <span>
+              <strong>LINE/03</strong>
+              <small>ONE-TASK OS</small>
+            </span>
+          </a>
+
+          <button id="machine-status" class="machine-status" type="button">
+            <span class="status-square" aria-hidden="true"></span>
+            <span>
+              <strong>СТАНЦИЯ ГОТОВА</strong>
+              <small>Нажмите для диагностики</small>
+            </span>
+          </button>
+
+          <div class="line-header__tools">
+            <time id="line-clock" datetime="">00:00</time>
+            <button id="line-sound" class="utility-button" type="button" aria-pressed="true">
+              ЗВУК
+            </button>
+            <a class="utility-button" href="./index.html">ВЫБОР</a>
+          </div>
+        </header>
+
+        <ol id="phase-strip" class="phase-strip" aria-label="Этапы заказа">
+          <li data-phase="queue"><span>01</span>ОЧЕРЕДЬ</li>
+          <li data-phase="review"><span>02</span>ПРОВЕРКА</li>
+          <li data-phase="process"><span>03</span>ГОТОВИМ</li>
+          <li data-phase="handoff"><span>04</span>ВЫДАЧА</li>
+        </ol>
+
+        <section id="line-view" class="line-view" tabindex="-1" aria-live="polite"></section>
+
+        <footer id="queue-dock" class="queue-dock">
+          <div class="queue-dock__header">
+            <div>
+              <span class="queue-dock__signal" aria-hidden="true"></span>
+              <strong>ЖИВАЯ ОЧЕРЕДЬ</strong>
+              <span id="queue-meta">3 заказа · ≈ 02:10</span>
+            </div>
+            <button id="open-command" class="new-order-button" type="button">
+              <span aria-hidden="true">＋</span>
+              НОВЫЙ ЗАКАЗ
+              <kbd>/</kbd>
+            </button>
+          </div>
+          <ol id="queue-list" class="queue-list" aria-label="Заказы в очереди"></ol>
+        </footer>
+
+        <section id="command-layer" class="command-layer" aria-hidden="true" inert>
+          <header class="layer-header">
+            <div>
+              <span class="micro-label">РУЧНОЙ РЕЖИМ</span>
+              <h2>НАЙТИ НАПИТОК</h2>
+            </div>
+            <button id="close-command" class="close-button" type="button">ЗАКРЫТЬ <kbd>ESC</kbd></button>
+          </header>
+
+          <label class="command-search">
+            <span class="sr-only">Название или код напитка</span>
+            <span aria-hidden="true">/</span>
+            <input
+              id="command-input"
+              type="search"
+              placeholder="Название или код напитка"
+              autocomplete="off"
+            />
+            <kbd>ENTER</kbd>
+          </label>
+
+          <div class="command-help">
+            <span id="command-result-count">6 вариантов</span>
+            <span>Выберите строку — заказ добавится со стандартным рецептом</span>
+          </div>
+          <ol id="command-results" class="command-results"></ol>
+        </section>
+
+        <dialog id="edit-dialog" class="line-dialog line-dialog--edit">
+          <form id="edit-form">
+            <header class="dialog-header">
+              <div>
+                <span class="micro-label">ТОЛЬКО ИСКЛЮЧЕНИЯ</span>
+                <h2>ИЗМЕНИТЬ ЗАКАЗ</h2>
+              </div>
+              <button class="close-button" type="button" data-close-dialog="edit-dialog">ЗАКРЫТЬ</button>
+            </header>
+
+            <div id="edit-fields" class="edit-fields"></div>
+
+            <footer class="dialog-actions">
+              <button class="secondary-action" type="button" data-close-dialog="edit-dialog">
+                ОТМЕНА
+              </button>
+              <button class="primary-action" type="submit">ПРИМЕНИТЬ ИЗМЕНЕНИЯ</button>
+            </footer>
+          </form>
+        </dialog>
+
+        <dialog id="machine-dialog" class="line-dialog">
+          <form method="dialog">
+            <header class="dialog-header">
+              <div>
+                <span class="micro-label">LIVE DIAGNOSTICS</span>
+                <h2>СТАНЦИЯ В НОРМЕ</h2>
+              </div>
+              <button class="close-button" value="close">ЗАКРЫТЬ</button>
+            </header>
+            <dl class="diagnostic-list">
+              <div><dt>ТЕМПЕРАТУРА</dt><dd>93°C <span>НОРМА</span></dd></div>
+              <div><dt>ДАВЛЕНИЕ</dt><dd>9.1 BAR <span>НОРМА</span></dd></div>
+              <div><dt>ВОДА</dt><dd>88% <span>НОРМА</span></dd></div>
+              <div><dt>СЫРЬЁ</dt><dd>96% <span class="warning-text">1 НИЗКИЙ ОСТАТОК</span></dd></div>
+            </dl>
+            <button class="primary-action" value="close">ПРОДОЛЖИТЬ РАБОТУ</button>
+          </form>
+        </dialog>
+
+        <dialog id="stop-dialog" class="line-dialog">
+          <form method="dialog">
+            <header class="dialog-header">
+              <div>
+                <span class="micro-label">КРИТИЧЕСКОЕ ДЕЙСТВИЕ</span>
+                <h2>ОСТАНОВИТЬ ЦИКЛ?</h2>
+              </div>
+            </header>
+            <p class="dialog-copy">
+              Станция прекратит приготовление и запустит короткую промывку. Заказ останется
+              в очереди, чтобы его можно было повторить.
+            </p>
+            <footer class="dialog-actions">
+              <button class="secondary-action" value="cancel">ПРОДОЛЖИТЬ ЦИКЛ</button>
+              <button id="confirm-stop" class="danger-action" value="confirm">ОСТАНОВИТЬ</button>
+            </footer>
+          </form>
+        </dialog>
+
+        <div id="line-toast" class="line-toast" role="status" aria-live="polite"></div>
+        <audio id="line-ready-audio" preload="auto" src="./assets/staff-ready.mp3"></audio>
+      </main>
+    </div>
+
+    <script src="./line.js?v=08080a8b7bb3"></script>
+  </body>
+</html>
