@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f1f1ee" />
+    <title>DrinkX — Menu Portfolio</title>
+    <link rel="stylesheet" href="./folio.css?v=3355dfc5d866" />
+  </head>
+  <body class="folio-body">
+    <a class="folio-skip-link" href="#folio-grid">К карточкам меню</a>
+    <div class="folio-shell">
+      <main class="folio-app" aria-labelledby="folio-title">
+        <header class="folio-header">
+          <a class="folio-back" href="./index.html" aria-label="Вернуться к вариантам интерфейса">← ВАРИАНТЫ</a>
+          <div class="folio-wordmark" aria-label="DrinkX">DX<span>//</span></div>
+          <div class="folio-day"><span class="folio-day__dot"></span>DAY_019 / 07:42</div>
+        </header>
+
+        <section class="folio-hero">
+          <p>DRINKX / LIVE MENU SYSTEM</p>
+          <h1 id="folio-title">MENU_<span>PORTFOLIO</span></h1>
+          <div class="folio-hero__footer">
+            <span>06 АКТИВНЫХ ПРЕСЕТОВ</span>
+            <span>STATION_04 / В РАБОТЕ</span>
+          </div>
+        </section>
+
+        <section class="folio-control" aria-label="Управление витриной пресетов">
+          <div class="folio-control__top">
+            <p>SELECTED MENU / <b id="folio-count">06</b> ITEMS</p>
+            <span id="folio-selection">ВЫБЕРИТЕ КАРТОЧКУ</span>
+          </div>
+          <div class="folio-filters" role="group" aria-label="Категории напитков">
+            <button class="folio-filter is-active" type="button" data-filter="all">ВСЕ</button>
+            <button class="folio-filter" type="button" data-filter="coffee">КОФЕ</button>
+            <button class="folio-filter" type="button" data-filter="milk">МОЛОЧНЫЕ</button>
+            <button class="folio-filter" type="button" data-filter="alt">АЛЬТЕРНАТИВА</button>
+          </div>
+        </section>
+
+        <section class="folio-grid" id="folio-grid" aria-label="Пресеты напитков">
+          <button class="folio-card folio-card--dark" type="button" data-category="coffee" data-name="ЭСПРЕССО_01">
+            <span class="folio-card__label">PRESET_01 <i>● LIVE</i></span>
+            <span class="folio-card__visual folio-card__visual--espresso"><b>ESP<br />01</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>ЭСПРЕССО</strong><small>DOUBLE SHOT / 40 ML</small>
+              <span class="folio-card__stats"><b>24 <i>ЧАШКИ</i></b><b>+18% <i>ТЕМП</i></b><b>1:20 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+
+          <button class="folio-card folio-card--orange" type="button" data-category="milk" data-name="КАПУЧИНО_02">
+            <span class="folio-card__label">PRESET_02 <i>● HOT</i></span>
+            <span class="folio-card__visual folio-card__visual--cappuccino"><b>CAP<br />02</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>КАПУЧИНО</strong><small>CLASSIC MILK / 300 ML</small>
+              <span class="folio-card__stats"><b>18 <i>ЧАШКИ</i></b><b>+12% <i>ТЕМП</i></b><b>1:45 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+
+          <button class="folio-card" type="button" data-category="milk" data-name="ЛАТТЕ_03">
+            <span class="folio-card__label">PRESET_03 <i>● READY</i></span>
+            <span class="folio-card__visual folio-card__visual--latte"><b>LAT<br />03</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>ЛАТТЕ</strong><small>OAT OR CLASSIC / 400 ML</small>
+              <span class="folio-card__stats"><b>16 <i>ЧАШКИ</i></b><b>+09% <i>ТЕМП</i></b><b>1:55 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+
+          <button class="folio-card folio-card--dark" type="button" data-category="alt" data-name="МАТЧА_04">
+            <span class="folio-card__label">PRESET_04 <i>● NEW</i></span>
+            <span class="folio-card__visual folio-card__visual--matcha"><b>MTC<br />04</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>МАТЧА ЛАТТЕ</strong><small>OAT MILK / 300 ML</small>
+              <span class="folio-card__stats"><b>11 <i>ЧАШКИ</i></b><b>+24% <i>ТЕМП</i></b><b>2:10 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+
+          <button class="folio-card folio-card--orange" type="button" data-category="coffee" data-name="ФИЛЬТР_05">
+            <span class="folio-card__label">PRESET_05 <i>● BATCH</i></span>
+            <span class="folio-card__visual folio-card__visual--filter"><b>FLT<br />05</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>ФИЛЬТР</strong><small>ETHIOPIA / 250 ML</small>
+              <span class="folio-card__stats"><b>08 <i>ЧАШКИ</i></b><b>+07% <i>ТЕМП</i></b><b>2:30 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+
+          <button class="folio-card" type="button" data-category="alt" data-name="ЭСПРЕССО ТОНИК_06">
+            <span class="folio-card__label">PRESET_06 <i>● COLD</i></span>
+            <span class="folio-card__visual folio-card__visual--tonic"><b>TON<br />06</b><i></i><em></em></span>
+            <span class="folio-card__body">
+              <strong>ЭСПРЕССО ТОНИК</strong><small>ICE / CITRUS / 350 ML</small>
+              <span class="folio-card__stats"><b>06 <i>ЧАШКИ</i></b><b>+15% <i>ТЕМП</i></b><b>1:40 <i>ЦИКЛ</i></b></span>
+            </span>
+          </button>
+        </section>
+
+        <footer class="folio-footer">
+          <span>SHIFT TARGET <b>68 / 110</b></span>
+          <button id="folio-next" type="button">СОБРАТЬ СЛЕДУЮЩИЙ <i>↗</i></button>
+        </footer>
+        <div class="folio-toast" id="folio-toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+    <script src="./folio.js?v=3355dfc5d866"></script>
+  </body>
+</html>

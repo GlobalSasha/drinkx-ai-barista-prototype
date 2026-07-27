@@ -370,6 +370,70 @@ a:focus-visible {
   box-shadow: 5px 5px 11px #bdc1c6, -4px -4px 9px #ffffff;
 }
 
+.variant--folio {
+  min-height: 310px;
+  grid-column: 1 / -1;
+  grid-template-columns: 64px minmax(0, 1fr) 220px;
+  grid-template-rows: 1fr auto;
+  border: 2px solid #111111;
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(17, 17, 17, 0.025) 0 1px, transparent 1px 4px),
+    #f1f1ee;
+  color: #111111;
+}
+
+.variant--folio:hover {
+  background:
+    repeating-linear-gradient(0deg, rgba(17, 17, 17, 0.04) 0 1px, transparent 1px 4px),
+    #ffffff;
+  box-shadow: 7px 7px 0 #ee4d19;
+}
+
+.variant--folio .variant__number {
+  grid-column: 1;
+  grid-row: 1;
+  border: 2px solid #111111;
+  border-radius: 0;
+  color: #111111;
+}
+
+.variant--folio > div {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.variant--folio .variant__type,
+.variant--folio .variant__description {
+  color: #555555;
+}
+
+.variant--folio h2 {
+  color: #111111;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  letter-spacing: -0.08em;
+}
+
+.variant--folio ul {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.variant--folio li {
+  border: 1px solid #111111;
+  border-radius: 0;
+  color: #111111;
+}
+
+.variant--folio .variant__action {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  border-radius: 0;
+  background: #ee4d19;
+  color: #111111;
+}
+
 .variant__number {
   display: grid;
   width: 48px;
@@ -501,7 +565,8 @@ a:focus-visible {
   }
 
   .variant--noir,
-  .variant--soft {
+  .variant--soft,
+  .variant--folio {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto auto;
   }
@@ -513,13 +578,18 @@ a:focus-visible {
   .variant--soft .variant__number,
   .variant--soft > div,
   .variant--soft ul,
-  .variant--soft .variant__action {
+  .variant--soft .variant__action,
+  .variant--folio .variant__number,
+  .variant--folio > div,
+  .variant--folio ul,
+  .variant--folio .variant__action {
     grid-column: 1;
     grid-row: auto;
   }
 
   .variant--noir .variant__action,
-  .variant--soft .variant__action {
+  .variant--soft .variant__action,
+  .variant--folio .variant__action {
     min-height: 56px;
   }
 
