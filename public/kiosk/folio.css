@@ -98,6 +98,101 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--folio-orange); 
 .folio-toast { position: absolute; z-index: 2; bottom: 22px; left: 50%; padding: 11px 14px; background: var(--folio-ink); color: var(--folio-white); font-size: 9px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 15px); transition: opacity .18s ease, transform .18s ease; }
 .folio-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
+.folio-control[hidden], .folio-grid[hidden], .folio-footer[hidden] { display: none !important; }
+.folio-hero { padding: 20px 32px 16px; }
+.folio-hero h1 { margin: 6px 0 16px; font-size: 54px; }
+.folio-order-workspace { position: relative; z-index: 1; display: grid; height: 1060px; padding: 0 32px 24px; grid-template-rows: 562px 270px 176px; gap: 14px; }
+.folio-order-menu, .folio-order-config, .folio-order-cart { min-width: 0; overflow: hidden; border: 2px solid var(--folio-ink); background: var(--folio-white); }
+.folio-order-menu { padding: 16px; }
+.folio-order-heading { display: grid; min-height: 49px; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; align-items: end; }
+.folio-order-heading p { grid-column: 1; grid-row: 1; margin: 0; color: var(--folio-muted); font-size: 8px; font-weight: 600; letter-spacing: .06em; }
+.folio-order-heading h2 { grid-column: 1; grid-row: 2; margin: 4px 0 0; font-family: "Pixelify Sans", monospace; font-size: 24px; letter-spacing: -.05em; }
+.folio-order-heading > span { grid-column: 2; grid-row: 1 / -1; align-self: center; color: var(--folio-orange); font-size: 8px; font-weight: 700; }
+.folio-order-filters { display: grid; margin-top: 10px; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.folio-order-filter { min-height: 48px; border: 1.5px solid var(--folio-ink); background: var(--folio-white); color: var(--folio-ink); font-size: 9px; font-weight: 700; transition: background .18s ease, color .18s ease; }
+.folio-order-filter.is-active, .folio-order-filter:hover { background: var(--folio-ink); color: var(--folio-white); }
+.folio-order-filter.is-active { box-shadow: 4px 4px 0 var(--folio-orange); }
+.folio-order-grid { display: grid; height: 418px; margin-top: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, 1fr); gap: 10px; }
+.folio-order-card { display: grid; min-width: 0; overflow: hidden; grid-template-rows: 1fr 44px; border: 1.5px solid var(--folio-ink); background: var(--folio-white); color: var(--folio-ink); }
+.folio-order-card:nth-child(3n + 1) { background: var(--folio-ink); color: var(--folio-white); }
+.folio-order-card:nth-child(3n + 2) { background: var(--folio-orange); color: var(--folio-ink); }
+.folio-order-card.is-selected { box-shadow: inset 0 0 0 4px var(--folio-orange); }
+.folio-order-card:nth-child(3n + 2).is-selected { box-shadow: inset 0 0 0 4px var(--folio-white); }
+.folio-order-quick { display: grid; min-width: 0; padding: 9px 11px; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 9px; align-items: center; background: transparent; color: inherit; text-align: left; }
+.folio-order-index { display: grid; width: 32px; height: 32px; place-items: center; border: 1.5px solid currentColor; font-family: "Pixelify Sans", monospace; font-size: 11px; }
+.folio-order-copy { min-width: 0; }
+.folio-order-copy strong, .folio-order-copy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.folio-order-copy strong { font-size: 11px; }
+.folio-order-copy small { margin-top: 4px; font-size: 7px; opacity: .72; }
+.folio-order-quick > b { font-size: 11px; white-space: nowrap; }
+.folio-order-customize { min-height: 44px; border-top: 1.5px solid currentColor; background: transparent; color: inherit; font-size: 8px; font-weight: 700; letter-spacing: .06em; }
+.folio-order-customize:hover { background: var(--folio-orange); color: var(--folio-ink); }
+
+.folio-order-config { padding: 16px; }
+.folio-config-heading { display: flex; min-height: 48px; justify-content: space-between; align-items: flex-start; }
+.folio-config-heading p { margin: 0; color: var(--folio-muted); font-size: 8px; font-weight: 600; letter-spacing: .05em; }
+.folio-config-heading h2 { margin: 4px 0 0; font-family: "Pixelify Sans", monospace; font-size: 24px; letter-spacing: -.05em; }
+.folio-config-heading > strong { padding: 7px 9px; background: var(--folio-orange); font-size: 13px; }
+.folio-order-settings { display: grid; margin-top: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.folio-order-setting { display: block; min-width: 0; padding: 7px 8px; border: 1.5px solid var(--folio-ink); background: var(--folio-paper); }
+.folio-order-setting small { display: block; margin-bottom: 4px; font-size: 7px; font-weight: 700; }
+.folio-order-setting select { width: 100%; min-width: 0; min-height: 44px; border: 0; background: transparent; color: var(--folio-ink); font-size: 8px; font-weight: 700; }
+.folio-add-custom { display: flex; width: 100%; min-height: 58px; margin-top: 12px; padding: 0 14px; justify-content: space-between; align-items: center; background: var(--folio-ink); color: var(--folio-white); font-size: 9px; font-weight: 700; }
+.folio-add-custom b { display: grid; width: 30px; height: 30px; place-items: center; background: var(--folio-orange); color: var(--folio-ink); font-family: "Pixelify Sans", monospace; font-size: 20px; }
+
+.folio-order-cart { padding: 14px 16px; border-left: 12px solid var(--folio-orange); background: var(--folio-ink); color: var(--folio-white); }
+.folio-cart-heading { display: flex; justify-content: space-between; align-items: center; font-size: 8px; font-weight: 700; letter-spacing: .07em; }
+.folio-cart-heading button { min-height: 44px; padding: 0 13px; border: 1.5px solid var(--folio-white); background: transparent; color: var(--folio-white); font-size: 8px; font-weight: 700; }
+.folio-cart-heading button:disabled { cursor: default; opacity: .4; }
+.folio-cart-total { display: flex; margin-top: 4px; align-items: baseline; }
+.folio-cart-total strong { color: var(--folio-orange); font-family: "Pixelify Sans", monospace; font-size: 48px; letter-spacing: -.08em; line-height: .8; }
+.folio-cart-total span { margin-left: 9px; font-size: 8px; }
+.folio-cart-total b { margin-left: auto; font-size: 19px; }
+.folio-order-cart > p { margin: 10px 0 0; overflow: hidden; color: #cfcfcb; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+
+.folio-shell[hidden] { display: none !important; }
+.folio-body { color-scheme: light; background: #d7d7d4; }
+.folio-variant-back { border: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-orange); color: var(--folio-ink); font-family: "IBM Plex Mono", monospace; backdrop-filter: none; }
+.folio-variant-back:hover { background: var(--folio-ink); color: var(--folio-white); }
+.folio-theme { --orange: var(--folio-orange); --danger: #7f1d13; background: var(--folio-paper); border: 2px solid var(--folio-ink); border-radius: 0; box-shadow: 10px 10px 0 var(--folio-orange); }
+.folio-theme .screen-view { background-color: var(--folio-paper); background-image: repeating-linear-gradient(0deg, rgba(17,17,17,.025) 0 1px, transparent 1px 4px); color: var(--folio-ink); }
+.folio-theme .screen-header { background: var(--folio-paper); border-bottom: 2px solid var(--folio-ink); }
+.folio-theme .title-row { padding: 18px 18px 10px; }
+.folio-theme h1 { color: var(--folio-ink); font-family: "Pixelify Sans", monospace; font-size: 52px; font-weight: 700; letter-spacing: -3px; }
+.folio-theme .title-icon, .folio-theme .category-button img { filter: grayscale(1) brightness(.15); }
+.folio-theme .service-button { background: var(--folio-ink); border: 2px solid var(--folio-ink); border-radius: 0; }
+.folio-theme .service-button img { filter: none; }
+.folio-theme .category-list { gap: 7px; padding: 9px 10px 15px; }
+.folio-theme .category-button { min-height: 72px; padding: 9px 18px 11px; border: 1.5px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); color: var(--folio-ink); font-family: "IBM Plex Mono", monospace; font-size: 16px; font-weight: 700; letter-spacing: -1px; }
+.folio-theme .category-button.is-active { background: var(--folio-ink); color: var(--folio-white); box-shadow: 5px 5px 0 var(--folio-orange); }
+.folio-theme .category-button.is-active img { filter: grayscale(1) brightness(4); }
+.folio-theme .drink-grid { gap: 10px; padding: 8px 10px 60px; }
+.folio-theme .drink-card { width: 253px; padding: 0; gap: 0; border: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); color: var(--folio-ink); }
+.folio-theme .drink-card:nth-child(3n + 2) .drink-hero { background: var(--folio-orange); }
+.folio-theme .drink-card:nth-child(3n + 1) .drink-hero { background: var(--folio-ink); }
+.folio-theme .drink-card:nth-child(3n + 1) .drink-hero h2 { color: var(--folio-white); }
+.folio-theme .drink-hero { width: 249px; height: 276px; border-radius: 0; background: var(--folio-white); }
+.folio-theme .drink-hero h2 { color: var(--folio-ink); font-family: "Pixelify Sans", monospace; font-size: 31px; font-weight: 700; letter-spacing: -1.6px; }
+.folio-theme .drink-params { width: 249px; min-height: 130px; border-radius: 0; background: var(--folio-ink); color: var(--folio-white); }
+.folio-theme .stock-warning { top: 7px; right: 7px; border: 1.5px solid var(--folio-ink); border-radius: 0; background: var(--folio-orange); color: var(--folio-ink); box-shadow: 4px 4px 0 var(--folio-white); }
+.folio-theme .count-badge { border-radius: 0; background: var(--folio-orange); color: var(--folio-ink); }
+.folio-theme .screen-corners { filter: grayscale(1); opacity: .2; }
+.folio-theme .flow-header { border-bottom: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); color: var(--folio-ink); }
+.folio-theme .flow-header h1 { color: var(--folio-ink); font-family: "Pixelify Sans", monospace; }
+.folio-theme .portion-badge { border-radius: 0; background: var(--folio-orange); color: var(--folio-ink); }
+.folio-theme .close-button { border-radius: 0; background: var(--folio-ink); }
+.folio-theme .config-panel { background-color: var(--folio-paper); background-image: repeating-linear-gradient(0deg, rgba(17,17,17,.025) 0 1px, transparent 1px 4px); }
+.folio-theme .option-group { border: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); }
+.folio-theme .option-group legend { color: var(--folio-ink); font-family: "IBM Plex Mono", monospace; }
+.folio-theme .option-button { border: 1.5px solid var(--folio-ink); border-radius: 0; background: var(--folio-paper); color: var(--folio-ink); font-family: "IBM Plex Mono", monospace; }
+.folio-theme .option-button.is-active { background: var(--folio-orange); color: var(--folio-ink); box-shadow: 4px 4px 0 var(--folio-ink); }
+.folio-theme .option-button.is-unavailable { background: #d4d4d0; color: #777; }
+.folio-theme .action-bar { border: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-orange); color: var(--folio-ink); font-family: "Pixelify Sans", monospace; }
+.folio-theme .action-bar--danger { background: #7f1d13; color: var(--folio-white); }
+.folio-theme .service-grid button, .folio-theme .service-list > div, .folio-theme .slider-panel, .folio-theme .notice-card, .folio-theme .stock-result, .folio-theme .cleaning-stage { border: 2px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); color: var(--folio-ink); }
+.folio-theme .recipe-tabs button { border: 1.5px solid var(--folio-ink); border-radius: 0; background: var(--folio-white); color: var(--folio-ink); }
+.folio-theme .recipe-tabs button.is-active { background: var(--folio-orange); color: var(--folio-ink); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

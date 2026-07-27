@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e7e9ec" />
     <title>DrinkX — Soft Control</title>
-    <link rel="stylesheet" href="./soft.css?v=3355dfc5d866" />
+    <link rel="stylesheet" href="./styles.css?v=d379a1ea086b" />
+    <link rel="stylesheet" href="./soft.css?v=d379a1ea086b" />
   </head>
   <body class="soft-body">
-    <a class="soft-skip-link" href="#soft-workspace">К рабочей панели</a>
-    <div class="soft-shell">
+    <a class="soft-skip-link" href="#app">К напиткам</a>
+    <a class="variant-back soft-variant-back" href="./index.html">← Выбор интерфейса</a>
+    <main id="app" class="barista-screen soft-theme" aria-label="Меню напитков DrinkX Barista"></main>
+    <div class="soft-shell" hidden>
       <main class="soft-app" aria-labelledby="soft-title">
         <header class="soft-header">
           <a class="soft-back" href="./index.html" aria-label="Вернуться к вариантам интерфейса"><span aria-hidden="true">←</span>ВАРИАНТЫ</a>
@@ -22,11 +25,11 @@
 
         <section class="soft-hero" aria-label="Soft Control">
           <p>DRINKX / BARISTA DESK</p>
-          <h1 id="soft-title">SOFT <em>CONTROL</em></h1>
-          <span>Рабочий ритм без визуального шума</span>
+          <h1 id="soft-title">SOFT <em>ORDER</em></h1>
+          <span>Быстрый заказ без визуального шума</span>
         </section>
 
-        <section class="soft-workspace" id="soft-workspace" aria-label="Панель управления станцией">
+        <section class="soft-workspace soft-legacy" id="soft-workspace" aria-label="Панель управления станцией" hidden>
           <div class="soft-column soft-column--left">
             <section class="soft-card soft-station" aria-labelledby="station-title">
               <div class="soft-card-heading">
@@ -89,9 +92,55 @@
             <button class="soft-card soft-start" id="soft-start-button" type="button"><span>СОБРАТЬ<br />СЛЕДУЮЩИЙ ЗАКАЗ</span><b aria-hidden="true">→</b></button>
           </div>
         </section>
+
+        <section class="soft-order-workspace" id="soft-order-workspace" aria-label="Рабочее место бариста">
+          <section class="soft-card soft-menu-panel" aria-labelledby="soft-menu-title">
+            <div class="soft-order-heading">
+              <div>
+                <p class="soft-eyebrow">БЫСТРЫЙ ЗАКАЗ</p>
+                <h2 id="soft-menu-title">НАПИТКИ</h2>
+              </div>
+              <span>+ ДОБАВИТЬ ПО СТАНДАРТУ</span>
+            </div>
+            <nav class="soft-order-categories" aria-label="Категории напитков">
+              <button class="soft-order-category is-active" type="button" data-filter="all" aria-pressed="true">ВСЕ <span>06</span></button>
+              <button class="soft-order-category" type="button" data-filter="coffee" aria-pressed="false">КОФЕ <span>04</span></button>
+              <button class="soft-order-category" type="button" data-filter="other" aria-pressed="false">НЕ КОФЕ <span>02</span></button>
+            </nav>
+            <ul class="soft-order-drinks" id="soft-drink-grid" aria-label="Быстрое добавление напитков"></ul>
+          </section>
+
+          <section class="soft-card soft-config-panel" aria-labelledby="soft-config-name">
+            <div class="soft-config-header">
+              <div>
+                <p class="soft-eyebrow">НЕСТАНДАРТНЫЙ РЕЦЕПТ</p>
+                <h2 id="soft-config-name" tabindex="-1">АМЕРИКАНО</h2>
+              </div>
+              <strong id="soft-config-price">190 ₽</strong>
+            </div>
+            <div class="soft-order-settings" id="soft-settings" aria-label="Настройки выбранного напитка"></div>
+            <button class="soft-add-custom" id="soft-add-custom" type="button">
+              <span id="soft-add-label">ДОБАВИТЬ ВАРИАНТ · 190 ₽</span>
+              <b aria-hidden="true">+</b>
+            </button>
+          </section>
+
+          <footer class="soft-card soft-cart" aria-label="Текущий заказ">
+            <div class="soft-cart__header">
+              <span>ТЕКУЩИЙ ЗАКАЗ</span>
+              <button id="soft-reset-order" type="button">НОВЫЙ ЗАКАЗ</button>
+            </div>
+            <div class="soft-cart__total">
+              <strong id="soft-cart-count">00</strong>
+              <span>ПОЗИЦИЙ</span>
+              <b id="soft-cart-total">0 ₽</b>
+            </div>
+            <p id="soft-cart-summary" aria-live="polite">ВЫБЕРИТЕ НАПИТОК</p>
+          </footer>
+        </section>
         <div class="soft-toast" id="soft-toast" role="status" aria-live="polite"></div>
       </main>
     </div>
-    <script src="./soft.js?v=3355dfc5d866"></script>
+    <script src="./app.js?v=d379a1ea086b"></script>
   </body>
 </html>

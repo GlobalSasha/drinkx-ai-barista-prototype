@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f1f1ee" />
     <title>DrinkX — Menu Portfolio</title>
-    <link rel="stylesheet" href="./folio.css?v=3355dfc5d866" />
+    <link rel="stylesheet" href="./styles.css?v=d379a1ea086b" />
+    <link rel="stylesheet" href="./folio.css?v=d379a1ea086b" />
   </head>
   <body class="folio-body">
-    <a class="folio-skip-link" href="#folio-grid">К карточкам меню</a>
-    <div class="folio-shell">
+    <a class="folio-skip-link" href="#app">К напиткам</a>
+    <a class="variant-back folio-variant-back" href="./index.html">← Выбор интерфейса</a>
+    <main id="app" class="barista-screen folio-theme" aria-label="Меню напитков DrinkX Barista"></main>
+    <div class="folio-shell" hidden>
       <main class="folio-app" aria-labelledby="folio-title">
         <header class="folio-header">
           <a class="folio-back" href="./index.html" aria-label="Вернуться к вариантам интерфейса">← ВАРИАНТЫ</a>
@@ -19,14 +22,14 @@
 
         <section class="folio-hero">
           <p>DRINKX / LIVE MENU SYSTEM</p>
-          <h1 id="folio-title">MENU_<span>PORTFOLIO</span></h1>
+          <h1 id="folio-title">ORDER_<span>PORTFOLIO</span></h1>
           <div class="folio-hero__footer">
             <span>06 АКТИВНЫХ ПРЕСЕТОВ</span>
             <span>STATION_04 / В РАБОТЕ</span>
           </div>
         </section>
 
-        <section class="folio-control" aria-label="Управление витриной пресетов">
+        <section class="folio-control" aria-label="Управление витриной пресетов" hidden>
           <div class="folio-control__top">
             <p>SELECTED MENU / <b id="folio-count">06</b> ITEMS</p>
             <span id="folio-selection">ВЫБЕРИТЕ КАРТОЧКУ</span>
@@ -39,7 +42,7 @@
           </div>
         </section>
 
-        <section class="folio-grid" id="folio-grid" aria-label="Пресеты напитков">
+        <section class="folio-grid" id="folio-grid" aria-label="Пресеты напитков" hidden>
           <button class="folio-card folio-card--dark" type="button" data-category="coffee" data-name="ЭСПРЕССО_01">
             <span class="folio-card__label">PRESET_01 <i>● LIVE</i></span>
             <span class="folio-card__visual folio-card__visual--espresso"><b>ESP<br />01</b><i></i><em></em></span>
@@ -95,13 +98,57 @@
           </button>
         </section>
 
-        <footer class="folio-footer">
+        <footer class="folio-footer" hidden>
           <span>SHIFT TARGET <b>68 / 110</b></span>
           <button id="folio-next" type="button">СОБРАТЬ СЛЕДУЮЩИЙ <i>↗</i></button>
         </footer>
+
+        <section class="folio-order-workspace" id="folio-order-workspace" aria-label="Рабочее место бариста">
+          <section class="folio-order-menu" aria-labelledby="folio-order-title">
+            <div class="folio-order-heading">
+              <p>DRINK_CATALOG / <b>06</b> ITEMS</p>
+              <h2 id="folio-order-title">БЫСТРЫЙ ЗАКАЗ</h2>
+              <span>CLICK CARD = STANDARD RECIPE</span>
+            </div>
+            <nav class="folio-order-filters" aria-label="Категории напитков">
+              <button class="folio-order-filter is-active" type="button" data-filter="all" aria-pressed="true">ВСЕ_06</button>
+              <button class="folio-order-filter" type="button" data-filter="coffee" aria-pressed="false">КОФЕ_04</button>
+              <button class="folio-order-filter" type="button" data-filter="other" aria-pressed="false">НЕ_КОФЕ_02</button>
+            </nav>
+            <div class="folio-order-grid" id="folio-drinks" aria-label="Быстрое добавление напитков"></div>
+          </section>
+
+          <section class="folio-order-config" aria-labelledby="folio-config-name">
+            <div class="folio-config-heading">
+              <div>
+                <p>CUSTOM_RECIPE / SELECT OPTIONS</p>
+                <h2 id="folio-config-name" tabindex="-1">АМЕРИКАНО</h2>
+              </div>
+              <strong id="folio-config-price">190 ₽</strong>
+            </div>
+            <div class="folio-order-settings" id="folio-settings" aria-label="Настройки выбранного напитка"></div>
+            <button class="folio-add-custom" id="folio-add-custom" type="button">
+              <span id="folio-add-label">ДОБАВИТЬ ВАРИАНТ · 190 ₽</span>
+              <b aria-hidden="true">+</b>
+            </button>
+          </section>
+
+          <footer class="folio-order-cart" aria-label="Текущий заказ">
+            <div class="folio-cart-heading">
+              <span>ACTIVE_ORDER</span>
+              <button id="folio-reset-order" type="button">NEW_ORDER</button>
+            </div>
+            <div class="folio-cart-total">
+              <strong id="folio-cart-count">00</strong>
+              <span>ПОЗИЦИЙ</span>
+              <b id="folio-cart-total">0 ₽</b>
+            </div>
+            <p id="folio-cart-summary" aria-live="polite">ВЫБЕРИТЕ НАПИТОК</p>
+          </footer>
+        </section>
         <div class="folio-toast" id="folio-toast" role="status" aria-live="polite"></div>
       </main>
     </div>
-    <script src="./folio.js?v=3355dfc5d866"></script>
+    <script src="./app.js?v=d379a1ea086b"></script>
   </body>
 </html>
