@@ -7,51 +7,49 @@
     <meta name="description" content="Быстрый интерфейс DrinkX для работы бариста." />
     <title>DrinkX Barista — Noir Edition</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./noir.css?v=cdb2edce70af" />
+    <link rel="stylesheet" href="./noir.css?v=49cb5c9a7bfb" />
   </head>
   <body class="noir-body">
     <a class="noir-skip" href="#noir-menu">Перейти к напиткам</a>
 
-    <main class="noir-app" aria-label="DrinkX Noir, рабочее место бариста">
-      <header class="noir-header">
-        <a class="noir-back" href="./index.html" aria-label="Вернуться к выбору интерфейса">
-          <span aria-hidden="true">←</span>
-          ВАРИАНТЫ
-        </a>
-        <div class="noir-brand" aria-label="DrinkX">
-          <span class="noir-brand__mark">DX</span>
-          <span>DRINKX</span>
-        </div>
-        <p class="noir-status"><span aria-hidden="true"></span> СТАНЦИЯ 04 · БАРИСТА</p>
-      </header>
+    <div class="noir-shell">
+      <main class="noir-app" aria-label="DrinkX Noir, рабочее место бариста">
+        <header class="noir-header">
+          <a class="noir-back" href="./index.html" aria-label="Вернуться к выбору интерфейса">
+            <span aria-hidden="true">←</span>
+            ВАРИАНТЫ
+          </a>
+          <div class="noir-brand" aria-label="DrinkX">
+            <span class="noir-brand__mark">DX</span>
+            <span>DRINKX</span>
+          </div>
+          <p class="noir-status"><span aria-hidden="true"></span> СТАНЦИЯ 04</p>
+        </header>
 
-      <section class="noir-workspace" aria-labelledby="noir-title">
-        <div class="noir-menu-panel">
-          <header class="noir-workspace__heading">
+        <div class="noir-workspace">
+          <header class="noir-intro" aria-labelledby="noir-title">
             <div>
-              <p class="noir-kicker">ОБЫЧНЫЙ РЕЦЕПТ · ОДНО КАСАНИЕ</p>
+              <p class="noir-kicker">БАРИСТА / БЫСТРЫЙ РЕЖИМ</p>
               <h1 id="noir-title">БЫСТРЫЙ ЗАКАЗ</h1>
             </div>
-            <p class="noir-hint">Нажмите на напиток — он сразу попадёт в заказ.</p>
+            <p class="noir-hint">Напиток по стандартному рецепту — одним касанием.</p>
           </header>
 
           <section id="noir-menu" class="noir-menu" aria-labelledby="noir-menu-title">
             <div class="noir-section-heading">
               <h2 id="noir-menu-title">НАПИТКИ</h2>
-              <p>СТАНДАРТНЫЙ РЕЦЕПТ</p>
+              <p>+ ДОБАВИТЬ ПО СТАНДАРТУ</p>
             </div>
             <ul id="noir-drinks" class="noir-drinks" aria-label="Быстрое добавление напитков"></ul>
           </section>
-        </div>
 
-        <aside class="noir-side" aria-label="Настройки и текущий заказ">
           <section class="noir-config" aria-labelledby="noir-config-title">
             <div class="noir-config__title">
-              <p>ИЗМЕНИТЬ РЕЦЕПТ</p>
+              <p>НЕСТАНДАРТНЫЙ РЕЦЕПТ</p>
               <h2 id="noir-config-title" tabindex="-1">АМЕРИКАНО</h2>
               <span id="noir-config-price">190 ₽</span>
             </div>
-            <p class="noir-config__hint">Нужно не по стандарту — выберите параметры и добавьте вариант.</p>
+            <p class="noir-config__hint">Сначала выберите «НАСТРОИТЬ» у нужного напитка.</p>
             <div id="noir-settings" class="noir-settings" aria-label="Настройки выбранного напитка"></div>
             <button id="noir-add-custom" class="noir-add-custom" type="button">
               <span id="noir-add-custom-label">ДОБАВИТЬ ВАРИАНТ · 190 ₽</span>
@@ -62,7 +60,7 @@
           <footer class="noir-order" aria-label="Текущий заказ">
             <div class="noir-order__topline">
               <p>ТЕКУЩИЙ ЗАКАЗ</p>
-              <button id="noir-reset" class="noir-reset" type="button">НОВЫЙ</button>
+              <button id="noir-reset" class="noir-reset" type="button">НОВЫЙ ЗАКАЗ</button>
             </div>
             <div class="noir-order__total">
               <strong id="noir-order-count">00</strong>
@@ -71,11 +69,11 @@
             </div>
             <p id="noir-order-summary" class="noir-order__summary" aria-live="polite">ВЫБЕРИТЕ НАПИТОК</p>
           </footer>
-        </aside>
-      </section>
-    </main>
+        </div>
+      </main>
+    </div>
 
     <div id="noir-toast" class="noir-toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <script src="./noir.js?v=cdb2edce70af"></script>
+    <script src="./noir.js?v=49cb5c9a7bfb"></script>
   </body>
 </html>

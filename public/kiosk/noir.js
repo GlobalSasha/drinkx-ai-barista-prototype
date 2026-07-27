@@ -1,3 +1,5 @@
+const DESIGN_WIDTH = 800;
+const DESIGN_HEIGHT = 1280;
 const drinks = [
   {
     id: "americano",
@@ -72,6 +74,33 @@ const resetButton = document.querySelector("#noir-reset");
 const toast = document.querySelector("#noir-toast");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let toastTimer;
+let fitFrame;
+
+function fitNoirToViewport() {
+  const viewportWidth = window.visualViewport?.width || window.innerWidth;
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const safeGap = Math.min(12, Math.min(viewportWidth, viewportHeight) * 0.012);
+  const scale = Math.max(
+    0.05,
+    Math.min(
+      1,
+      (viewportWidth - safeGap * 2) / DESIGN_WIDTH,
+      (viewportHeight - safeGap * 2) / DESIGN_HEIGHT,
+    ),
+  );
+
+  document.documentElement.style.setProperty("--noir-scale", scale.toFixed(5));
+  document.documentElement.style.setProperty("--noir-fit-width", `${(DESIGN_WIDTH * scale).toFixed(2)}px`);
+  document.documentElement.style.setProperty("--noir-fit-height", `${(DESIGN_HEIGHT * scale).toFixed(2)}px`);
+}
+
+function scheduleFit() {
+  if (fitFrame) window.cancelAnimationFrame(fitFrame);
+  fitFrame = window.requestAnimationFrame(() => {
+    fitFrame = null;
+    fitNoirToViewport();
+  });
+}
 
 function selectedDrink() {
   return drinks.find((drink) => drink.id === state.selectedId) || drinks[0];
@@ -140,6 +169,9 @@ function render() {
   renderOrder();
 }
 
+window.addEventListener("resize", scheduleFit, { passive: true });
+window.visualViewport?.addEventListener("resize", scheduleFit, { passive: true });
+
 function showToast(message) {
   window.clearTimeout(toastTimer);
   toast.textContent = message;
@@ -193,4 +225,5 @@ resetButton.addEventListener("click", () => {
   showToast("НОВЫЙ ЗАКАЗ ГОТОВ");
 });
 
+fitNoirToViewport();
 render();
