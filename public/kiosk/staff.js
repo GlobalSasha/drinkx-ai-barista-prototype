@@ -1,4 +1,23 @@
 const app = document.querySelector("#staff-app");
+const DESIGN_WIDTH = 800;
+const DESIGN_HEIGHT = 1280;
+
+function fitStaffApp() {
+  const viewportWidth = window.visualViewport?.width || window.innerWidth;
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const safeGap = Math.min(12, Math.min(viewportWidth, viewportHeight) * 0.012);
+  const scale = Math.max(
+    0.1,
+    Math.min(
+      1,
+      (viewportWidth - safeGap * 2) / DESIGN_WIDTH,
+      (viewportHeight - safeGap * 2) / DESIGN_HEIGHT,
+    ),
+  );
+
+  app.style.setProperty("--staff-scale", scale.toFixed(5));
+  app.dataset.fit = scale < 0.999 ? "scaled" : "native";
+}
 
 const categories = [
   { id: "popular", label: "Популярное" },
@@ -582,4 +601,7 @@ renderDrinks();
 renderOptions();
 updateOrderSummary();
 updateClock();
+fitStaffApp();
+window.addEventListener("resize", fitStaffApp);
+window.visualViewport?.addEventListener("resize", fitStaffApp);
 window.setInterval(updateClock, 30_000);
